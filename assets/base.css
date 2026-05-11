@@ -396,12 +396,14 @@ svg.ico.ico-star-filled {
 }
 
 
-.product-card-organizer > div.container-pix-product{
+.product_foot div.container-pix-product{
 position: relative;
     top: 64px;
     margin-bottom: 0;
 }
-
+div.prdkwrap2 > div{
+      margin-top: 0;
+}
 /* Hide marker */
 details>summary {
   list-style: none;
