@@ -1,0 +1,117 @@
+{% comment %}
+    {%- render 'util-cart-bubble' -%}
+{% endcomment %}
+<li data-render-util-cart-bubble="">
+  {%- unless template.name == 'cart' -%}
+    <modal-component-toggler>
+      <button
+        type="button"
+        data-expanded="false"
+        data-modal-ref="modal-cart-drawer"
+        aria-haspopup="dialog"
+        aria-controls="modal-cart-drawer"
+        class="button button--primary utility-bar_btn-action"
+      >
+        {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'cart' -%}
+        {% if utility_bar_view == 'view_2' %}
+          <span class="utl-bar-view-2_bubble-wrapper --desktop">
+            <span aria-hidden="true" class="cart-drawer-opener_bubble" data-cart-organizer-bubble="">
+              {{ cart.item_count }}
+            </span>
+            {% if cart.item_count == 0 %}
+                <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                  {{ 'sections.header_ut_bar.a11y.cart_count.zero' | t: count: cart.item_count }}
+                </span>
+                {{ 'sections.header_ut_bar-view-2.cart_count.zero' | t }}
+              {% elsif cart.item_count == 1 %}
+                <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                  {{ 'sections.header_ut_bar.a11y.cart_count.one' | t: count: cart.item_count }}
+                </span>
+                {{ 'sections.header_ut_bar-view-2.cart_count.one' | t }}
+              {% else %}
+                <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                  {{ 'sections.header_ut_bar.a11y.cart_count.other' | t: count: cart.item_count }}
+                </span>
+                {{ 'sections.header_ut_bar-view-2.cart_count.other' | t }}
+            {% endif %}
+          </span>
+          <span class="utl-bar-view-2_bubble-wrapper --mobile">
+            <span aria-hidden="true" class="cart-drawer-opener_bubble" data-cart-organizer-bubble="">
+              {{ cart.item_count }}
+            </span>
+            {% if cart.item_count == 0 %}
+                <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                  {{ 'sections.header_ut_bar.a11y.cart_count.zero' | t: count: cart.item_count }}
+                </span>
+                {{ 'sections.header_ut_bar-view-2.cart_count.zero' | t }}
+              {% elsif cart.item_count == 1 %}
+                <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                  {{ 'sections.header_ut_bar.a11y.cart_count.one' | t: count: cart.item_count }}
+                </span>
+                {{ 'sections.header_ut_bar-view-2.cart_count.one' | t }}
+              {% else %}
+                <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                  {{ 'sections.header_ut_bar.a11y.cart_count.other' | t: count: cart.item_count }}
+                </span>
+            {% endif %}
+          </span>
+        {% else %}
+          <span aria-hidden="true" class="cart-drawer-opener_bubble {% if utility_bar_view == 'view_1' or utility_bar_view == 'view_3' %}{% if cart == empty -%} visually-hidden {% endif -%}{% endif %}" data-cart-organizer-bubble="">
+            {{ cart.item_count }}
+          </span>
+          {% if cart.item_count == 0 %}
+            <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+              {{ 'sections.header_ut_bar.a11y.cart_count.zero' | t: count: cart.item_count }}
+            </span>
+            <span class="item-util_view-2">
+              {{ 'sections.header_ut_bar-view-2.cart_count.zero' | t }}
+            </span>
+            {% elsif cart.item_count == 1 %}
+              <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                {{ 'sections.header_ut_bar.a11y.cart_count.one' | t: count: cart.item_count }}
+              </span>
+              <span class="item-util_view-2">
+                {{ 'sections.header_ut_bar-view-2.cart_count.one' | t }}
+              </span>
+            {% else %}
+              <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                {{ 'sections.header_ut_bar.a11y.cart_count.other' | t: count: cart.item_count }}
+              </span>
+              <span class="item-util_view-2">
+                {{ 'sections.header_ut_bar-view-2.cart_count.other' | t }}
+              </span>
+          {% endif %}
+        {% endif %}
+      </button>
+    </modal-component-toggler>
+    {%- else -%}
+        <a class="button button--primary utility-bar_btn-action" href="{{- routes.cart_url -}}">
+          {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'cart' -%}
+          <span aria-hidden="true" class="cart-drawer-opener_bubble {% if cart == empty -%} visually-hidden {% endif -%}" data-cart-organizer-bubble="">
+            {{ cart.item_count }}
+          </span>
+          {% if cart.item_count == 0 %}
+            <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+              {{ 'sections.header_ut_bar.a11y.cart_count.zero' | t: count: cart.item_count }}
+            </span>
+            <span class="item-util_view-2">
+              {{ 'sections.header_ut_bar-view-2.cart_count.zero' | t }}
+            </span>
+            {% elsif cart.item_count == 1 %}
+              <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                {{ 'sections.header_ut_bar.a11y.cart_count.one' | t: count: cart.item_count }}
+              </span>
+              <span class="item-util_view-2">
+                {{ 'sections.header_ut_bar-view-2.cart_count.one' | t }}
+              </span>
+            {% else %}
+              <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+                {{ 'sections.header_ut_bar.a11y.cart_count.other' | t: count: cart.item_count }}
+              </span>
+              <span class="item-util_view-2">
+                {{ 'sections.header_ut_bar-view-2.cart_count.other' | t }}
+              </span>
+          {% endif %}
+        </a>
+  {%- endunless -%}
+</li>

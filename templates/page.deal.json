@@ -1,0 +1,107 @@
+{
+  "sections": {
+    "main-page": {
+      "type": "main-page",
+      "settings": {
+        "heading_size": "heading_large",
+        "mobile_text_alignment": true,
+        "section_bottom_padding": 35
+      }
+    },
+    "featured-product": {
+      "type": "featured-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "block_bottom_padding": 23
+          }
+        },
+        "statistics_bar": {
+          "type": "statistics_bar",
+          "settings": {
+            "block_bottom_padding": 19
+          }
+        },
+        "stock_statistics_bar": {
+          "type": "stock_statistics_bar",
+          "settings": {
+            "block_bottom_padding": 25
+          }
+        },
+        "price_and_variations": {
+          "type": "price_and_variations",
+          "settings": {
+            "block_bottom_padding": 12
+          }
+        },
+        "quantity_input": {
+          "type": "quantity_input",
+          "settings": {
+            "block_bottom_padding": 22
+          }
+        },
+        "checkout_buttons": {
+          "type": "buttons",
+          "settings": {
+            "block_bottom_padding": 22
+          }
+        },
+        "pickup_availability": {
+          "type": "pickup_availability",
+          "settings": {
+            "block_bottom_padding": 31
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "statistics_bar",
+        "stock_statistics_bar",
+        "price_and_variations",
+        "quantity_input",
+        "checkout_buttons",
+        "pickup_availability"
+      ],
+      "settings": {}
+    },
+    "media_with_text": {
+      "type": "media-with-text",
+      "blocks": {
+        "image": {
+          "type": "image",
+          "settings": {
+            "pagination_text": "Image"
+          }
+        },
+        "video": {
+          "type": "video",
+          "settings": {
+            "pagination_text": "Video"
+          }
+        }
+      },
+      "block_order": [
+        "image",
+        "video"
+      ],
+      "settings": {
+        "section_subheading": "",
+        "section_heading": "Order by 6 PM for next-day delivery!",
+        "section_description": "<p>Don't miss out on super-fast delivery! Order by 6 PM today and get your items tomorrow. No waiting - get what you need quickly. This is your chance to avoid delays. But hurry, this offer ends at 6 PM! Browse, cart, and checkout now. Experience fast delivery - order today!<\/p>",
+        "section_media_alignment": "right",
+        "section_color_scheme": "scheme1"
+      }
+    },
+    "email-signup": {
+      "type": "email-signup",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main-page",
+    "featured-product",
+    "media_with_text",
+    "email-signup"
+  ]
+}

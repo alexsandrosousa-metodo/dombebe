@@ -1,0 +1,602 @@
+{% comment %}
+  Announcement Bar - Barra de Anúncios Customizável
+  Seções: Redes Sociais (com imagem custom) | Carrossel de Cupons | Sobre Nós
+
+  Como usar: Adicione este arquivo em sections/announcement-bar.liquid
+  e inclua {% section 'announcement-bar' %} no seu theme.liquid
+{% endcomment %}
+
+<style>
+  :root {
+    --ann-bg: {{ section.settings.background_color }};
+    --ann-text: {{ section.settings.text_color }};
+    --ann-accent: {{ section.settings.accent_color }};
+    --ann-btn-bg: rgba(255,255,255,0.15);
+    --ann-btn-hover: rgba(255,255,255,0.25);
+    --ann-height: 40px;
+    --ann-icon-size: 22px;
+    --ann-font-size: 13px;
+  }
+
+  #shopify-announcement-bar {
+    background-color: var(--ann-bg);
+    color: var(--ann-text);
+    height: var(--ann-height);
+    width: 100%;
+    position: relative;
+    z-index: 200;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: var(--ann-font-size);
+    overflow: hidden;
+  }
+
+  .ann-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    max-width: 100%;
+    padding: 0 20px;
+  }
+
+  /* ── REDES SOCIAIS (esquerda) ── */
+  .ann-socials {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .ann-social-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--ann-text);
+    opacity: 0.85;
+    transition: opacity 0.2s, transform 0.2s;
+    width: var(--ann-icon-size);
+    height: var(--ann-icon-size);
+  }
+
+  .ann-social-item:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  .ann-social-item img {
+    width: var(--ann-icon-size);
+    height: var(--ann-icon-size);
+    object-fit: contain;
+    display: block;
+  }
+
+  .ann-social-item svg {
+    width: var(--ann-icon-size);
+    height: var(--ann-icon-size);
+    fill: currentColor;
+    display: block;
+  }
+
+  /* ── CARROSSEL CENTRAL ── */
+  .ann-carousel-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    padding: 0 16px;
+  }
+
+  .ann-carousel {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ann-slide {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    animation: annFadeIn 0.4s ease;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+  }
+
+  .ann-slide.active {
+    display: flex;
+  }
+
+  @keyframes annFadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .ann-slide-text {
+    font-size: var(--ann-font-size);
+    line-height: 1;
+  }
+
+  .ann-slide-text strong { font-weight: 700; }
+
+  .ann-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--ann-btn-bg);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--ann-text);
+    padding: 0px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+    font-family: inherit;
+  }
+
+  .ann-copy-btn:hover { background: var(--ann-btn-hover); }
+  .ann-copy-btn:active { transform: scale(0.97); }
+
+  .ann-copy-btn svg {
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex-shrink: 0;
+  }
+
+  .ann-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 10px;
+    flex-shrink: 0;
+  }
+
+  .ann-nav-btn {
+    background: none;
+    border: none;
+    color: var(--ann-text);
+    cursor: pointer;
+    padding: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    display: flex;
+    align-items: center;
+  }
+
+  .ann-nav-btn:hover { opacity: 1; }
+
+  .ann-nav-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ann-dots { display: flex; gap: 4px; align-items: center; }
+
+  .ann-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ann-text);
+    opacity: 0.35;
+    transition: opacity 0.2s;
+    cursor: pointer;
+    border: none;
+    padding: 0;
+  }
+
+  .ann-dot.active { opacity: 1; }
+
+  /* ── SOBRE NÓS (direita) ── */
+  .ann-about {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: var(--ann-text);
+    opacity: 0.85;
+    transition: opacity 0.2s;
+    font-size: var(--ann-font-size);
+    white-space: nowrap;
+  }
+
+  .ann-about:hover { opacity: 1; }
+
+  .ann-about svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  @media (max-width: 767px) {
+    .ann-socials { gap: 8px; }
+    .ann-social-item:nth-child(n+4) { display: none; }
+    .ann-about span { display: none; }
+    :root { --ann-font-size: 11.5px; }
+
+      .ann-inner {
+ 
+    padding: 0 5px;
+  }
+  }
+</style>
+
+<div id="shopify-announcement-bar">
+  <div class="ann-inner">
+
+    {%- comment -%} ── ESQUERDA: Redes Sociais ── {%- endcomment -%}
+    <div class="ann-socials">
+
+      {%- if section.settings.social_facebook != blank -%}
+        <a href="{{ section.settings.social_facebook }}" target="_blank" rel="noopener" class="ann-social-item" aria-label="Facebook">
+          {%- if section.settings.icon_facebook != blank -%}
+            <img src="{{ section.settings.icon_facebook | image_url: width: 40 }}" alt="Facebook" width="18" height="18" loading="lazy">
+          {%- else -%}
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.social_instagram != blank -%}
+        <a href="{{ section.settings.social_instagram }}" target="_blank" rel="noopener" class="ann-social-item" aria-label="Instagram">
+          {%- if section.settings.icon_instagram != blank -%}
+            <img src="{{ section.settings.icon_instagram | image_url: width: 40 }}" alt="Instagram" width="18" height="18" loading="lazy">
+          {%- else -%}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.social_youtube != blank -%}
+        <a href="{{ section.settings.social_youtube }}" target="_blank" rel="noopener" class="ann-social-item" aria-label="YouTube">
+          {%- if section.settings.icon_youtube != blank -%}
+            <img src="{{ section.settings.icon_youtube | image_url: width: 40 }}" alt="YouTube" width="18" height="18" loading="lazy">
+          {%- else -%}
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" fill="currentColor"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="var(--ann-bg)"/></svg>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.social_tiktok != blank -%}
+        <a href="{{ section.settings.social_tiktok }}" target="_blank" rel="noopener" class="ann-social-item" aria-label="TikTok">
+          {%- if section.settings.icon_tiktok != blank -%}
+            <img src="{{ section.settings.icon_tiktok | image_url: width: 40 }}" alt="TikTok" width="18" height="18" loading="lazy">
+          {%- else -%}
+            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.19 8.19 0 0 0 4.79 1.52V6.76a4.85 4.85 0 0 1-1.02-.07z"/></svg>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.social_twitter != blank -%}
+        <a href="{{ section.settings.social_twitter }}" target="_blank" rel="noopener" class="ann-social-item" aria-label="X / Twitter">
+          {%- if section.settings.icon_twitter != blank -%}
+            <img src="{{ section.settings.icon_twitter | image_url: width: 40 }}" alt="X / Twitter" width="18" height="18" loading="lazy">
+          {%- else -%}
+            <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.social_pinterest != blank -%}
+        <a href="{{ section.settings.social_pinterest }}" target="_blank" rel="noopener" class="ann-social-item" aria-label="Pinterest">
+          {%- if section.settings.icon_pinterest != blank -%}
+            <img src="{{ section.settings.icon_pinterest | image_url: width: 40 }}" alt="Pinterest" width="18" height="18" loading="lazy">
+          {%- else -%}
+            <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+
+    </div>
+
+    {%- comment -%} ── CENTRO: Carrossel ── {%- endcomment -%}
+    <div class="ann-carousel-wrapper">
+      <div class="ann-carousel" id="ann-carousel">
+        {%- assign slide_count = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'announcement' -%}
+            {%- assign slide_count = slide_count | plus: 1 -%}
+            <div class="ann-slide{% if forloop.first %} active{% endif %}" data-slide="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+              <span class="ann-slide-text">{{ block.settings.text }}</span>
+              {%- if block.settings.coupon_code != blank -%}
+                <button
+                  class="ann-copy-btn"
+                  data-coupon="{{ block.settings.coupon_code }}"
+                  data-label="{{ block.settings.copy_label | default: 'Copiar' }}"
+                  aria-label="Copiar cupom {{ block.settings.coupon_code }}"
+                  onclick="annCopyCoupon(this)"
+                >
+                  <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span class="btn-label">{{ block.settings.copy_label | default: 'Copiar' }}</span>
+                </button>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if slide_count > 1 -%}
+        <div class="ann-nav" id="ann-nav">
+          <button class="ann-nav-btn" id="ann-prev" aria-label="Anterior">
+            <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <div class="ann-dots" id="ann-dots">
+            {%- for i in (1..slide_count) -%}
+              <button class="ann-dot{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Slide {{ forloop.index }}"></button>
+            {%- endfor -%}
+          </div>
+          <button class="ann-nav-btn" id="ann-next" aria-label="Próximo">
+            <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} ── DIREITA: Sobre Nós ── {%- endcomment -%}
+    {%- if section.settings.about_text != blank -%}
+      <a
+        href="{{ section.settings.about_url | default: '#' }}"
+        class="ann-about"
+        {% if section.settings.about_url_new_tab %}target="_blank" rel="noopener"{% endif %}
+      >
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span>{{ section.settings.about_text }}</span>
+      </a>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+(function() {
+  window.annCopyCoupon = function(btn) {
+    var code = btn.getAttribute('data-coupon');
+    var label = btn.getAttribute('data-label');
+    var span = btn.querySelector('.btn-label');
+    navigator.clipboard.writeText(code).then(function() {
+      span.textContent = '✓ Copiado!';
+      btn.style.background = 'rgba(255,255,255,0.3)';
+      setTimeout(function() { span.textContent = label; btn.style.background = ''; }, 2000);
+    }).catch(function() {
+      var ta = document.createElement('textarea');
+      ta.value = code; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+      span.textContent = '✓ Copiado!';
+      setTimeout(function() { span.textContent = label; }, 2000);
+    });
+  };
+
+  var carousel = document.getElementById('ann-carousel');
+  if (!carousel) return;
+  var slides = carousel.querySelectorAll('.ann-slide');
+  if (slides.length <= 1) return;
+  var dots = document.querySelectorAll('.ann-dot');
+  var current = 0;
+  var autoplayDelay = {{ section.settings.autoplay_speed | default: 4000 }};
+  var timer;
+
+  function goTo(index) {
+    slides[current].classList.remove('active'); dots[current].classList.remove('active');
+    current = (index + slides.length) % slides.length;
+    slides[current].classList.add('active'); dots[current].classList.add('active');
+  }
+
+  function startAutoplay() { timer = setInterval(function() { goTo(current + 1); }, autoplayDelay); }
+  function resetAutoplay() { clearInterval(timer); startAutoplay(); }
+
+  document.getElementById('ann-prev').addEventListener('click', function() { goTo(current - 1); resetAutoplay(); });
+  document.getElementById('ann-next').addEventListener('click', function() { goTo(current + 1); resetAutoplay(); });
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() { goTo(parseInt(this.getAttribute('data-index'))); resetAutoplay(); });
+  });
+  startAutoplay();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Barra de Anúncios",
+  "tag": "div",
+  "class": "announcement-bar-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#4CAF9E"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Cor de destaque",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "URL do Facebook"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_facebook",
+      "label": "Ícone personalizado (PNG/SVG transparente)"
+    },
+    {
+      "type": "header",
+      "content": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "URL do Instagram"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_instagram",
+      "label": "Ícone personalizado (PNG/SVG transparente)"
+    },
+    {
+      "type": "header",
+      "content": "YouTube"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "URL do YouTube"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_youtube",
+      "label": "Ícone personalizado (PNG/SVG transparente)"
+    },
+    {
+      "type": "header",
+      "content": "TikTok"
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok",
+      "label": "URL do TikTok"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_tiktok",
+      "label": "Ícone personalizado (PNG/SVG transparente)"
+    },
+    {
+      "type": "header",
+      "content": "X / Twitter"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter",
+      "label": "URL do X / Twitter"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_twitter",
+      "label": "Ícone personalizado (PNG/SVG transparente)"
+    },
+    {
+      "type": "header",
+      "content": "Pinterest"
+    },
+    {
+      "type": "url",
+      "id": "social_pinterest",
+      "label": "URL do Pinterest"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_pinterest",
+      "label": "Ícone personalizado (PNG/SVG transparente)"
+    },
+    {
+      "type": "header",
+      "content": "Carrossel"
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Velocidade do carrossel (ms)",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 4000
+    },
+    {
+      "type": "header",
+      "content": "Sobre Nós"
+    },
+    {
+      "type": "text",
+      "id": "about_text",
+      "label": "Texto do link",
+      "default": "Sobre nós"
+    },
+    {
+      "type": "url",
+      "id": "about_url",
+      "label": "Link de destino"
+    },
+    {
+      "type": "checkbox",
+      "id": "about_url_new_tab",
+      "label": "Abrir em nova aba",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "announcement",
+      "name": "Anúncio",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto do anúncio",
+          "default": "<p><strong>10% off</strong> em produtos da <strong>marca XX:</strong> use o cupom <strong>DOM10</strong></p>"
+        },
+        {
+          "type": "text",
+          "id": "coupon_code",
+          "label": "Código do cupom (opcional)"
+        },
+        {
+          "type": "text",
+          "id": "copy_label",
+          "label": "Label do botão copiar",
+          "default": "Copiar"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Barra de Anúncios",
+      "blocks": [
+        {
+          "type": "announcement",
+          "settings": {
+            "text": "<p><strong>10% off</strong> em produtos da <strong>marca XX:</strong> use o cupom <strong>DOM10</strong></p>",
+            "coupon_code": "DOM10",
+            "copy_label": "Copiar"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,391 @@
+{% comment %}
+  Section: Benefícios - Por que comprar na Dom Bebê?
+  Editável pelo Shopify Theme Editor (Customizer)
+{% endcomment %}
+
+<section class="dom-bebe-benefits" id="section-{{ section.id }}">
+  <div class="dom-bebe-benefits__container">
+
+    <div class="dom-bebe-benefits__header">
+      <h2 class="dom-bebe-benefits__title">
+        {{ section.settings.title }}
+        <span class="dom-bebe-benefits__title--highlight">{{ section.settings.title_highlight }}</span>
+      </h2>
+    </div>
+
+    <div class="dom-bebe-benefits__grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'benefit' %}
+          <div class="dom-bebe-benefits__item" {{ block.shopify_attributes }}>
+            <div class="dom-bebe-benefits__icon">
+              {% if block.settings.icon_image != blank %}
+                <img
+                  src="{{ block.settings.icon_image | img_url: '96x96', crop: 'center' }}"
+                  alt="{{ block.settings.title | escape }}"
+                  width="48"
+                  height="48"
+                  loading="lazy"
+                >
+              {% else %}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                  <circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>
+                  <path d="M16 24h16M24 16v16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              {% endif %}
+            </div>
+            <div class="dom-bebe-benefits__text">
+              <h3 class="dom-bebe-benefits__item-title">{{ block.settings.title }}</h3>
+              <p class="dom-bebe-benefits__item-desc">{{ block.settings.description }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  #section-{{ section.id }} {
+    --benefit-bg: {{ section.settings.background_color }};
+    --benefit-title-color: {{ section.settings.title_color }};
+    --benefit-highlight-color: {{ section.settings.highlight_color }};
+    --benefit-icon-color: {{ section.settings.icon_color }};
+    --benefit-icon-size: {{ section.settings.icon_size }}px;
+    --benefit-item-title-color: {{ section.settings.item_title_color }};
+    --benefit-text-color: {{ section.settings.text_color }};
+    --benefit-divider-color: {{ section.settings.divider_color }};
+    --benefit-padding-top: {{ section.settings.padding_top }}px;
+    --benefit-padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+.section-dom-bebe-benefits{
+  max-width:1380px;
+      border-radius: 32px;
+    width: 97%;
+    margin: 0 auto;
+}
+
+  .dom-bebe-benefits {
+    background-color: var(--benefit-bg);
+    padding: var(--benefit-padding-top) 0 var(--benefit-padding-bottom);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  border-radius:32px;
+  }
+
+  .dom-bebe-benefits__container {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .dom-bebe-benefits__header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .dom-bebe-benefits__title {
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    color: var(--benefit-title-color);
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .dom-bebe-benefits__title--highlight {
+    color: var(--benefit-highlight-color);
+    display: block;
+  }
+
+  .dom-bebe-benefits__grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.columns }}, 1fr);
+    gap: 0;
+    align-items: start;
+  }
+
+  .dom-bebe-benefits__item {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 24px;
+    border-right: 1px solid var(--benefit-divider-color);
+  }
+
+  .dom-bebe-benefits__item:last-child {
+    border-right: none;
+  }
+
+  .dom-bebe-benefits__icon {
+    flex-shrink: 0;
+    width: var(--benefit-icon-size);
+    height: var(--benefit-icon-size);
+    color: var(--benefit-icon-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dom-bebe-benefits__icon svg {
+    width: var(--benefit-icon-size);
+    height: var(--benefit-icon-size);
+  }
+
+  .dom-bebe-benefits__icon img {
+    width: var(--benefit-icon-size);
+    height: var(--benefit-icon-size);
+    object-fit: contain;
+    display: block;
+  }
+
+  .dom-bebe-benefits__text {
+    flex: 1;
+  }
+
+  .dom-bebe-benefits__item-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--benefit-item-title-color);
+    margin: 0 0 5px;
+    line-height: 1.3;
+  }
+
+  .dom-bebe-benefits__item-desc {
+      font-size: 14px;
+    color: var(--benefit-text-color);
+    margin: 0;
+    line-height: 1.5;
+    font-weight: 400;
+    font-family: 'Poppins';
+}
+
+  @media (max-width: 768px) {
+    .dom-bebe-benefits__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .dom-bebe-benefits__item:nth-child(2) {
+      border-right: none;
+    }
+    .dom-bebe-benefits__item:nth-child(2n) {
+      border-right: none;
+    }
+    .dom-bebe-benefits__item {
+      border-bottom: 1px solid var(--benefit-divider-color);
+    }
+    .dom-bebe-benefits__item:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+
+    .section-dom-bebe-benefits{
+  max-width:1380px;
+      border-radius: 32px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+  .dom-bebe-benefits__item {
+ 
+    padding: 16px 0px;
+  }
+  }
+
+  @media (max-width: 480px) {
+    .dom-bebe-benefits__grid {
+      grid-template-columns: 1fr;
+    }
+    .dom-bebe-benefits__item {
+      border-right: none;
+      border-bottom: 1px solid var(--benefit-divider-color);
+    }
+    .dom-bebe-benefits__item:last-child {
+      border-bottom: none;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Benefícios Dom Bebê",
+  "tag": "section",
+  "class": "section-dom-bebe-benefits",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Título da Seção"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título (linha 1)",
+      "default": "Por que comprar na"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "label": "Título em destaque (linha 2)",
+      "default": "Dom Bebê?"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "columns",
+      "label": "Colunas (desktop)",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Largura máxima (px)",
+      "min": 800,
+      "max": 1600,
+      "step": 50,
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Espaçamento superior (px)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Espaçamento inferior (px)",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Ícones"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Tamanho dos ícones (px)",
+      "min": 32,
+      "max": 80,
+      "step": 4,
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Cores"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor do título",
+      "default": "#1a1a2e"
+    },
+    {
+      "type": "color",
+      "id": "highlight_color",
+      "label": "Cor do destaque do título",
+      "default": "#e91e8c"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Cor dos ícones",
+      "default": "#e91e8c"
+    },
+    {
+      "type": "color",
+      "id": "item_title_color",
+      "label": "Cor do título dos itens",
+      "default": "#1a1a2e"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do texto dos itens",
+      "default": "#555555"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Cor do divisor entre itens",
+      "default": "#eeeeee"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefício",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Imagem do ícone",
+          "info": "Recomendado: PNG ou SVG com fundo transparente, mínimo 96x96px"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Título do benefício"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descrição",
+          "default": "Descrição breve do benefício para seus clientes."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Benefícios Dom Bebê",
+      "blocks": [
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Frete e devolução grátis",
+            "description": "Frete grátis e devolução fácil para você comprar com tranquilidade."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Atendimento humanizado",
+            "description": "Atendimento rápido e humano sempre que você precisar."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Satisfação dos clientes",
+            "description": "Alto índice de satisfação de clientes que confiam e compram com a gente."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "title": "Entrega para todo Brasil",
+            "description": "Enviamos para todo o Brasil com segurança e agilidade."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

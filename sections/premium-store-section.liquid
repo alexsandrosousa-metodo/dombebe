@@ -1,0 +1,920 @@
+{% comment %}
+  Section: Premium Store Maxi Cosi
+  - Campo para selecionar coleção
+  - Campo para imagem lateral esquerda
+  - Carrossel rotativo de produtos
+{% endcomment %}
+
+<style>
+    .premium-store-section {
+      background-color: #e8f4f8;
+      padding: 32px 24px;
+      margin: 40px auto;
+      max-width: 1380px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .premium-store-inner {
+      display: flex;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    /* ── Imagem lateral esquerda ── */
+    .premium-store-left-image {
+      flex: 0 0 400px;
+      min-width: 400x;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .premium-store-left-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ── Conteúdo direito ── */
+    .premium-store-right {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* ── Header ── */
+    .premium-store-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .premium-store-header-text h2 {
+         font-size: 32px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin: 10px 0 6px 0;
+      line-height: 1.2;
+    }
+
+    .premium-store-header-text p {
+    font-size: 16px;
+      color: #1A1A1A;
+      margin: 0;
+      max-width: 730px;
+      line-height: 1.5;
+      font-family: Poppins;
+    }
+
+    .premium-store-ver-tudo {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid #52B2A5;
+      color: #1A1A1A;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 0px 16px;
+      border-radius: 24px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.2s, color 0.2s;
+      flex-shrink: 0;
+      margin-top:10px;
+    }
+
+    .premium-store-ver-tudo svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* ── Carrossel ── */
+    .premium-store-carousel-wrapper {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .premium-store-carousel-track {
+      display: flex;
+      gap: 16px;
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    /* ── Card de produto ── */
+    .premium-store-card {
+      flex: 0 0 calc(33.333% - 11px);
+      min-width: 0;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 16px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .premium-store-card-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1;
+    }
+
+    .premium-store-card-badge img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+    }
+
+    .premium-store-card-wishlist {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      z-index: 1;
+      color: #ccc;
+      transition: color 0.2s;
+    }
+
+    .premium-store-card-wishlist:hover,
+    .premium-store-card-wishlist.active {
+      color: #e05;
+    }
+
+    .premium-store-card-wishlist svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .premium-store-card-image {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+      padding: 8px 0;
+    }
+
+    .premium-store-card-colors {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .premium-store-card-color-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(0,0,0,0.15);
+      cursor: pointer;
+    }
+
+    .premium-store-card-colors span {
+      font-size: 11px;
+      color: #888;
+      margin-left: 4px;
+    }
+
+    .premium-store-card-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: #222;
+      line-height: 1.4;
+      margin: 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      font-family: "Poppins";
+      color:#121212;
+      height:42px;
+    }
+
+    .premium-store-card-stars {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .premium-store-card-stars svg {
+      width: 14px;
+      height: 14px;
+      fill: #f5a623;
+    }
+
+    .premium-store-card-stars span {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .premium-store-card-pricing {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .premium-store-card-old-price {
+     font-size: 14px;
+    color: #808080;
+    text-decoration: line-through;
+    font-family: "Poppins";
+    }
+
+
+
+    .premium-store-card-pix {
+      font-size: 14px;
+      color: #1A1A1A;
+
+    font-family: "Poppins";
+    }
+
+        .premium-store-card-current-price {
+      font-size: 24px;
+      font-weight: 700 !important;
+      color: #1a1a1a;
+      line-height: 18px;
+      font-weight:400;
+      font-family: "Poppins";
+    }
+
+    .premium-store-card-savings {
+     display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background-color: #61BF36;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 0px 10px;
+      border-radius: 30px;
+      width: 200px;
+    }
+
+    .premium-store-card-colors{
+    display:none;
+  }
+
+    .premium-store-card-savings svg {
+      width: 14px;
+      height: 14px;
+      fill: #1a8a4a;
+    }
+
+    .premium-store-card-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background-color: #52B2A5;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      width: 100%;
+      box-sizing: border-box;
+      transition: background 0.2s;
+      margin-top: auto;
+        font-family: "Poppins";
+    flex-direction: row-reverse;
+    }
+
+    .premium-store-card-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* ── Botões de navegação do carrossel ── */
+    .carousel-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #fff;
+      border: 1.5px solid #ddd;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: box-shadow 0.2s, border-color 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .carousel-nav:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      border-color: #0077cc;
+    }
+
+    .carousel-nav svg {
+      width: 16px;
+      height: 16px;
+      fill: #333;
+    }
+
+    .carousel-nav.prev {
+      left: 10px;
+    }
+
+    .carousel-nav.next {
+      right: 10px;
+    }
+
+    .carousel-nav:disabled {
+      opacity: 0.35;
+      cursor: default;
+    }
+
+    /* ── Dots ── */
+    .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 14px;
+    background: #fff;
+    padding: 4px;
+    width: 270px;
+    margin: 0 auto;
+    }
+
+    .carousel-dot {
+    width: 20px;
+    height: 4px;
+    border-radius: 9%;
+    background: #E6E6E6;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.2s, transform 0.2s;
+    }
+
+    .carousel-dot.active {
+    background: #52B2A5;
+    transform: scale(1.25);
+    width: 30px;
+}
+/* ── Responsividade ── */
+@media (max-width: 900px) {
+      .premium-store-inner {
+        flex-direction: column;
+      }
+      .premium-store-left-image {
+        flex: none;
+        width: 100%;
+        height: 220px;
+      }
+      .premium-store-card {
+        flex: 0 0 calc(50% - 8px);
+      }
+ }
+
+@media (max-width: 560px) {
+      .premium-store-card {
+        flex: 0 0 calc(100% - 0px);
+      }
+      .carousel-nav.prev { left: 0; }
+}
+</style><section class="premium-store-section" id="premium-store-{{ section.id }}">
+  <div class="premium-store-inner">
+    {%- if section.settings.left_image != blank -%}
+      <div class="premium-store-left-image">
+        {{
+          section.settings.left_image
+          | image_url: width: 400
+          | image_tag: loading: 'lazy', alt: section.settings.left_image.alt
+        }}
+      </div>
+    {%- endif -%}
+
+    <div class="premium-store-right">
+      <!-- Header -->
+      <div class="premium-store-header">
+        <div class="premium-store-header-text">
+          {%- if section.settings.title != blank -%}
+            <h2>{{ section.settings.title }}</h2>
+          {%- endif -%}
+          {%- if section.settings.subtitle != blank -%}
+            <p>{{ section.settings.subtitle }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.collection != blank -%}
+          <a href="{{ collections[section.settings.collection].url }}" class="premium-store-ver-tudo">
+            Ver tudo
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 18l6-6-6-6"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+
+      <!-- Carrossel -->
+      <div class="premium-store-carousel-wrapper">
+        <button class="carousel-nav prev" id="prev-{{ section.id }}" aria-label="Anterior" disabled>
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18l-6-6 6-6" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </button>
+
+        <div class="premium-store-carousel-track" id="track-{{ section.id }}">
+          {%- assign collection_obj = collections[section.settings.collection] -%}
+          {%- if collection_obj != blank and collection_obj.products_count > 0 -%}
+            {%- for product in collection_obj.products limit: 10 -%}
+
+              {%- comment -%}
+                FLAGS: compara product.collections com os handles configurados no editor.
+                Para cada flag (1-6), o editor permite definir:
+                  - flag_N_handle → handle da coleção (ex: ultra-compacto)
+                  - flag_N_image  → ícone circular da flag (image_picker)
+                  - flag_N_label  → texto alternativo / tooltip
+              {%- endcomment -%}
+
+              {%- assign matched_flag_image = nil -%}
+              {%- assign matched_flag_label = nil -%}
+
+              {%- for col in product.collections -%}
+                {%- if matched_flag_image == nil -%}
+                  {%- if section.settings.flag_1_handle != blank and col.handle == section.settings.flag_1_handle and section.settings.flag_1_image != blank -%}
+                    {%- assign matched_flag_image = section.settings.flag_1_image -%}
+                    {%- assign matched_flag_label = section.settings.flag_1_label -%}
+                  {%- elsif section.settings.flag_2_handle != blank and col.handle == section.settings.flag_2_handle and section.settings.flag_2_image != blank -%}
+                    {%- assign matched_flag_image = section.settings.flag_2_image -%}
+                    {%- assign matched_flag_label = section.settings.flag_2_label -%}
+                  {%- elsif section.settings.flag_3_handle != blank and col.handle == section.settings.flag_3_handle and section.settings.flag_3_image != blank -%}
+                    {%- assign matched_flag_image = section.settings.flag_3_image -%}
+                    {%- assign matched_flag_label = section.settings.flag_3_label -%}
+                  {%- elsif section.settings.flag_4_handle != blank and col.handle == section.settings.flag_4_handle and section.settings.flag_4_image != blank -%}
+                    {%- assign matched_flag_image = section.settings.flag_4_image -%}
+                    {%- assign matched_flag_label = section.settings.flag_4_label -%}
+                  {%- elsif section.settings.flag_5_handle != blank and col.handle == section.settings.flag_5_handle and section.settings.flag_5_image != blank -%}
+                    {%- assign matched_flag_image = section.settings.flag_5_image -%}
+                    {%- assign matched_flag_label = section.settings.flag_5_label -%}
+                  {%- elsif section.settings.flag_6_handle != blank and col.handle == section.settings.flag_6_handle and section.settings.flag_6_image != blank -%}
+                    {%- assign matched_flag_image = section.settings.flag_6_image -%}
+                    {%- assign matched_flag_label = section.settings.flag_6_label -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              <div class="premium-store-card">
+
+                <!-- Flag circular de coleção (ícone badge) -->
+                {%- if matched_flag_image != nil -%}
+                  <div class="premium-store-card-flag">
+                    <img
+                      src="{{ matched_flag_image | image_url: width: 100 }}"
+                      alt="{{ matched_flag_label | default: 'Badge' }}"
+                      width="65"
+                      height="65"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- endif -%}
+
+                <!-- Imagem do produto -->
+                <a href="{{ product.url }}">
+                  {%- if product.featured_image != blank -%}
+                    <img
+                      class="premium-store-card-image"
+                      src="{{ product.featured_image | image_url: width: 400 }}"
+                      alt="{{ product.featured_image.alt | default: product.title }}"
+                      loading="lazy"
+                      width="400"
+                      height="400"
+                    >
+                  {%- else -%}
+                    {{ 'product-1' | placeholder_svg_tag: 'premium-store-card-image' }}
+                  {%- endif -%}
+                </a>
+
+                <!-- Cores (variantes de cor) -->
+                {%- assign color_option = product.options_by_name.Cor | default: product.options_by_name.Color -%}
+                {%- if color_option != blank -%}
+                  <div class="premium-store-card-colors">
+                    {%- for value in color_option.values limit: 4 -%}
+                      <span
+                        class="premium-store-card-color-dot"
+                        style="background-color: {{ value | downcase | replace: ' ', '' }};"
+                      ></span>
+                    {%- endfor -%}
+                    <span>{{ color_option.values | size }} cores</span>
+                  </div>
+                {%- endif -%}
+
+                <!-- Título -->
+                <p class="premium-store-card-title">{{ product.title }}</p>
+
+                <!-- Preços -->
+                <div class="premium-store-card-pricing">
+                  {%- if product.compare_at_price > product.price -%}
+                    <span class="premium-store-card-old-price"
+                      >R$ {{ product.compare_at_price | money_without_currency -}}
+                    </span>
+                  {%- endif -%}
+                  <span class="premium-store-card-current-price">{{ product.price | money }}</span>
+                  <span class="premium-store-card-pix">A vista no pix ou 1x no cartão</span>
+                </div>
+
+                <!-- Economia -->
+                {%- if product.compare_at_price > product.price -%}
+                  {%- assign savings = product.compare_at_price | minus: product.price -%}
+                  <div class="premium-store-card-savings">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="12" viewBox="0 0 14 12" fill="none">
+                      <path d="M13.3078 6.83496C13.1473 6.71134 12.9604 6.6265 12.7617 6.58706C12.563 6.54763 12.3578 6.55466 12.1623 6.60762L9.51152 7.21699C9.59842 6.98645 9.6281 6.73826 9.59803 6.49373C9.56795 6.24919 9.47902 6.0156 9.33885 5.81298C9.19868 5.61036 9.01146 5.44476 8.79324 5.33037C8.57502 5.21599 8.33232 5.15624 8.08594 5.15625H5.15273C4.92181 5.15559 4.69305 5.20078 4.47972 5.28919C4.26639 5.3776 4.07273 5.50748 3.90996 5.67129L2.55 7.03125H0.820313C0.602752 7.03125 0.394102 7.11768 0.240264 7.27151C0.0864255 7.42535 0 7.634 0 7.85156V10.1953C0 10.4129 0.0864255 10.6215 0.240264 10.7754C0.394102 10.9292 0.602752 11.0156 0.820313 11.0156H6.91406C6.9429 11.0156 6.97163 11.0121 6.99961 11.0051L10.7496 10.0676C10.7674 10.0629 10.7848 10.057 10.8018 10.05L13.0764 9.08203L13.0957 9.07324C13.2968 8.97281 13.4691 8.82283 13.5962 8.63743C13.7233 8.45204 13.8012 8.23733 13.8224 8.01353C13.8436 7.78974 13.8075 7.56422 13.7175 7.35824C13.6274 7.15225 13.4865 6.97258 13.3078 6.83613V6.83496ZM0.703125 10.1953V7.85156C0.703125 7.82048 0.715472 7.79068 0.737449 7.7687C0.759425 7.74672 0.789232 7.73438 0.820313 7.73438H2.34375V10.3125H0.820313C0.789232 10.3125 0.759425 10.3002 0.737449 10.2782C0.715472 10.2562 0.703125 10.2264 0.703125 10.1953ZM12.7898 8.4375L10.5516 9.39082L6.8707 10.3125H3.04688V7.52871L4.40684 6.16816C4.50457 6.06992 4.62081 5.99204 4.74885 5.93904C4.87688 5.88604 5.01416 5.85896 5.15273 5.85938H8.08594C8.3035 5.85938 8.51215 5.9458 8.66599 6.09964C8.81983 6.25348 8.90625 6.46213 8.90625 6.67969C8.90625 6.89725 8.81983 7.1059 8.66599 7.25974C8.51215 7.41357 8.3035 7.5 8.08594 7.5H6.44531C6.35207 7.5 6.26265 7.53704 6.19672 7.60297C6.13079 7.6689 6.09375 7.75832 6.09375 7.85156C6.09375 7.9448 6.13079 8.03423 6.19672 8.10016C6.26265 8.16609 6.35207 8.20313 6.44531 8.20313H8.32031C8.34673 8.20316 8.37307 8.20021 8.39883 8.19434L12.3246 7.29141L12.3387 7.28789C12.4864 7.24761 12.6439 7.26334 12.7807 7.33206C12.9176 7.40078 13.0242 7.51765 13.0802 7.66021C13.1361 7.80278 13.1375 7.96099 13.0839 8.10446C13.0303 8.24792 12.9256 8.36653 12.7898 8.4375ZM9.49219 3.98438C9.63559 3.9843 9.77858 3.96898 9.91875 3.93867C10.0242 4.31312 10.237 4.6485 10.5308 4.90343C10.8246 5.15837 11.1866 5.32171 11.5722 5.37329C11.9578 5.42487 12.35 5.36243 12.7005 5.19369C13.051 5.02495 13.3445 4.75728 13.5446 4.42372C13.7448 4.09016 13.8429 3.70529 13.8269 3.31661C13.8108 2.92794 13.6814 2.55246 13.4544 2.2365C13.2275 1.92055 12.913 1.67795 12.5498 1.53864C12.1866 1.39932 11.7906 1.36939 11.4105 1.45254C11.3101 1.09565 11.1121 0.773872 10.8387 0.523397C10.5654 0.272923 10.2276 0.103694 9.86331 0.0347498C9.49903 -0.0341946 9.12274 -0.000118688 8.77677 0.133144C8.4308 0.266406 8.12888 0.493567 7.90498 0.78907C7.68108 1.08457 7.54408 1.43669 7.50939 1.80582C7.47471 2.17494 7.54372 2.54641 7.70865 2.87845C7.87359 3.21049 8.1279 3.48992 8.44299 3.6853C8.75808 3.88068 9.12144 3.98425 9.49219 3.98438ZM13.125 3.39844C13.125 3.65339 13.0494 3.90262 12.9078 4.1146C12.7661 4.32659 12.5648 4.49181 12.3292 4.58938C12.0937 4.68694 11.8345 4.71247 11.5845 4.66273C11.3344 4.61299 11.1047 4.49022 10.9244 4.30994C10.7442 4.12966 10.6214 3.89998 10.5716 3.64992C10.5219 3.39987 10.5474 3.14068 10.645 2.90513C10.7426 2.66959 10.9078 2.46827 11.1198 2.32662C11.3318 2.18498 11.581 2.10938 11.8359 2.10938C12.1778 2.10938 12.5057 2.24519 12.7474 2.48693C12.9892 2.72868 13.125 3.05656 13.125 3.39844ZM9.49219 0.703126C9.78813 0.702775 10.0751 0.804538 10.3047 0.991239C10.5343 1.17794 10.6925 1.43814 10.7525 1.72793C10.4977 1.89317 10.284 2.1145 10.1278 2.37499C9.97164 2.63547 9.87707 2.92822 9.85137 3.23086C9.67416 3.28192 9.48807 3.29436 9.30564 3.26734C9.12322 3.24033 8.94872 3.17449 8.79392 3.07426C8.63912 2.97404 8.50762 2.84177 8.40831 2.68639C8.309 2.531 8.24418 2.35611 8.21824 2.17353C8.19229 1.99096 8.20583 1.80494 8.25792 1.62804C8.31002 1.45113 8.39946 1.28747 8.52022 1.14809C8.64097 1.00871 8.79023 0.896869 8.9579 0.820107C9.12558 0.743345 9.30778 0.703453 9.49219 0.703126Z" fill="white"/>
+                    </svg>
+                    Economize R$ {{ savings | money_without_currency }}
+                  </div>
+                {%- endif -%}
+
+                <!-- Botão adicionar -->
+                <a
+                  href="{{ product.url }}"
+                  class="premium-store-card-btn"
+                  data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+                    <path d="M12.3404 2.47031C12.3074 2.4307 12.2661 2.39883 12.2195 2.37696C12.1728 2.35509 12.1219 2.34375 12.0703 2.34375H2.51953L2.14629 0.288867C2.13161 0.20786 2.08896 0.134574 2.02579 0.0817847C1.96261 0.0289958 1.88291 5.2429e-05 1.80059 0H0.351562C0.258322 0 0.168901 0.0370395 0.10297 0.10297C0.0370395 0.168901 0 0.258322 0 0.351562C0 0.444803 0.0370395 0.534224 0.10297 0.600155C0.168901 0.666086 0.258322 0.703125 0.351562 0.703125H1.50703L3.01934 9.01992C3.06675 9.28216 3.19452 9.52316 3.38496 9.70957C3.15482 9.8934 2.98291 10.14 2.89003 10.4195C2.79716 10.699 2.78731 10.9995 2.86167 11.2845C2.93603 11.5695 3.09143 11.8268 3.30903 12.0254C3.52663 12.2239 3.79712 12.355 4.08773 12.403C4.37835 12.451 4.67664 12.4136 4.94648 12.2955C5.21633 12.1775 5.44615 11.9837 5.60814 11.7377C5.77012 11.4917 5.85731 11.204 5.85916 10.9094C5.86101 10.6149 5.77744 10.3261 5.61855 10.0781H8.67832C8.49614 10.3632 8.41404 10.7009 8.44499 11.0378C8.47595 11.3747 8.61818 11.6918 8.84926 11.9389C9.08034 12.186 9.38711 12.3492 9.7212 12.4027C10.0553 12.4562 10.3977 12.397 10.6944 12.2343C10.9911 12.0717 11.2252 11.8149 11.3598 11.5045C11.4943 11.194 11.5218 10.8477 11.4377 10.5199C11.3536 10.1922 11.1629 9.90176 10.8955 9.69446C10.6281 9.48715 10.2993 9.37475 9.96094 9.375H4.2873C4.15008 9.37502 4.0172 9.32688 3.91184 9.23897C3.80647 9.15106 3.73531 9.02895 3.71074 8.89394L3.4998 7.73438H10.4355C10.7374 7.73445 11.0298 7.62857 11.2616 7.43519C11.4934 7.2418 11.65 6.97319 11.7041 6.67617L12.416 2.75801C12.4252 2.70744 12.4232 2.65548 12.4101 2.60577C12.3971 2.55607 12.3733 2.50983 12.3404 2.47031ZM5.15625 10.8984C5.15625 11.0607 5.10814 11.2193 5.018 11.3542C4.92787 11.4891 4.79975 11.5942 4.64986 11.6563C4.49996 11.7184 4.33503 11.7346 4.1759 11.703C4.01678 11.6713 3.87061 11.5932 3.75589 11.4785C3.64117 11.3638 3.56304 11.2176 3.53139 11.0585C3.49974 10.8993 3.51598 10.7344 3.57807 10.5845C3.64016 10.4346 3.7453 10.3065 3.8802 10.2164C4.0151 10.1262 4.1737 10.0781 4.33594 10.0781C4.5535 10.0781 4.76215 10.1646 4.91599 10.3184C5.06982 10.4722 5.15625 10.6809 5.15625 10.8984ZM10.7812 10.8984C10.7812 11.0607 10.7331 11.2193 10.643 11.3542C10.5529 11.4891 10.4248 11.5942 10.2749 11.6563C10.125 11.7184 9.96003 11.7346 9.8009 11.703C9.64178 11.6713 9.49561 11.5932 9.38089 11.4785C9.26617 11.3638 9.18804 11.2176 9.15639 11.0585C9.12474 10.8993 9.14098 10.7344 9.20307 10.5845C9.26515 10.4346 9.3703 10.3065 9.5052 10.2164C9.6401 10.1262 9.79869 10.0781 9.96094 10.0781C10.1785 10.0781 10.3871 10.1646 10.541 10.3184C10.6948 10.4722 10.7812 10.6809 10.7812 10.8984ZM11.0121 6.55019C10.9875 6.6852 10.9164 6.80731 10.811 6.89522C10.7056 6.98313 10.5728 7.03127 10.4355 7.03125H3.37207L2.64785 3.04688H11.649L11.0121 6.55019Z" fill="white"/>
+                  </svg>
+              Ver produto
+                </a>
+              </div>
+            {%- endfor -%}
+          {%- else -%}
+            <!-- Placeholder quando nenhuma coleção selecionada -->
+            {%- for i in (1..3) -%}
+              <div class="premium-store-card">
+                {{ 'product-' | append: i | placeholder_svg_tag: 'premium-store-card-image' }}
+                <p class="premium-store-card-title">Selecione uma coleção no editor</p>
+                <div class="premium-store-card-pricing">
+                  <span class="premium-store-card-current-price">R$ 0,00</span>
+                </div>
+                <button class="premium-store-card-btn">Ver produto</button>
+              </div>
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+
+        <button class="carousel-nav next" id="next-{{ section.id }}" aria-label="Próximo">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18l6-6-6-6" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Dots -->
+      <div class="carousel-dots" id="dots-{{ section.id }}"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .premium-store-card {
+    position: relative;
+  }
+
+  .premium-store-card-flag {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    z-index: 2;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    overflow: hidden;
+    pointer-events: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .premium-store-card-flag img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50%;
+  }
+</style>
+
+<script>
+  (function() {
+    var sectionId = '{{ section.id }}';
+    var track = document.getElementById('track-' + sectionId);
+    var prevBtn = document.getElementById('prev-' + sectionId);
+    var nextBtn = document.getElementById('next-' + sectionId);
+    var dotsContainer = document.getElementById('dots-' + sectionId);
+
+    if (!track) return;
+
+    var cards = track.querySelectorAll('.premium-store-card');
+    var totalCards = cards.length;
+    var visibleCount = 3;
+    var currentIndex = 0;
+    var autoplayInterval = null;
+
+    function getVisibleCount() {
+      var width = window.innerWidth;
+      if (width <= 560) return 1;
+      if (width <= 900) return 2;
+      return 3;
+    }
+
+    function totalSlides() {
+      return Math.max(0, totalCards - visibleCount);
+    }
+
+    function buildDots() {
+      dotsContainer.innerHTML = '';
+      var total = totalSlides() + 1;
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+        dot.dataset.index = i;
+        dot.addEventListener('click', function() {
+          goTo(parseInt(this.dataset.index));
+          resetAutoplay();
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function updateDots() {
+      var dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach(function(dot, i) {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function getCardWidth() {
+      if (cards.length === 0) return 0;
+      return cards[0].offsetWidth + 16;
+    }
+
+    function goTo(index) {
+      var max = totalSlides();
+      currentIndex = Math.max(0, Math.min(index, max));
+      track.style.transform = 'translateX(-' + (currentIndex * getCardWidth()) + 'px)';
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= max;
+      updateDots();
+    }
+
+    function startAutoplay() {
+      autoplayInterval = setInterval(function() {
+        var next = currentIndex >= totalSlides() ? 0 : currentIndex + 1;
+        goTo(next);
+      }, {{ section.settings.autoplay_speed | default: 4000 }});
+    }
+
+    function resetAutoplay() {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        startAutoplay();
+      }
+    }
+
+    prevBtn.addEventListener('click', function() {
+      goTo(currentIndex - 1);
+      resetAutoplay();
+    });
+
+    nextBtn.addEventListener('click', function() {
+      goTo(currentIndex + 1);
+      resetAutoplay();
+    });
+
+    var touchStartX = 0;
+    track.addEventListener('touchstart', function(e) {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      var diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        goTo(diff > 0 ? currentIndex + 1 : currentIndex - 1);
+        resetAutoplay();
+      }
+    }, { passive: true });
+
+    window.addEventListener('resize', function() {
+      visibleCount = getVisibleCount();
+      buildDots();
+      goTo(Math.min(currentIndex, totalSlides()));
+    });
+
+    visibleCount = getVisibleCount();
+    buildDots();
+    goTo(0);
+
+    {%- if section.settings.autoplay -%}
+    startAutoplay();
+    {%- endif -%}
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Premium Store",
+  "tag": "section",
+  "class": "premium-store-section-wrap",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da seção",
+      "default": "Premium Store Maxi Cosi"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtítulo / descrição",
+      "default": "Mais conforto e segurança para o seu bebê na hora das refeições, com cadeiras práticas, resistentes e fáceis de limpar."
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Imagem lateral esquerda"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção de produtos"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Rotação automática (autoplay)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Velocidade do autoplay (ms)",
+      "min": 2000,
+      "max": 8000,
+      "step": 500,
+      "default": 4000
+    },
+    {
+      "type": "header",
+      "content": "🏷️ Flags de coleção (badges circulares)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Configure até 6 flags. Preencha o handle da coleção (encontrado na URL: Admin → Coleções → clique na coleção → veja o slug no final da URL) e selecione a imagem circular do badge."
+    },
+    {
+      "type": "header",
+      "content": "Flag 1"
+    },
+    {
+      "type": "text",
+      "id": "flag_1_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: ultra-compacto"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_1_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_1_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Ultra compacto"
+    },
+    {
+      "type": "header",
+      "content": "Flag 2"
+    },
+    {
+      "type": "text",
+      "id": "flag_2_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: conjunto-completo"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_2_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_2_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Conjunto completo"
+    },
+    {
+      "type": "header",
+      "content": "Flag 3"
+    },
+    {
+      "type": "text",
+      "id": "flag_3_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: conforto-superior"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_3_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_3_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Conforto superior"
+    },
+    {
+      "type": "header",
+      "content": "Flag 4"
+    },
+    {
+      "type": "text",
+      "id": "flag_4_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: carrinho-moises"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_4_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_4_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Carrinho moisés"
+    },
+    {
+      "type": "header",
+      "content": "Flag 5"
+    },
+    {
+      "type": "text",
+      "id": "flag_5_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: isofix-giro-360"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_5_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_5_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Isofix e Giro 360"
+    },
+    {
+      "type": "header",
+      "content": "Flag 6"
+    },
+    {
+      "type": "text",
+      "id": "flag_6_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: protecao-extra"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_6_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_6_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Proteção extra"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Premium Store",
+      "category": "Coleção"
+    }
+  ]
+}
+{% endschema %}

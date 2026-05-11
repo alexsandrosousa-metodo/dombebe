@@ -1,0 +1,86 @@
+.reel-card{
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  word-break: break-word;
+  border-radius: var(--top-radius) var(--top-radius) var(--bottom-radius) var(--bottom-radius);
+}
+
+a.reel-card{
+  display: block;
+}
+
+a.reel-card:focus-visible{
+  box-shadow: 0 0 2px 2px var(--section-focus-outline-color);
+}
+
+.reel-card_img{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background: #E6E8EC;
+  border-radius: var(--top-radius) var(--top-radius) var(--bottom-radius) var(--bottom-radius);
+}
+
+.reel-card .button{
+  max-width: 80%;
+  position: absolute;
+  z-index: 1;
+}
+
+.reel-card--clickable .button::before{
+  position: absolute;
+  left: -9999px;
+  right: -9999px;
+  top: -9999px;
+  left: -9999px;
+  bottom: -9999px;
+  content: '';
+}
+
+.reel-card .reel-card_button--top_left{
+  top: 30px;
+  left: 30px;
+}
+
+.reel-card .reel-card_button--top_right{
+  top: 30px;
+  right: 30px;
+}
+
+.reel-card .reel-card_button--bottom_left{
+  left: 30px;
+  bottom: 30px;
+}
+
+.reel-card .reel-card_button--bottom_right{
+  right: 30px;
+  bottom: 30px;
+}
+
+.reel-card .reel-card_button--bottom_full{
+  text-align: center;
+  bottom: 30px;
+  left: 30px;
+  right: 30px;
+  max-width: none;
+}
+
+.reel-card .deferred-media__poster{
+  position: relative;
+  overflow: hidden;
+  background-color: #e6e8f0;
+  --top-radius: var(--section-top-radius);
+  --bottom-radius: var(--section-bottom-radius);
+  border-radius: calc(var(--top-radius)/1.42) calc(var(--top-radius)/1.42) calc(var(--bottom-radius)/1.42) calc(var(--bottom-radius)/1.42);
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.reel-card_img--placeholder{
+  width: 100%;
+  height: 100%;
+}

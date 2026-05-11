@@ -1,0 +1,55 @@
+{% comment %}
+    {%- render 'sticky-cart-bubble' -%}
+{% endcomment %}
+<li data-render-sticky-cart-bubble="">
+  {%- unless template.name == 'cart' -%}
+    <modal-component-toggler>
+      <button
+        type="button"
+        data-expanded="false"
+        data-modal-ref="modal-cart-drawer"
+        aria-haspopup="dialog"
+        aria-controls="modal-cart-drawer"
+        class="button button--primary page-header_btn-action"
+      >
+        {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'cart' -%}
+        <span aria-hidden="true" class="cart-drawer-opener_bubble {% if cart == empty -%} visually-hidden {% endif -%}" data-cart-organizer-bubble="">
+          {{ cart.item_count }}
+        </span>
+        {% if cart.item_count == 0 %}
+          <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+            {{ 'sections.header_ut_bar.a11y.cart_count.zero' | t: count: cart.item_count }}
+          </span>
+          {% elsif cart.item_count == 1 %}
+            <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+              {{ 'sections.header_ut_bar.a11y.cart_count.one' | t: count: cart.item_count }}
+            </span>
+          {% else %}
+            <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+              {{ 'sections.header_ut_bar.a11y.cart_count.other' | t: count: cart.item_count }}
+            </span>
+        {% endif %}
+      </button>
+    </modal-component-toggler>
+    {%- else -%}
+      <a class="button button--primary page-header_btn-action" href="{{- routes.cart_url -}}">
+        {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'cart' -%}
+        <span aria-hidden="true" class="cart-drawer-opener_bubble {% if cart == empty -%} visually-hidden {% endif -%}" data-cart-organizer-bubble="">
+          {{ cart.item_count }}
+        </span>
+        {% if cart.item_count == 0 %}
+          <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+            {{ 'sections.header_ut_bar.a11y.cart_count.zero' | t: count: cart.item_count }}
+          </span>
+          {% elsif cart.item_count == 1 %}
+            <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+              {{ 'sections.header_ut_bar.a11y.cart_count.one' | t: count: cart.item_count }}
+            </span>
+          {% else %}
+            <span class="visually-hidden" data-cart-organizer-bubble="noclass">
+              {{ 'sections.header_ut_bar.a11y.cart_count.other' | t: count: cart.item_count }}
+            </span>
+        {% endif %}
+      </a>
+  {%- endunless -%}
+</li>

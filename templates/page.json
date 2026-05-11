@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "section_text_alignment": "center",
+        "mobile_text_alignment": true,
+        "heading_size": "heading_large",
+        "section_top_padding": 30,
+        "section_bottom_padding": 100
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

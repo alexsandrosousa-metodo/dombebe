@@ -1,0 +1,48 @@
+{
+  "sections": {
+    "main-page": {
+      "type": "main-page",
+      "settings": {
+        "section_bottom_padding": 0
+      }
+    },
+    "events-list": {
+      "type": "events-list",
+      "settings": {
+        "section_heading": ""
+      },
+      "blocks": {
+        "event_1": {
+          "type": "event",
+          "settings": {
+          }
+        },
+        "event_2": {
+          "type": "event",
+          "settings": {
+          }
+        },
+        "event_3": {
+          "type": "event",
+          "settings": {
+          }
+        },
+        "event_4": {
+          "type": "event",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "event_1",
+        "event_2",
+        "event_3",
+        "event_4"
+      ]
+    }
+  },
+  "order": [
+    "main-page",
+    "events-list"
+  ]
+}

@@ -1,0 +1,238 @@
+{% comment %}
+  Seção: Compre por marca
+  Exibe logos de marcas com links configuráveis no editor do Shopify
+{% endcomment %}
+
+<section class="brands-section" id="section-{{ section.id }}">
+  <div class="brands-container">
+    {% if section.settings.title != blank %}
+      <h2 class="brands-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="brands-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'brand' %}
+          <div class="brand-item" {{ block.shopify_attributes }}>
+            {% if block.settings.brand_url != blank %}
+              <a href="{{ block.settings.brand_url }}" class="brand-link" aria-label="{{ block.settings.brand_name }}">
+            {% endif %}
+
+            {% if block.settings.brand_logo != blank %}
+              <img
+                src="{{ block.settings.brand_logo | img_url: '200x80', crop: 'center' }}"
+                alt="{{ block.settings.brand_name | escape }}"
+                class="brand-logo"
+                loading="lazy"
+                width="200"
+                height="80"
+              >
+            {% else %}
+              <span class="brand-name-text">{{ block.settings.brand_name }}</span>
+            {% endif %}
+
+            {% if block.settings.brand_url != blank %}
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px;
+  }
+
+  #section-{{ section.id }} .brands-container {
+    max-width: {{ section.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  #section-{{ section.id }} .brands-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 40px;
+    font-family: inherit;
+  }
+
+  #section-{{ section.id }} .brands-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: {{ section.settings.logo_gap }}px;
+  }
+
+  #section-{{ section.id }} .brand-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #section-{{ section.id }} .brand-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  #section-{{ section.id }} .brand-link:hover {
+    opacity: 0.75;
+    transform: scale(1.05);
+  }
+
+  #section-{{ section.id }} .brand-logo {
+    width: auto;
+    height: {{ section.settings.logo_height }}px;
+    max-width: 160px;
+    object-fit: contain;
+    display: block;
+  }
+
+  #section-{{ section.id }} .brand-name-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  @media (max-width: 768px) {
+    #section-{{ section.id }} .brands-grid {
+      gap: {{ section.settings.logo_gap | divided_by: 1.5 | round }}px;
+    }
+
+    #section-{{ section.id }} .brand-logo {
+      height: {{ section.settings.logo_height | times: 0.75 | round }}px;
+      max-width: 110px;
+    }
+
+    #section-{{ section.id }} .brands-title {
+      font-size: 18px;
+      margin-bottom: 28px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    #section-{{ section.id }} .brands-grid {
+      gap: 20px;
+    }
+
+    #section-{{ section.id }} .brand-logo {
+      height: {{ section.settings.logo_height | times: 0.6 | round }}px;
+      max-width: 90px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Compre por marca",
+  "tag": "section",
+  "class": "brands-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da seção",
+      "default": "Compre por marca"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo",
+      "default": "#f5f5f3"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "min": 30,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Altura dos logos",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "logo_gap",
+      "min": 16,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço entre logos",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço acima",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espaço abaixo",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 800,
+      "max": 1600,
+      "step": 40,
+      "unit": "px",
+      "label": "Largura máxima",
+      "default": 1200
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Marca",
+      "settings": [
+        {
+          "type": "text",
+          "id": "brand_name",
+          "label": "Nome da marca",
+          "default": "Nome da Marca"
+        },
+        {
+          "type": "image_picker",
+          "id": "brand_logo",
+          "label": "Logo da marca"
+        },
+        {
+          "type": "url",
+          "id": "brand_url",
+          "label": "Link ao clicar (opcional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Compre por marca",
+      "blocks": [
+        { "type": "brand", "settings": { "brand_name": "Joie" } },
+        { "type": "brand", "settings": { "brand_name": "Maxi-Cosi" } },
+        { "type": "brand", "settings": { "brand_name": "Infanti" } },
+        { "type": "brand", "settings": { "brand_name": "Kikka Boo" } },
+        { "type": "brand", "settings": { "brand_name": "Safety 1st" } }
+      ]
+    }
+  ],
+  "max_blocks": 20
+}
+{% endschema %}

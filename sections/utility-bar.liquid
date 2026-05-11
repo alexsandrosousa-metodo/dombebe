@@ -1,0 +1,1804 @@
+{{ 'utility-bar.css' | asset_url | stylesheet_tag }}
+{{ 'header.css' | asset_url | stylesheet_tag }}
+
+{% if section.settings.enable_predictive_search_suggestions %}
+  {{ 'predictive-search.css' | asset_url | stylesheet_tag }}
+  <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+{% for block in section.blocks %}
+  {% if block.type == 'mega_menu' %}
+    {{ 'mega-menu-dropdown.css' | asset_url | stylesheet_tag }}
+    {% break %}
+  {% endif %}
+{% endfor %}
+{% liquid
+  assign section_prefix_class = 'utility-bar'
+  assign section_scheme_class = section.settings.section_color_scheme | prepend: 'scheme scheme--'
+
+  assign show_locator = false
+
+  capture marquee_direction
+    if section.settings.marquee_direction == 'marquee_forward'
+      echo 'forward'
+    else
+      echo 'backward'
+    endif
+  endcapture
+
+  capture mega_menu_exists
+    if section.blocks.size > 0
+      for block in section.blocks
+        if block.type == 'mega_menu'
+          echo 'true'
+          break
+        endif
+      endfor
+    else
+      echo 'false'
+    endif
+  endcapture
+
+  capture view_three_gap
+    unless section.settings.show_search or section.settings.show_locator or section.settings.show_account or section.settings.show_cart
+      echo 'true'
+    else
+      echo 'false'
+    endunless
+  endcapture
+%}
+
+{%- style -%}
+  .{{ section_prefix_class }}-{{ section.id }}{
+    --section-padding-top: {{ section.settings.section_top_padding }}px;
+    --section-padding-bottom: {{ section.settings.section_bottom_padding }}px;
+  }
+{%- endstyle -%}
+
+{% unless section.settings.sticky_utility_bar == 'none' %}
+  {% liquid
+    assign sticky_behavior = 'stacked'
+    assign sticky_spacer = true
+    case section.settings.sticky_utility_bar
+      when 'on_scroll_up'
+        assign sticky_behavior = 'upwards'
+      when 'on_scroll'
+        assign sticky_behavior = 'downwards'
+    endcase
+  %}
+  <sticky-block
+    class="sticky-utility-bar-wrapper"
+    data-ref-block=".utility-bar"
+    data-body-class="utility-bar--fixed"
+    data-revealed="false"
+    data-behavior="{{ sticky_behavior }}"
+    data-css-variable="--utility-bar-height"
+    {% if sticky_spacer %}
+      data-spacer="true"
+    {% endif %}
+  >
+{% endunless %}
+<header class="{{ section_prefix_class }} {{ section_scheme_class }} {{ section_prefix_class }}-{{ section.id }} {% if section.settings.utility_bar_view == 'view_2' %}--utility-bar-two{% endif %} {% if section.settings.utility_bar_view == 'view_3' %}--utility-bar-three{% endif %} {% if section.settings.enable_separator %}--utility-bar-four{% endif %}">
+  <div class="{% unless section.settings.full_screen_width == true %}container{% else %}container-fluid{% endunless %}">
+    <style>
+        .utility-bar_bottom-wrapper {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .utility-bar_search-wrap {
+          order: 3;
+        }
+
+        .logo {
+          order: 1;
+        }
+
+        modal-component-toggler{
+          order: 2;
+        }
+
+        .utility-bar_actions-wrap {
+          order: 4;
+        }
+
+        [data-revealed="true"] .utility-bar{
+        top:0px;
+        }
+
+       @media (max-width: 768px) {
+        .utility-bar_bottom-wrapper {
+          justify-content: center; /* centraliza horizontalmente */
+          position: relative;
+        }
+
+        .logo {
+          order: 2; /* deixa a logo no meio */
+          margin: 0 auto;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .utility-bar_search-wrap {
+          order: 3;
+        }
+        modal-component-toggler{
+          order: 1;
+        }
+        .utility-bar_actions-wrap {
+          order: 4;
+        }
+      } 
+
+    .utility-bar_bottom-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* Ícone hambúrguer */
+    .utility-menu-button {
+      background: #fff;
+      border: 0;
+      cursor: pointer;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .utility-menu-button__icon span {
+      width: 22px;
+      height: 2px;
+      background-color: #444;
+      margin-bottom: 6px;
+      display: block;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Logo centralizada só no mobile */
+    @media (max-width: 768px) {
+      {% comment %} .utility-bar_bottom-wrapper {
+        display:none !important;
+      } {% endcomment %}
+      .d-flex.align-items-strech {
+          display: none !important;
+      }
+      button.utility-menu-button.ever {
+        display: flex !important;
+        background: transparent !important;
+        opacity: 1 !important;
+      }
+      .page-header_top-wrap {
+          display: none !important;
+      }
+    }
+      @media (min-width: 991px){
+        .mobile-menu-collapse{
+          min-height: 100%;
+          width: 100%;
+          padding: 40px calc(var(--grid-gutter-x) / 2);
+          background-color: var(--section-background-color);
+          display: flex;
+          flex-direction: column;
+          word-wrap: break-word;
+        }
+
+        .modal-component--menu-drawer .modal-component_wrapper{
+          max-width: 380px;
+          --top-radius: var(--section-top-radius);
+          --bottom-radius: var(--section-bottom-radius);
+          --button-radius: 5px;
+          box-shadow: -20px 20px 30px #0000001a;
+          background-color: var(--section-background-color);
+          color: var(--section-text-color);
+          padding: 0;
+          width: 100%;
+          display: flex;
+        }
+
+        .main-navigation_dropdown-opener {
+          width: 100% !important;
+          padding-top: 15px !important;
+          padding-bottom: 15px !important;
+        }
+
+        .mobile-menu_open .mobile-menu-collapse {
+          transform: translate(0);
+        }
+
+        .mobile-menu-collapse .main-navigation_item .dropdown-component_wrapper{
+          width: 100%;
+          position: static;
+          background-color: transparent;
+          box-shadow: none;
+          border-radius: 0;
+          max-height: 0;
+          margin-top: 0;
+          margin-bottom: 0;
+          padding-top: 0;
+          padding-bottom: 0;
+        }  
+
+        .page-header_switchers-wrap .localization-wrap .dropdown-component_wrapper{
+          top: auto;
+          left: auto;
+          right: -50px;
+          bottom: 100%;
+        }
+
+         .main-navigation_item .dropdown-component_wrapper.dropdown--open{
+          max-height: none;
+        }
+
+        .mobile-menu-collapse .main-navigation{
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0;
+        }
+
+        .mobile-menu-collapse .main-navigation .main-navigation_item + .main-navigation_item{
+          border-top: 1px solid var(--section-border-color);
+        }
+
+        .mobile-menu-collapse .mdtl_links-list{
+          column-count: 1;
+        }
+
+       .mobile-menu-collapse .mdtl_banners-wrap{
+          display: none !important;
+        }
+
+        {% comment %}
+        .page-header_desktop .page-header_nav,
+        .page-header_desktop .local_country-wrap,
+        .main-navigation--center .main-navigation--desktop{
+          display: none;
+        }
+         {% endcomment %}
+
+        /* Reativa a lista de links */
+        .modal-component--menu-drawer .mobile-menu-collapse {
+          display: flex !important;
+          flex-direction: column;
+          height: 100%;
+          overflow-y: auto;
+          padding: 30px 20px;
+        }
+
+        /* Exibe o botão de abrir menu também no desktop */
+        .utility-menu-button,
+        .mobile-menu-opener {
+          display: none !important;
+          cursor: pointer;
+          z-index: 10000;
+        }
+      }
+    </style>
+ 
+
+    <div class="{{ section_prefix_class }}_bottom-wrapper {% if section.settings.utility_bar_view == 'view_1' or section.settings.utility_bar_view == 'view_3' %}{% if section.settings.utility_bar_view == 'view_3' %}text_scroll_bar{% endif %}{% endif %} {% if view_three_gap == 'true' %}--view-three-gap{% endif %} {% if section.settings.utility_bar_view == 'view_1' %}{% if section.settings.show_search or section.settings.button_label != blank %}--bottom-wrapper-separator-after{% endif %}{% endif %} {% if section.settings.utility_bar_view == 'view_1' or section.settings.utility_bar_view == 'view_2' %}{% if section.settings.show_search or section.settings.button_label != blank %}--bottom-wrapper-separator-before{% endif %}{% endif %} {% if section.settings.utility_bar_view == 'view_3' %}{% if section.settings.show_search or section.settings.button_label != blank %}--view-3-bottom-seperator{% endif %}{% endif %}">
+      <div class="{{ section_prefix_class }}_search-wrap {% if section.settings.utility_bar_view == 'view_3' %}--view-3-margin-left{% endif %} {% if section.settings.utility_bar_view == 'view_1' %}--view-1-margin-left{% endif %}">
+        {% if section.settings.utility_bar_view == 'view_1' or section.settings.utility_bar_view == 'view_3' %}
+          {%- unless section.settings.utility_bar_view == 'view_3' -%}
+            {% if section.settings.button_label != blank %}
+              {% comment %}
+                <div class="{{ section_prefix_class }}_main-btn-wrap">
+                  <a
+                    class="button {{ section.settings.button_type }} {{ section_prefix_class }}_main-btn {% if section.settings.utility_bar_view == 'view_1' %}--view-1-main-btn{% endif %}"
+                    {% if section.settings.open_new_window %}
+                      target="_blank"
+                    {% endif %}
+                    {% if section.settings.button_link != blank %}
+                      href="{{ section.settings.button_link }}"
+                    {% else %}
+                      aria-disabled="true"
+                    {% endif %}
+                  >
+                    {% liquid
+                      if settings.show_buttons_icon != false
+                        render 'icons-data', width: 13, height: 13, use_icon: true, icon_reference: 'grid'
+                      endif
+                    %}
+                    {{- section.settings.button_label -}}
+                  </a>
+                </div>
+              {% endcomment %}
+            {% endif %}
+          {%- endunless -%}
+          {%- if section.settings.utility_bar_view == 'view_3' -%}
+            {%- if section.settings.utility_bar_view == 'view_3' -%}
+              <div class="{{ section_prefix_class }}_scroll_bar">
+                <div class="view-3_srolling-heading-wrapper">
+                  <span class="scroll_icon">
+                    {% liquid
+                      if settings.show_buttons_icon != false
+                        render 'icons-data', width: 13, height: 13, use_icon: true, icon_reference: 'grid'
+                      endif
+                    %}
+                  </span>
+                  {%- if section.settings.scroll_heading -%}
+                    <span class="scroll__heading strong"> {{ section.settings.scroll_heading }}: </span>
+                  {%- endif -%}
+                </div>
+                <marquee-component
+                  data-direction="{{ marquee_direction }}"
+                  data-pause-on-hover="{{ section.settings.marquee_on_hover }}"
+                  data-speed="{{ section.settings.marquee_speed }}"
+                >
+                  <div class="marquee-component">
+                    <div class="marquee-component_col scroll-bar-col">
+                      {%- if section.settings.scroll_description -%}
+                        <span class="scroll__subheading">
+                          {{ section.settings.scroll_description }}
+                        </span>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </marquee-component>
+                <a
+                  class="button {{ section.settings.button_type }} {{ section_prefix_class }}_main-btn"
+                  {% if section.settings.open_new_window %}
+                    target="_blank"
+                  {% endif %}
+                  {% if section.settings.button_link != blank %}
+                    href="{{ section.settings.button_link }}"
+                  {% else %}
+                    aria-disabled="true"
+                  {% endif %}
+                >
+                  {{- section.settings.button_label -}}
+                </a>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- else -%}
+          {% if section.settings.utility_bar_view == 'view_1' %}
+            {% if section.settings.button_label != blank %}
+              <div>
+                <a
+                  class="button {{ section.settings.button_type }} {{ section_prefix_class }}_main-btn"
+                  {% if section.settings.open_new_window %}
+                    target="_blank"
+                  {% endif %}
+                  {% if section.settings.button_link != blank %}
+                    href="{{ section.settings.button_link }}"
+                  {% else %}
+                    aria-disabled="true"
+                  {% endif %}
+                >
+                  {% liquid
+                    if settings.show_buttons_icon != false
+                      render 'icons-data', width: 13, height: 13, use_icon: true, icon_reference: 'grid'
+                    endif
+                  %}
+                  {{- section.settings.button_label -}}
+                </a>
+              </div>
+            {% endif %}
+          {% endif %}
+        {%- endif -%}
+        {%- unless section.settings.utility_bar_view == 'view_3' -%}
+          {% if section.settings.show_search %}
+            <strong id="{{ 'accessibility.search' | t }}-heading" class="visually-hidden">
+              {{- 'accessibility.search' | t -}}
+            </strong>
+            <dropdown-component
+              data-dropdown-level="1"
+              data-desktop-hidden="true"
+              class="search-bar"
+            >
+              <button
+                type="button"
+                class="dropdown-component_opener search-bar_opener button button--primary"
+                aria-expanded="false"
+                aria-controls="{{ 'accessibility.search' | t }}-dropdown"
+                aria-describedby="{{ 'accessibility.search' | t }}-heading"
+              >
+                {%- render 'icons-data', width: 18, height: 17, use_icon: true, icon_reference: 'search' -%}
+                {%- render 'icons-data', width: 18, height: 18, use_icon: true, icon_reference: 'cross' -%}
+                <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+              </button>
+              
+              <div class="dropdown-component_wrapper" id="{{ 'accessibility.search' | t }}-dropdown">
+                <search-form data-search-types="query,product,collection,page,article" data-check-content-status="true">
+                  <form action="{{ routes.search_url }}" method="get" role="search">
+                    <input
+                      class="search-bar_input"
+                      type="search"
+                      name="q"
+                      autocomplete="off"
+                      id="search-bar_input-{{ section.id }}"
+                      value=""
+                      placeholder="{{ 'sections.search.s_placeholder' | t }}&hellip;"
+                    >
+                    <input type="hidden" name="options[prefix]" value="last">
+                    {% if section.settings.enable_predictive_search_suggestions %}
+                      <label for="search-bar_input-{{ section.id }}" class="search-bar_submit-btn">
+                        {%- render 'icons-data', width: 18, height: 17, use_icon: true, icon_reference: 'search' -%}
+                        <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+                      </label>
+                      <span class="--loader search-bar_loader">
+                        <span class="visually-hidden">{{ 'accessibility.loading' | t }}</span>
+                        {%- render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'loader' -%}
+                      </span>
+                      <a href="#" class="search-bar_reset-btn">
+                        {%- render 'icons-data', width: 16, height: 16, use_icon: true, icon_reference: 'cross' -%}
+                        <span class="visually-hidden">{{ 'sections.search.reset_label' | t }}</span>
+                      </a>
+                    {% else %}
+                      <label for="search-bar_input-{{ section.id }}" class="visually-hidden">
+                        {%- render 'icons-data', width: 18, height: 17, use_icon: true, icon_reference: 'search' -%}
+                        <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+                      </label>
+                      <button type="submit" class="search-bar_submit-btn">
+                        {%- render 'icons-data', width: 18, height: 17, use_icon: true, icon_reference: 'search' -%}
+                        <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+                      </button>
+                    {% endif %}
+                  </form>
+                  {% if section.settings.enable_predictive_search_suggestions %}
+                    <div class="search_results-container">
+                      <strong
+                        role="heading"
+                        aria-level="2"
+                        class="visually-hidden"
+                        id="{{ 'sections.header_ut_bar.a11y.search_tabs.list.label_by' | t }}"
+                      >
+                        {{- 'sections.header_ut_bar.a11y.search_tabs.list.heading' | t -}}
+                      </strong>
+                      <ul
+                        class="list-unstyled search-bar_tabs-list"
+                        role="tablist"
+                        aria-labelledby="{{ 'sections.header_ut_bar.a11y.search_tabs.list.label_by' | t }}"
+                      >
+                        <li>
+                          <a
+                            role="tab"
+                            aria-selected="false"
+                            aria-controls="{{ 'sections.header_ut_bar.a11y.search_tabs.products.aria_label' | t }}"
+                            class="active"
+                            href="#search-tab-products"
+                          >
+                            {{- 'sections.header_ut_bar.a11y.search_tabs.products.text' | t -}}
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            role="tab"
+                            aria-selected="false"
+                            aria-controls="{{ 'sections.header_ut_bar.a11y.search_tabs.collections.aria_label' | t }}"
+                            href="#search-tab-collections"
+                          >
+                            {{- 'sections.header_ut_bar.a11y.search_tabs.collections.text' | t -}}
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            role="tab"
+                            aria-selected="false"
+                            aria-controls="{{ 'sections.header_ut_bar.a11y.search_tabs.articles.aria_label' | t }}"
+                            href="#search-tab-articles"
+                          >
+                            {{- 'sections.header_ut_bar.a11y.search_tabs.articles.text' | t -}}
+                          </a>
+                        </li>
+                      </ul>
+                      <div class="search-tab_content-wrap">
+                        <div
+                          class="search-tab_content --active-tab"
+                          id="search-tab-products"
+                          role="tabpanel"
+                          aria-labelledby="{{ 'sections.header_ut_bar.a11y.search_tabs.products.aria_label' | t }}"
+                        >
+                          <div class="search-tab-products_results">
+                            {% comment %} search tab products results will be attained here {% endcomment %}
+                          </div>
+                        </div>
+                        <div
+                          class="search-tab_content"
+                          role="tabpanel"
+                          id="search-tab-collections"
+                          aria-labelledby="{{ 'sections.header_ut_bar.a11y.search_tabs.collections.aria_label' | t }}"
+                        >
+                          <div class="search-tab-collections_results">
+                            {% comment %} search tab collections results will be attained here {% endcomment %}
+                          </div>
+                        </div>
+                        <div
+                          class="search-tab_content"
+                          role="tabpanel"
+                          id="search-tab-articles"
+                          aria-labelledby="{{ 'sections.header_ut_bar.a11y.search_tabs.articles.aria_label' | t }}"
+                        >
+                          <div class="search-tab-articles_results">
+                            {% comment %} search tab articles results will be attained here {% endcomment %}
+                          </div>
+                        </div>
+                        {% unless section.settings.predictive_banner_image == blank %}
+                          {%- assign srch_banner_alt = 'sections.header_ut_bar.a11y.search_tabs.list.banners' | t -%}
+                          <div class="search-tab_banner">
+                            {%- if section.settings.predictive_banner_link == blank -%}
+                              <div class="search-tab_banner-img">
+                                {%- render 'element-image' | elem_image: section.settings.predictive_banner_image | elem_image_class: 'image-class' | elem_image_placeholder: 'lifestyle-1' | elem_image_alt_text: srch_banner_alt -%}
+                              </div>
+                            {%- else -%}
+                              <a
+                                href="{{- section.settings.predictive_banner_link -}}"
+                                class="search-tab_banner-img {% if settings.enable_hover_anims %}anim--shine{% endif %}"
+                              >
+                                {%- render 'element-image' | elem_image: section.settings.predictive_banner_image | elem_image_class: 'image-class' | elem_image_placeholder: 'lifestyle-1' | elem_image_alt_text: srch_banner_alt -%}
+                                <span class="visually-hidden">{{- srch_banner_alt -}}</span>
+                              </a>
+                            {%- endif -%}
+                          </div>
+                        {% endunless %}
+                      </div>
+                    </div>
+                  {% endif %}
+                </search-form>
+              </div>
+            </dropdown-component>
+          {% endif %}
+        {% endunless %}
+      </div>
+
+    <div class="teste-man">
+      {% if section.settings.utility_bar_view == 'view_2' %}
+        <div class="page-header_nav-wrap {{ section_prefix_class }}_nav-wrap">
+          <modal-component-toggler>
+            <button
+              type="button"
+              data-expanded="false"
+              data-modal-ref="modal-menu-drawer"
+              aria-haspopup="dialog"
+              aria-controls="{{ section.id }}-modal-menu-drawer"
+              class="mobile-menu-opener"
+            >
+              <span class="mobile-menu-opener_container">
+                <span class="mobile-menu-opener_inner"></span>
+                <span class="mobile-menu-opener_hidden"></span>
+              </span>
+              <span
+                class="visually-hidden"
+                style="background-color: var(--section-background-color); color: var(--section-text-color);"
+              >
+                {{- 'accessibility.menu.toggler' | t -}}
+              </span>
+            </button>
+          </modal-component-toggler>
+          <modal-component
+            data-modal="modal-menu-drawer"
+            data-container="body"
+          >
+            <div
+              class="modal modal-component --drawer modal-component--menu-drawer scheme--{{ section.settings.section_color_scheme }}"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-menu-drawer-heading-utility"
+              aria-describedby="{{ section.id }}-modal-menu-drawer"
+              tabindex="-1"
+            >
+              <div class="modal-component_wrapper" id="{{ section.id }}-modal-menu-drawer">
+                <modal-component-toggler>
+                  <button
+                    type="button"
+                    data-expanded="true"
+                    data-toggle-attribute="false"
+                    data-modal-ref="modal-menu-drawer"
+                    class="modal-component_btn-close"
+                  >
+                    {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'cross' -%}
+                    <span class="visually-hidden">{{ 'accessibility.close' | t }}</span>
+                  </button>
+                </modal-component-toggler>
+                <div class="modal-component_body">
+                  <strong class="visually-hidden" id="modal-menu-drawer-heading-utility">Menu</strong>
+                  <div class="mobile-menu-collapse">
+                    <nav class="page-header_nav">
+                      <ul class="list-unstyled main-navigation">
+                        {%- for link in section.settings.menu.links -%}
+                          {%- assign main_item_index = forloop.index | times: 1 -%}
+                          {%- if link.links != blank -%}
+                            {%- assign iteration = 0 -%}
+                            {%- unless mega_menu_exists == 'true' -%}
+                              {%- render 'menu-dropdown-mob',
+                                link: link,
+                                main_item_index: main_item_index,
+                                section_id: section.id
+                              -%}
+                            {%- else -%}
+                              {%- for block in section.blocks -%}
+                                {%- assign curr_index = block.settings.item_index | times: 1 -%}
+                                {%- case block.type -%}
+                                  {%- when 'mega_menu' -%}
+                                    {%- if curr_index == main_item_index and iteration != 1 -%}
+                                      <li class="main-navigation_item --mega-menu-active">
+                                        {%- liquid
+                                          case block.settings.mega_menu_layout
+                                            when 'menu_slider'
+                                              render 'mega-menu-slider', link: link, index: forloop.index, scroll_speed: block.settings.marquee_speed, pause_on_hover: block.settings.marquee_on_hover, view: 'mobile', main_item_index: main_item_index, curr_index: curr_index, block: block, section_id: section.id
+                                            when 'menu_banner'
+                                              render 'mega-menu-banner', link: link, index: forloop.index, view: 'mobile', main_item_index: main_item_index, curr_index: curr_index, block: block, section_id: section.id
+                                            when 'menu_tabs'
+                                              render 'mega-menu-tabs', link: link, index: forloop.index, view: 'mobile', main_item_index: main_item_index, curr_index: curr_index, block: block, section_id: section.id
+                                            else
+                                              render 'mega-menu-columns', link: link, index: forloop.index, view: 'mobile', main_item_index: main_item_index, curr_index: curr_index, block: block, section_id: section.id
+                                          endcase
+                                        -%}
+                                      </li>
+                                      {%- assign iteration = 1 -%}
+                                    {%- endif -%}
+                                {%- endcase -%}
+                              {%- endfor -%}
+                              {%- liquid
+                                if iteration == 0
+                                  render 'menu-dropdown-mob', link: link, main_item_index: main_item_index, section_id: section.id
+                                endif
+                              -%}
+                            {%- endunless -%}
+                          {%- else -%}
+                            {%- assign badge_iteration = 0 -%}
+                            <li class="main-navigation_item">
+                              <a
+                                href="{{ link.url }}"
+                                class="main-navigation_link {% if link.current %} main-navigation_link--active{% endif %}"
+                                {% if link.current %}
+                                  aria-current="page"
+                                {% endif %}
+                              >
+                                {{ link.title | escape }}
+                                {% for block in section.blocks %}
+                                  {%- case block.type -%}
+                                    {%- when 'menu_badge' -%}
+                                      {%- assign curr_badge_index = block.settings.badge_item_index | times: 1 -%}
+                                      {% if block.settings.menu_item_badge_label != blank
+                                        and curr_badge_index == main_item_index
+                                        and badge_iteration != 1
+                                      %}
+                                        <strong
+                                          class="main-navigation_badge"
+                                          style="--menu-badge-bg: {{ block.settings.background_color }}; --menu-badge-text: {{ block.settings.text_color }};"
+                                          {{ block.shopify_attributes }}
+                                        >
+                                          {{- block.settings.menu_item_badge_label -}}
+                                        </strong>
+                                        {%- assign badge_iteration = 1 -%}
+                                      {% endif %}
+                                  {%- endcase -%}
+                                {% endfor %}
+                              </a>
+                            </li>
+                          {%- endif -%}
+                        {%- endfor -%}
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </modal-component>
+          {% comment %} Desktop_Navbar {% endcomment %}
+
+          <div class="page-header_desktop">
+            <nav class="page-header_nav">
+              <ul class="list-unstyled main-navigation main-navigation--desktop">
+                {%- for link in section.settings.menu.links -%}
+                  {%- assign main_item_index = forloop.index | times: 1 -%}
+                  {%- if link.links != blank -%}
+                    {%- assign iteration = 0 -%}
+                    {%- unless mega_menu_exists == 'true' -%}
+                      {%- render 'menu-dropdown',
+                        link: link,
+                        main_item_index: main_item_index,
+                        section_id: section.id
+                      -%}
+                    {%- else -%}
+                      {%- for block in section.blocks -%}
+                        {%- assign curr_index = block.settings.item_index | times: 1 -%}
+                        {%- case block.type -%}
+                          {%- when 'mega_menu' -%}
+                            {%- if curr_index == main_item_index and iteration != 1 -%}
+                              <li class="main-navigation_item --mega-menu-active" {{ block.shopify_attributes }}>
+                                {%- liquid
+                                  case block.settings.mega_menu_layout
+                                    when 'menu_slider'
+                                      render 'mega-menu-slider', link: link, index: forloop.index, scroll_speed: block.settings.marquee_speed, pause_on_hover: block.settings.marquee_on_hover, view: 'desktop', main_item_index: main_item_index, curr_index: curr_index, block: block, section_id: section.id
+                                    when 'menu_banner'
+                                      render 'mega-menu-banner', link: link, index: forloop.index, view: 'desktop', main_item_index: main_item_index, curr_index: curr_index, block: block, section_id: section.id
+                                    when 'menu_tabs'
+                                      render 'mega-menu-tabs', link: link, index: forloop.index, view: 'desktop', main_item_index: main_item_index, curr_index: curr_index, block: block, section_id: section.id
+                                    else
+                                      render 'mega-menu-columns', link: link, index: forloop.index, view: 'desktop', main_item_index: main_item_index, curr_index: curr_index, block: block, section_id: section.id
+                                  endcase
+                                -%}
+                              </li>
+                              {%- assign iteration = 1 -%}
+                            {%- endif -%}
+                        {%- endcase -%}
+                      {%- endfor -%}
+                      {%- liquid
+                        if iteration == 0
+                          render 'menu-dropdown', link: link, main_item_index: main_item_index, section_id: section.id
+                        endif
+                      -%}
+                    {%- endunless -%}
+                  {% else %}
+                    {%- assign badge_iteration = 0 -%}
+                    <li class="main-navigation_item">
+                      <a
+                        href="{{ link.url }}"
+                        class="main-navigation_link {% if link.current %} main-navigation_link--active{% endif %}"
+                        {% if link.current %}
+                          aria-current="page"
+                        {% endif %}
+                      >
+                        {{ link.title | escape }}
+                        {% for block in section.blocks %}
+                          {%- case block.type -%}
+                            {%- when 'menu_badge' -%}
+                              {%- assign curr_badge_index = block.settings.badge_item_index | times: 1 -%}
+                              {% if block.settings.menu_item_badge_label != blank
+                                and curr_badge_index == main_item_index
+                                and badge_iteration != 1
+                              %}
+                                <strong
+                                  class="main-navigation_badge"
+                                  style="--menu-badge-bg: {{ block.settings.background_color }}; --menu-badge-text: {{ block.settings.text_color }};"
+                                  {{ block.shopify_attributes }}
+                                >
+                                  {{- block.settings.menu_item_badge_label -}}
+                                </strong>
+                                {%- assign badge_iteration = 1 -%}
+                              {% endif %}
+                          {%- endcase -%}
+                        {% endfor %}
+                      </a>
+                    </li>
+                  {% endif %}
+                {%- endfor -%}
+              </ul>
+            </nav>
+          </div>
+        </div>
+      {% endif %}
+ </div>
+      
+   
+
+      <div class="logo">
+        {%- if request.page_type == 'index' -%}
+          <h1
+            class="logo_heading h4 mty {% if section.settings.header_alert_text == blank %}view_2-align-left{% endif %}"
+          >
+        {%- endif -%}
+        <a href="{{ routes.root_url }}" class="logo_link">
+          {%- liquid
+            assign logo_alt = section.settings.logo.alt | default: shop.name | escape
+            capture logo_height
+              assign height = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio
+              echo height | round
+            endcapture
+            capture logo_mob_height
+              assign height = section.settings.logo_mobile_width | divided_by: section.settings.logo.aspect_ratio
+              echo height | round
+            endcapture
+          -%}
+          {%- if section.settings.logo != blank -%}
+            {%- capture d_sizes -%}
+                    (max-width: {{ section.settings.logo_width | times: 2 }}px) 50vw, {{ section.settings.logo_width }}px
+                  {%- endcapture -%}
+            {%- capture m_sizes -%}
+                    (max-width: {{ section.settings.logo_mobile_width | times: 2 }}px) 50vw, {{ section.settings.logo_mobile_width }}px
+                  {%- endcapture -%}
+            {%- capture d_widths -%}
+                    {{ section.settings.logo_width }}, {{ section.settings.logo_width | times: 1.5 | round }}, {{ section.settings.logo_width | times: 2 }}
+                  {%- endcapture -%}
+            {%- capture m_widths -%}
+                    {{ section.settings.logo_mobile_width }}, {{ section.settings.logo_mobile_width | times: 1.5 | round }}, {{ section.settings.logo_mobile_width | times: 2 }}
+                  {%- endcapture -%}
+            {{-
+              section.settings.logo
+              | image_url: width: 260
+              | image_tag:
+                class: '--desktop-img',
+                widths: d_widths,
+                height: logo_height,
+                width: section.settings.logo_width,
+                alt: logo_alt,
+                sizes: d_sizes,
+                loading: 'lazy'
+            -}}
+            {{-
+              section.settings.logo
+              | image_url: width: 195
+              | image_tag:
+                class: '--mobile-img',
+                widths: m_widths,
+                height: logo_mob_height,
+                width: section.settings.logo_mobile_width,
+                alt: logo_alt,
+                sizes: m_sizes,
+                loading: 'lazy'
+            -}}
+          {%- else -%}
+            {{- shop.name -}}
+          {%- endif -%}
+        </a>
+        {%- if request.page_type == 'index' -%}
+          </h1>
+        {%- endif -%}
+      </div>
+
+      
+   <modal-component-toggler>
+      <button
+        type="button"
+        data-expanded="false"
+        data-modal-ref="modal-menu-drawer"
+        aria-haspopup="dialog"
+        aria-controls="{{ section.id }}-modal-menu-drawer"
+        class="utility-menu-button ever"
+      >
+        <span class="utility-menu-button__icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <span class="visually-hidden">Abrir menu</span>
+      </button> 
+    </modal-component-toggler>
+
+    
+      <div class="{{ section_prefix_class }}_actions-wrap">
+        <ul class="list-unstyled {{ section_prefix_class }}_btns-list header_btns-list {% if section.settings.utility_bar_view == 'view_1' or section.settings.utility_bar_view == 'view_3' %}button-util_view-1-3{% else %}button-util_view-2{% endif %}">
+          {%- if section.settings.utility_bar_view == 'view_3' -%}
+            {%- if section.settings.show_search -%}
+              <li class="{{ section_prefix_class }}_search-btn">
+                <modal-component-toggler>
+                  <button
+                    type="button"
+                    data-expanded="false"
+                    data-modal-ref="modal-search-bar-{{ section.id }}"
+                    aria-haspopup="dialog"
+                    aria-controls="modal-search-bar-{{ section.id }}"
+                    class="button button--primary utility-bar_btn-action"
+                  >
+                    {%- render 'icons-data', width: 20, height: 20, use_icon: true, icon_reference: 'search' -%}
+                    <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+                  </button>
+                </modal-component-toggler>
+                <modal-component
+                  data-modal="modal-search-bar-{{ section.id }}"
+                  data-container="body"
+                >
+                  <div
+                    class="modal modal-component --drawer modal-component--search-drawer scheme--{{ section.settings.section_color_scheme }}"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="modal-search-bar-heading-{{ section.id }}"
+                    aria-describedby="modal-search-bar-{{ section.id }}"
+                    tabindex="-1"
+                  >
+                    <div class="modal-component_wrapper" id="modal-search-bar-{{ section.id }}">
+                      <div class="modal-component_body">
+                        <div class="modal-component_head">
+                          <modal-component-toggler>
+                            <button
+                              type="button"
+                              data-expanded="true"
+                              data-toggle-attribute="false"
+                              data-modal-ref="modal-search-bar-{{ section.id }}"
+                              class="modal-component_btn-close"
+                            >
+                              {%- render 'icons-data',
+                                width: 14,
+                                height: 14,
+                                use_icon: true,
+                                icon_reference: 'cross'
+                              -%}
+                              <span class="visually-hidden">{{- 'accessibility.close' | t -}}</span>
+                            </button>
+                          </modal-component-toggler>
+                          <strong id="modal-search-bar-heading-{{ section.id }}" class="modal-component_heading h6">
+                            {{- 'accessibility.search' | t -}}
+                          </strong>
+                          <div class="search-drawer_text-wrap mty">
+                            <p>{{- 'sections.search.s_for' | t -}}</p>
+                          </div>
+                        </div>
+                        <div class="modal-component_content">
+                          <search-form
+                            data-search-types="query,product,collection,page,article"
+                            data-check-content-status="true"
+                          >
+                            <form action="{{ routes.search_url }}" method="get" role="search">
+                              <input
+                                class="search-bar_input"
+                                type="search"
+                                name="q"
+                                autocomplete="off"
+                                id="search-bar_input-{{ section.id }}"
+                                value=""
+                                placeholder="{{ 'sections.search.s_placeholder' | t }}&hellip;"
+                              >
+                              <input type="hidden" name="options[prefix]" value="last">
+                              {% if section.settings.enable_predictive_search_suggestions %}
+                                <label for="search-bar_input-{{ section.id }}" class="search-bar_submit-btn">
+                                  {%- render 'icons-data',
+                                    width: 18,
+                                    height: 17,
+                                    use_icon: true,
+                                    icon_reference: 'search'
+                                  -%}
+                                  <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+                                </label>
+                                <span class="--loader search-bar_loader">
+                                  <span class="visually-hidden">{{ 'accessibility.loading' | t }}</span>
+                                  {%- render 'icons-data',
+                                    width: 16,
+                                    height: 16,
+                                    use_icon: true,
+                                    icon_reference: 'loader'
+                                  -%}
+                                </span>
+                                <a href="#" class="search-bar_reset-btn">
+                                  {%- render 'icons-data',
+                                    width: 16,
+                                    height: 16,
+                                    use_icon: true,
+                                    icon_reference: 'cross'
+                                  -%}
+                                  <span class="visually-hidden">{{ 'sections.search.reset_label' | t }}</span>
+                                </a>
+                              {% else %}
+                                <label for="search-bar_input-{{ section.id }}" class="visually-hidden">
+                                  {%- render 'icons-data',
+                                    width: 18,
+                                    height: 17,
+                                    use_icon: true,
+                                    icon_reference: 'search'
+                                  -%}
+                                  <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+                                </label>
+                                <button type="submit" class="search-bar_submit-btn">
+                                  {%- render 'icons-data',
+                                    width: 18,
+                                    height: 17,
+                                    use_icon: true,
+                                    icon_reference: 'search'
+                                  -%}
+                                  <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+                                </button>
+                              {% endif %}
+                            </form>
+                            {% if section.settings.enable_predictive_search_suggestions %}
+                              <div class="search_results-container">
+                                <strong
+                                  role="heading"
+                                  aria-level="2"
+                                  class="visually-hidden"
+                                  id="{{ 'sections.header_ut_bar.a11y.search_tabs.list.label_by' | t }}-{{ section.id }}"
+                                >
+                                  {{- 'sections.header_ut_bar.a11y.search_tabs.list.heading' | t -}}
+                                </strong>
+                                <ul
+                                  class="list-unstyled search-bar_tabs-list"
+                                  role="tablist"
+                                  aria-labelledby="{{ 'sections.header_ut_bar.a11y.search_tabs.list.label_by' | t }}-{{ section.id }}"
+                                >
+                                  <li>
+                                    <a
+                                      role="tab"
+                                      aria-selected="true"
+                                      aria-controls="{{ 'sections.header_ut_bar.a11y.search_tabs.products.aria_label' | t }}-{{ section.id }}"
+                                      class="active"
+                                      href="#search-tab-products-{{ section.id }}"
+                                    >
+                                      {{- 'sections.header_ut_bar.a11y.search_tabs.products.text' | t -}}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      role="tab"
+                                      aria-selected="false"
+                                      aria-controls="{{ 'sections.header_ut_bar.a11y.search_tabs.collections.aria_label' | t }}-{{ section.id }}"
+                                      href="#search-tab-collections-{{ section.id }}"
+                                    >
+                                      {{- 'sections.header_ut_bar.a11y.search_tabs.collections.text' | t -}}
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      role="tab"
+                                      aria-selected="false"
+                                      aria-controls="{{ 'sections.header_ut_bar.a11y.search_tabs.articles.aria_label' | t }}-{{ section.id }}"
+                                      href="#search-tab-articles-{{ section.id }}"
+                                    >
+                                      {{- 'sections.header_ut_bar.a11y.search_tabs.articles.text' | t -}}
+                                    </a>
+                                  </li>
+                                </ul>
+                                <div class="search-tab_content-wrap">
+                                  <div
+                                    class="search-tab_content --active-tab"
+                                    id="search-tab-products-{{ section.id }}"
+                                    role="tabpanel"
+                                    aria-labelledby="{{ 'sections.header_ut_bar.a11y.search_tabs.products.aria_label' | t }}-{{ section.id }}"
+                                  >
+                                    <div class="search-tab-products_results">
+                                      {% comment %} search tab products results will be attained here {% endcomment %}
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="search-tab_content"
+                                    role="tabpanel"
+                                    id="search-tab-collections-{{ section.id }}"
+                                    aria-labelledby="{{ 'sections.header_ut_bar.a11y.search_tabs.collections.aria_label' | t }}-{{ section.id }}"
+                                  >
+                                    <div class="search-tab-collections_results">
+                                      {% comment %} search tab collections results will be attained here {% endcomment %}
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="search-tab_content"
+                                    role="tabpanel"
+                                    id="search-tab-articles-{{ section.id }}"
+                                    aria-labelledby="{{ 'sections.header_ut_bar.a11y.search_tabs.articles.aria_label' | t }}-{{ section.id }}"
+                                  >
+                                    <div class="search-tab-articles_results">
+                                      {% comment %} search tab articles results will be attained here {% endcomment %}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endif %}
+                          </search-form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </modal-component>
+              </li>
+            {%- endif -%}
+          {%- endif -%}
+          {%- if shop.customer_accounts_enabled and section.settings.show_account -%}
+            <li class="{{ section_prefix_class }}_account-btn">
+              <a
+                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
+                class="button button--primary utility-bar_btn-action"
+              >
+                <span class="visually-hidden">{{ 'customer.log_in' | t }}</span>
+                {%- render 'icons-data',
+                  width: 20,
+                  height: 20,
+                  use_icon: true,
+                  icon_class: 'account',
+                  icon_reference: 'account'
+                -%}
+                {% if section.settings.utility_bar_view == 'view_2' %}
+                  <span class="utl-bar-view-2_bubble-wrapper --desktop">
+                    {%- liquid
+                      if customer
+                        echo 'customer.account.title' | t
+                      else
+                        echo 'customer.log_in' | t
+                      endif
+                    -%}
+                  </span>
+                {% endif %}
+              </a>
+            </li>
+          {%- endif -%}
+          {% if section.settings.show_cart %}
+            {%- render 'util-cart-bubble', utility_bar_view: section.settings.utility_bar_view -%}
+          {% endif %}
+        </ul>
+        {% if section.settings.show_store_locator %}
+          {% unless section.blocks.size == 0 %}
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'store' -%}
+                  {%- assign show_locator = true -%}
+              {%- endcase -%}
+              {%- break -%}
+            {%- endfor -%}
+            {% if show_locator %}
+              <modal-component-toggler>
+                <button
+                  type="button"
+                  data-expanded="false"
+                  data-modal-ref="modal-store-locator"
+                  aria-haspopup="dialog"
+                  aria-label="{{- section.settings.button_label_locations -}}"
+                  aria-controls="{{ section.id }}-modal-store-locator"
+                  class="button button--primary {{ section_prefix_class }}_store-btn {% if section.settings.button_label_locations == blank %}{{ section_prefix_class }}_store-p-change{% endif %}"
+                >
+                  {%- render 'icons-data', width: 22, height: 22, use_icon: true, icon_reference: 'store-locator' -%}
+                  {%- if section.settings.button_label_locations != blank -%}
+                    <span>{{- section.settings.button_label_locations -}}</span>
+                  {%- else -%}
+                    <span class="visually-hidden">{{- 'sections.header_ut_bar.a11y.store_locator.text' | t -}}</span>
+                  {%- endif -%}
+                </button>
+              </modal-component-toggler>
+              <modal-component
+                data-modal="modal-store-locator"
+                data-container="body"
+              >
+                <div
+                  class="modal modal-component modal-component--store-locator modal-component--centered scheme--{{ section.settings.section_color_scheme }}"
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="{{ section.id }}-modal-store-locator-heading"
+                  aria-describedby="{{ section.id }}-modal-store-locator"
+                  tabindex="-1"
+                >
+                  <div class="modal-component_spacer">
+                    <div class="modal-component_wrapper" id="{{ section.id }}-modal-store-locator">
+                      <div class="modal-component_body">
+                        <div class="modal-component_head">
+                          <modal-component-toggler>
+                            <button
+                              type="button"
+                              data-expanded="true"
+                              data-toggle-attribute="false"
+                              data-modal-ref="modal-store-locator"
+                              class="modal-component_btn-close"
+                            >
+                              {%- render 'icons-data',
+                                width: 14,
+                                height: 14,
+                                use_icon: true,
+                                icon_reference: 'cross'
+                              -%}
+                              <span class="visually-hidden">{{ 'accessibility.close' | t }}</span>
+                            </button>
+                          </modal-component-toggler>
+                          <strong id="{{ section.id }}-modal-store-locator-heading" class="modal-component_heading">
+                            {{- 'sections.header_ut_bar.a11y.store_locator.text' | t -}}
+                          </strong>
+                          <span class="modal-component_subtitle d-block">{{ shop.name }}</span>
+                        </div>
+                        <div class="modal-component_content">
+                          {%- for block in section.blocks -%}
+                            {%- case block.type -%}
+                              {%- when 'store' -%}
+                                {%- assign accordion_prefix = 'store-locator_accordion--' -%}
+                                <accordion-wrapper data-parent="{{ section.id }}-modal-store-locator">
+                                  <details
+                                    class="collapsible-row {{ accordion_prefix }}row"
+                                    {% if forloop.index == 1 %}
+                                      open
+                                    {% endif %}
+                                  >
+                                    <summary class="collapsible-row_opener {{ accordion_prefix }}opener">
+                                      {%- render 'element-heading' | elem_heading_tag: 'strong' | elem_heading_parent: 'collapsible-row' | elem_heading_text: block.settings.heading | elem_heading_size: block.settings.heading_size -%}
+                                      <i class="collapsible-row_icn">
+                                        <span class="{{ accordion_prefix }}icnopen">
+                                          {%- render 'icons-data',
+                                            width: 13,
+                                            height: 13,
+                                            use_icon: true,
+                                            icon_reference: 'plus'
+                                          -%}
+                                        </span>
+                                        <span class="{{ accordion_prefix }}icnclose">
+                                          {%- render 'icons-data',
+                                            width: 13,
+                                            height: 4,
+                                            use_icon: true,
+                                            icon_reference: 'minus'
+                                          -%}
+                                        </span>
+                                      </i>
+                                    </summary>
+                                    <div class="collapsible-row_content {{ accordion_prefix }}content">
+                                      <div class="store-locator_wrapper">
+                                        <div class="store-locator_description">
+                                          {{ block.settings.description }}
+                                          {% unless block.settings.image == blank %}
+                                            <div class="store-locator_image">
+                                              {%- render 'element-image' | elem_image: block.settings.image | elem_image_class: 'image-class' | elem_image_placeholder: 'lifestyle-3' | elem_image_alt_text: block.settings.heading -%}
+                                            </div>
+                                          {% endunless %}
+                                          {% unless block.settings.store_button_label == blank %}
+                                            {%- render 'element-button' | element_button_label: block.settings.store_button_label | element_button_link: block.settings.store_button_url | elem_button_type: 'secondary' | element_button_custom_class: 'd-block --align-center' | element_button_new_window: block.settings.open_new_window -%}
+                                          {% endunless %}
+                                        </div>
+                                        {% unless block.settings.map_iframe == blank %}
+                                          <div class="store-locator_map">
+                                            {{- block.settings.map_iframe -}}
+                                            {% comment %} <iframe width="590" height="750" loading="lazy" src="{{ block.settings.map_iframe }}"></iframe> {% endcomment %}
+                                          </div>
+                                        {% endunless %}
+                                      </div>
+                                    </div>
+                                  </details>
+                                </accordion-wrapper>
+                            {%- endcase -%}
+                          {%- endfor -%}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </modal-component>
+            {% endif %}
+          {% endunless %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  <div class="busca-mobile">
+    <form class="form-mobile-busca " action="{{ routes.search_url }}" method="get" role="search">
+    <input
+      class="search-bar_input"
+      type="search"
+      name="q"
+      autocomplete="off"
+      id="search-bar_input-{{ section.id }}"
+      value=""
+      placeholder="{{ 'sections.search.s_placeholder' | t }}&hellip;"
+    >
+    <input type="hidden" name="options[prefix]" value="last">
+    {% if section.settings.enable_predictive_search_suggestions %}
+      <label for="search-bar_input-{{ section.id }}" class="search-bar_submit-btn">
+        {%- render 'icons-data',
+          width: 18,
+          height: 17,
+          use_icon: true,
+          icon_reference: 'search'
+        -%}
+        <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+      </label>
+      <span class="--loader search-bar_loader">
+        <span class="visually-hidden">{{ 'accessibility.loading' | t }}</span>
+        {%- render 'icons-data',
+          width: 16,
+          height: 16,
+          use_icon: true,
+          icon_reference: 'loader'
+        -%}
+      </span>
+      <a href="#" class="search-bar_reset-btn">
+        {%- render 'icons-data',
+          width: 16,
+          height: 16,
+          use_icon: true,
+          icon_reference: 'cross'
+        -%}
+        <span class="visually-hidden">{{ 'sections.search.reset_label' | t }}</span>
+      </a>
+    {% else %}
+      <label for="search-bar_input-{{ section.id }}" class="visually-hidden">
+        {%- render 'icons-data',
+          width: 18,
+          height: 17,
+          use_icon: true,
+          icon_reference: 'search'
+        -%}
+        <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+      </label>
+      <button type="submit" class="search-bar_submit-btn">
+        {%- render 'icons-data',
+          width: 18,
+          height: 17,
+          use_icon: true,
+          icon_reference: 'search'
+        -%}
+        <span class="visually-hidden">{{ 'accessibility.search' | t }}</span>
+      </button>
+      {% endif %}
+    </form>
+  </div>
+  
+</header>
+{% unless section.settings.sticky_utility_bar == 'none' %}
+  </sticky-block>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "t:sections.header_ut_bar.name",
+  "limit": 1,
+  "tag": "div",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:sections.header.settings.menu.label",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Configurações do Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Imagem do Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Largura do Logo (Desktop)",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 120,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_mobile_width",
+      "label": "Largura do Logo (Mobile)",
+      "min": 60,
+      "max": 200,
+      "step": 5,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "t:sections.header.settings.account.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cart",
+      "label": "t:sections.header_ut_bar.settings.cart.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_store_locator",
+      "label": "t:sections.header_ut_bar.settings.show_store_locator.label",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label_locations",
+      "label": "t:sections.header_ut_bar.settings.locators.label",
+      "default": "Store Locations"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header_ut_bar.settings.m_btn.content",
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_1' or section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "t:sections.common.btn_link.button.label",
+      "default": "New Arrival",
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_1' or section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "t:sections.common.btn_link.button.link.label",
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_1' or section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_window",
+      "label": "t:sections.common.btn_link.link.new_window.label",
+      "default": false,
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_1' or section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "select",
+      "id": "button_type",
+      "label": "t:sections.header_ut_bar.settings.button_type.label",
+      "options": [
+        {
+          "value": "button--primary",
+          "label": "t:sections.header_ut_bar.settings.button_type.options.opt_1.label"
+        },
+        {
+          "value": "button--secondary",
+          "label": "t:sections.header_ut_bar.settings.button_type.options.opt_2.label"
+        }
+      ],
+      "default": "button--secondary",
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_1' or section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.scroll.content",
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "text",
+      "id": "scroll_heading",
+      "label": "t:sections.common.heading.label",
+      "default": "Label",
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "text",
+      "id": "scroll_description",
+      "label": "t:sections.common.description.label",
+      "default": "Description",
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "label": "t:sections.common.scroll.settings.speed.label",
+      "min": 1,
+      "max": 30,
+      "step": 1,
+      "default": 20,
+      "unit": "sec",
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "select",
+      "id": "marquee_direction",
+      "label": "t:sections.common.scroll.settings.direction.label",
+      "options": [
+        {
+          "value": "marquee_backward",
+          "label": "t:sections.common.scroll.settings.direction.options.opt_1.label"
+        },
+        {
+          "value": "marquee_forward",
+          "label": "t:sections.common.scroll.settings.direction.options.opt_2.label"
+        }
+      ],
+      "default": "marquee_backward",
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "checkbox",
+      "label": "t:sections.common.scroll.settings.on_hover.label",
+      "id": "marquee_on_hover",
+      "default": false,
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_3' }}"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header_ut_bar.settings.search.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "t:sections.header_ut_bar.settings.search.label",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_predictive_search_suggestions",
+      "label": "t:sections.header_ut_bar.settings.search.predictive.label",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "predictive_banner_image",
+      "label": "t:sections.header_ut_bar.settings.search.predictive.banner.label",
+      "info": "t:sections.header_ut_bar.settings.search.predictive.banner.info"
+    },
+    {
+      "type": "url",
+      "id": "predictive_banner_link",
+      "label": "t:sections.header_ut_bar.settings.search.predictive.banner.link.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.header_ut_bar.settings.sticky.content"
+    },
+    {
+      "type": "select",
+      "id": "sticky_utility_bar",
+      "label": "t:sections.header_ut_bar.settings.sticky.label",
+      "options": [
+        {
+          "value": "none",
+          "label": "t:sections.header_ut_bar.settings.sticky.options.opt_1.label"
+        },
+        {
+          "value": "always",
+          "label": "t:sections.header_ut_bar.settings.sticky.options.opt_2.label"
+        },
+        {
+          "value": "on_scroll_up",
+          "label": "t:sections.header_ut_bar.settings.sticky.options.opt_3.label"
+        },
+        {
+          "value": "on_scroll",
+          "label": "t:sections.header_ut_bar.settings.sticky.options.opt_4.label"
+        }
+      ],
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.style.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_screen_width",
+      "label": "t:sections.logos_list.settings.full_screen.label",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_separator",
+      "label": "t:sections.header_ut_bar.settings.enable_separator.label",
+      "default": false,
+      "visible_if": "{{ section.settings.utility_bar_view == 'view_1' }}"
+    },
+    {
+      "type": "select",
+      "id": "utility_bar_view",
+      "label": "t:sections.header_ut_bar.settings.utility_bar_view.label",
+      "options": [
+        {
+          "value": "view_1",
+          "label": "t:sections.header_ut_bar.settings.utility_bar_view.options.opt_1.label"
+        },
+        {
+          "value": "view_2",
+          "label": "t:sections.header_ut_bar.settings.utility_bar_view.options.opt_2.label"
+        },
+        {
+          "value": "view_3",
+          "label": "t:sections.header_ut_bar.settings.utility_bar_view.options.opt_3.label"
+        }
+      ],
+      "default": "view_1"
+    },
+    {
+      "type": "color_scheme",
+      "id": "section_color_scheme",
+      "default": "scheme1",
+      "label": "t:sections.common.clr_scheme.label"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.common.spacing.content"
+    },
+    {
+      "type": "range",
+      "id": "section_top_padding",
+      "label": "t:sections.common.spacing.top_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 21,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_bottom_padding",
+      "label": "t:sections.common.spacing.bottom_spac.label",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 25,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "t:sections.header.blocks.mega_menu.name",
+      "type": "mega_menu",
+      "settings": [
+        {
+          "type": "text",
+          "id": "item_index",
+          "label": "t:sections.header.blocks.mega_menu.settings.item.label",
+          "info": "t:sections.header.blocks.mega_menu.settings.item.info"
+        },
+        {
+          "type": "select",
+          "id": "mega_menu_layout",
+          "label": "t:sections.header.blocks.mega_menu.settings.layout.label",
+          "options": [
+            {
+              "value": "menu_columns",
+              "label": "t:sections.header.blocks.mega_menu.settings.layout.options.opt_1.label"
+            },
+            {
+              "value": "menu_slider",
+              "label": "t:sections.header.blocks.mega_menu.settings.layout.options.opt_2.label"
+            },
+            {
+              "value": "menu_banner",
+              "label": "t:sections.header.blocks.mega_menu.settings.layout.options.opt_3.label"
+            },
+            {
+              "value": "menu_tabs",
+              "label": "t:sections.header.blocks.mega_menu.settings.layout.options.opt_4.label"
+            }
+          ],
+          "default": "menu_columns"
+        },
+        {
+          "type": "header",
+          "content": "t:sections.common.scroll.content"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.header.blocks.mega_menu.settings.scroll.content"
+        },
+        {
+          "type": "range",
+          "id": "marquee_speed",
+          "label": "t:sections.common.scroll.settings.speed.label",
+          "min": 1,
+          "max": 30,
+          "step": 1,
+          "default": 20,
+          "unit": "sec"
+        },
+        {
+          "type": "checkbox",
+          "label": "t:sections.common.scroll.settings.on_hover.label",
+          "id": "marquee_on_hover",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "t:sections.header.blocks.mega_menu.settings.banner_imgs.content"
+        },
+        {
+          "type": "paragraph",
+          "content": "t:sections.header.blocks.mega_menu.settings.banner_imgs.content_2"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image_i",
+          "label": "t:sections.header.blocks.mega_menu.settings.banner_imgs.imgs.img_1.label"
+        },
+        {
+          "type": "url",
+          "id": "banner_link_i",
+          "label": "t:sections.header.blocks.mega_menu.settings.banner_imgs.imgs.img_1.link.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_window_first",
+          "label": "t:sections.common.btn_link.link.new_window.label",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image_ii",
+          "label": "t:sections.header.blocks.mega_menu.settings.banner_imgs.imgs.img_2.label"
+        },
+        {
+          "type": "url",
+          "id": "banner_link_ii",
+          "label": "t:sections.header.blocks.mega_menu.settings.banner_imgs.imgs.img_2.link.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_window_second",
+          "label": "t:sections.common.btn_link.link.new_window.label",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "banner_image_iii",
+          "label": "t:sections.header.blocks.mega_menu.settings.banner_imgs.imgs.img_3.label"
+        },
+        {
+          "type": "url",
+          "id": "banner_link_iii",
+          "label": "t:sections.header.blocks.mega_menu.settings.banner_imgs.imgs.img_3.link.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_window_third",
+          "label": "t:sections.common.btn_link.link.new_window.label",
+          "default": false
+        }
+      ]
+    },
+    {
+      "name": "t:sections.header.blocks.menu_badge.name",
+      "type": "menu_badge",
+      "settings": [
+        {
+          "type": "text",
+          "id": "badge_item_index",
+          "label": "t:sections.header.blocks.menu_badge.settings.item.label",
+          "info": "t:sections.header.blocks.menu_badge.settings.item.info"
+        },
+        {
+          "type": "text",
+          "id": "menu_item_badge_label",
+          "label": "t:sections.header.blocks.menu_badge.label"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "t:sections.header.blocks.menu_badge.settings.bg.label",
+          "default": "#EEEEEE"
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "t:sections.header.blocks.menu_badge.settings.txt.label",
+          "default": "#222222"
+        }
+      ]
+    },
+    {
+      "name": "t:sections.header_ut_bar.blocks.store.name",
+      "type": "store",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "t:sections.common.heading.label",
+          "default": "Store heading"
+        },
+        {
+          "type": "select",
+          "id": "heading_size",
+          "label": "t:sections.common.heading.size.label",
+          "options": [
+            {
+              "value": "heading_x_small",
+              "label": "t:sections.common.heading.size.options.opt_6.label"
+            },
+            {
+              "value": "heading_xx_small",
+              "label": "t:sections.common.heading.size.options.opt_7.label"
+            }
+          ],
+          "default": "heading_xx_small"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "t:sections.common.description.label",
+          "default": "<p>Store description</p>"
+        },
+        {
+          "type": "textarea",
+          "id": "map_iframe",
+          "label": "t:sections.header_ut_bar.blocks.store.settings.map.label",
+          "default": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3115.3259575492275!2d-90.4420986!3d38.66437630000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87df32a51671812b%3A0x1f980197453245c9!2s456%20N%20New%20Ballas%20Rd%2C%20Creve%20Coeur%2C%20MO%2063141%2C%20USA!5e0!3m2!1sen!2s!4v1703092233883!5m2!1sen!2s\" width=\"590\" height=\"750\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>",
+          "info": "t:sections.header_ut_bar.blocks.store.settings.map.info"
+        },
+        {
+          "type": "text",
+          "id": "store_button_label",
+          "label": "t:sections.common.btn_link.button.label",
+          "default": "Get Directions"
+        },
+        {
+          "type": "url",
+          "id": "store_button_url",
+          "label": "t:sections.common.btn_link.button.link.label"
+        },
+        {
+          "type": "checkbox",
+          "id": "open_new_window",
+          "label": "t:sections.common.btn_link.link.new_window.label",
+          "default": false
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "t:sections.common.image.label"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,68 @@
+{%- liquid
+  assign stock_render_attr = 'data-product-card-render-stock'
+  assign price_render_attr = 'data-product-card-render-price'
+  assign price_from_render_attr = 'data-product-card-render-price-from'
+  assign discount_render_attr = 'data-product-card-render-discount'
+  assign variant_price_render_attr = 'data-product-card-render-variant-price'
+  assign variant_compare_price_render_attr = 'data-product-card-render-variant-compare-price'
+-%}
+<div {{ stock_render_attr }}>
+  {% assign inventoryc_count = product.selected_or_first_available_variant.inventory_quantity %}
+  {%- if product.selected_or_first_available_variant.inventory_policy == 'continue' -%}
+    {%- liquid
+      if inventoryc_count < 1
+        assign inventoryc_text = 'sections.products.product.pre_text' | t
+        assign inventoryc_container_class = ''
+        else
+          assign inventoryc_text = 'sections.products.product.in_stock_text' | t
+          assign inventoryc_container_class = '--enough-stock'
+      endif
+    -%}
+    {%- else -%}
+      {%- liquid
+        assign inventoryc_container_class = '--no-stock'
+        assign inventoryc_text = 'sections.products.product.soldout' | t
+        
+        if inventoryc_count > 0
+          assign inventoryc_container_class = '--low-stock'
+          assign inventoryc_text = 'sections.products.product.low_stock_text' | t
+        endif
+        
+        if inventoryc_count > 50
+          assign inventoryc_container_class = '--enough-stock'
+          assign inventoryc_text = 'sections.products.product.in_stock_text' | t
+        endif
+      -%}
+  {%- endif -%}
+  <strong class="product_stock-inventory {% unless product.selected_or_first_available_variant.inventory_management == 'shopify' %}hidden{% endunless %}">
+    <span class="{{ inventoryc_container_class }}">
+      {{- inventoryc_text -}}
+    </span>
+  </strong>
+</div>
+<div {{ price_render_attr }}>
+  {%- render 'price', product: product, use_variant: true, show_currency_code: settings.show_currency_code -%}
+</div>
+<div {{ price_from_render_attr }}>
+  {%- render 'price', product: product, use_variant: true, show_currency_code: settings.show_currency_code -%}
+</div>
+<div {{ discount_render_attr }}>
+  {%- render 'price', product: product, use_variant: true, show_currency_code: settings.show_currency_code | show_discount_tag: true -%}
+</div>
+<div {{ discount_render_attr }}>
+  {%- render 'price', product: product, use_variant: true, show_currency_code: settings.show_currency_code | show_discount_tag: true -%}
+</div>
+<span {{ variant_price_render_attr }}>
+  <input
+    type="hidden"
+    name="variant_price"
+    value="{{ product.selected_or_first_available_variant.price }}"
+  >
+</span>
+<span {{ variant_compare_price_render_attr }}>
+  <input
+    type="hidden"
+    name="variant_compare_price"
+    value="{% if product.selected_or_first_available_variant.compare_at_price %}{{ product.selected_or_first_available_variant.compare_at_price }}{% else %}0{% endif %}"
+  >
+</span>
