@@ -655,9 +655,9 @@
         -%}
         {%- assign card_rating = product.metafields.reviews.rating.value.rating -%}
         {%- assign card_rating_count = product.metafields.reviews.rating_count -%}
-        {%- if card_rating != blank and card_rating_count > 0 -%}
-          {%- assign card_star_filled = card_rating | round -%}
-          <div class="product-card_stars">
+        <div class="product-card_stars">
+          {%- if card_rating != blank and card_rating_count > 0 -%}
+            {%- assign card_star_filled = card_rating | round -%}
             {%- for i in (1..5) -%}
               {%- if i <= card_star_filled -%}
                 <i class="product_rating-star --active">{%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'star-filled' -%}</i>
@@ -666,8 +666,8 @@
               {%- endif -%}
             {%- endfor -%}
             <span class="product-card_stars-info">{{ card_rating | round: 1 }} ({{ card_rating_count }})</span>
-          </div>
-        {%- endif -%}
+          {%- endif -%}
+        </div>
         {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: product_title | elem_heading_size: 'heading_x_small' | elem_heading_link: product_clean_url | elem_heading_custom_class: 'mty' -%}
         {%- if section.settings.show_vendor -%}
           <div class="product_vendor mty">

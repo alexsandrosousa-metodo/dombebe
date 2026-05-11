@@ -871,6 +871,7 @@ product-card.--drawer-active .product-card-colors{
   align-items: center;
   gap: 2px;
   margin-bottom: 4px;
+  min-height: 22px;
 }
 
 .product-card_stars .product_rating-star {
