@@ -30,6 +30,18 @@
           assign swatch_focal_point = value.swatch.image.presentation.focal_point
           elsif value.swatch.color
             assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
+          else
+            assign color_handle = value | handleize
+            assign color_meta = shop.metaobjects.cor[color_handle]
+            unless color_meta == blank
+              assign meta_cor_field = color_meta.cor
+              if meta_cor_field == blank
+                assign meta_cor_field = color_meta.color
+              endif
+              unless meta_cor_field == blank
+                assign swatch_value = meta_cor_field.value
+              endunless
+            endunless
         endif
         else
           if is_color_option == 'true'

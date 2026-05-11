@@ -574,6 +574,12 @@
                                             elsif value.swatch.color
                                               echo 'true'
                                               break
+                                            else
+                                              assign chk_meta = shop.metaobjects.cor[value | handleize]
+                                              unless chk_meta == blank
+                                                echo 'true'
+                                                break
+                                              endunless
                                             endif
                                           else
                                             if option.name == 'color' or option.name == 'Color' or option.name == 'colour' or option.name == 'Colour' or option.name == 'Cor' or option.name == 'cor'
