@@ -1860,12 +1860,12 @@ input[type="radio"]:checked + .variant-element_label::before,
 .variant-element_span,
 .variant-row--pills-color .variant-element_label{
   display: block;
-  border-radius: calc(var(--button-radius) / 1.5);
+  border-radius: 50px;
 }
 
 .variant-row--pills-color .variant-element_span{
   position: relative;
-  padding: 9px;
+  padding: 12px;
   background: var(--variant-clr, --section-text-color);
   background-position: var(--swatch-focal-point, 0 0);
   background-size: cover;

@@ -762,7 +762,7 @@ product-card.--drawer-active .product-card-colors{
 }
 
 .product-card-variants .variant-element_title{
-  max-width: 120px;
+  max-width: 50px;
 }
 
 .product-column:hover{
