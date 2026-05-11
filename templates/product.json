@@ -1,1 +1,378 @@
-{"sections":{"main":{"type":"main-product","blocks":{"title":{"type":"title","settings":{"title_size":"heading_xx_large","block_top_padding":0,"block_bottom_padding":12}},"tags_bar":{"type":"tags_bar","disabled":true,"settings":{"block_top_padding":0,"block_bottom_padding":10}},"description":{"type":"description","disabled":true,"settings":{"block_top_padding":0,"block_bottom_padding":0}},"text_1":{"type":"text","disabled":true,"settings":{"text":"This store serves as a demonstration. All products, images, and their respective copyrights constitute the exclusive intellectual property of <a href=\"https:\/\/noodoll.com\/\" target=\"_blank\" title=\"https:\/\/noodoll.com\/\">Noodoll<\/a>.","block_top_padding":0,"block_bottom_padding":10}},"quantity_input":{"type":"quantity_input","settings":{"show_subtotals":true,"block_top_padding":0,"block_bottom_padding":0}},"message_box":{"type":"message_box","disabled":true,"settings":{"heading":"Charity commitment","subheading":"1% of order value (minimum $1)","description":"From <span style=\"text-decoration:underline\">Kidu<\/span> to <span style=\"text-decoration:underline\">Little Angels<\/span>","message_box_color_scheme":"","block_top_padding":0,"block_bottom_padding":45}},"free_shipping":{"type":"icon_with_description","disabled":true,"settings":{"heading":"Free Shipping","description":"Free shipping on orders over $200.","block_top_padding":0,"block_bottom_padding":20}},"notice":{"type":"icon_with_description","disabled":true,"settings":{"heading":"Notice","description":"Heavy snowfall and ice can block vital roadways, causing significant delays in shipping.","block_top_padding":0,"block_bottom_padding":47}},"shipping_collapsible":{"type":"collapsible_row","disabled":true,"settings":{"heading":"","description":"<strong>Aproveite o Frete Grátis<\/strong>! Válido para todo o Sul, Sudeste, Centro-Oeste e Nordeste do Brasil. Para outras regiões, consulte seu CEP ao finalizar a compra.","defaul_section_open":true,"block_top_padding":0,"block_bottom_padding":0}},"statistics_bar_YGyefF":{"type":"statistics_bar","settings":{"show_savings_badge":false,"show_inventory":false,"show_rating":true,"enable_compare_button":false,"enable_share":false,"block_top_padding":0,"block_bottom_padding":10}},"price_and_variations":{"type":"price_and_variations","settings":{"show_variations":true,"show_sku":false,"enable_ask_question":false,"enable_size_chart":false,"block_top_padding":10,"block_bottom_padding":0}},"checkout_buttons":{"type":"buttons","settings":{"show_dynamic_checkouts":false,"show_gift_card_recipient":false,"block_top_padding":0,"block_bottom_padding":0}},"complementary":{"type":"complementary","settings":{"heading":"Frequently bought together","heading_size":"heading_x_small","make_bundle_section":false,"bundle_dicount_text":"Get a 10% discount buying these products together","complementary_media_aspect_ratio":"adapt_to_image","comp_show_navigation":true,"comp_top_padding":55,"comp_bottom_padding":79}}},"block_order":["title","tags_bar","description","text_1","quantity_input","message_box","free_shipping","notice","shipping_collapsible","statistics_bar_YGyefF","price_and_variations","checkout_buttons","complementary"],"custom_css":[".mty.main-product_type-block.main-product_description-block {height: 200px; overflow: overlay;}","button.button--product-action.button-actions.button--primary {background: rgba(82, 178, 165, 1); color: #fff; padding: 12px; gap: 10px; width: 100%; flex-direction: row-reverse; justify-content: center; display: flex;}","span.js-contents--loader {display: none;}",".main-product_quantity_input-block {display: none !important;}"],"settings":{"sticky_product":true,"gallery_view":"slider_with_thumbs","media_width":"medium","media_aspect_ratio":"adapt_to_image","bottom_sticky_bar":false,"enable_stickybar_compare":false,"section_color_scheme":"","show_navigation":true,"pagination":"none","flag_1_handle":"ultra-compacto","flag_1_image":"shopify:\/\/shop_images\/ultra_compacto_1.png","flag_1_label":"","flag_2_handle":"conforto-superior","flag_2_image":"shopify:\/\/shop_images\/conforto_superior_1.png","flag_2_label":"","flag_3_handle":"carrinho-moises","flag_3_image":"shopify:\/\/shop_images\/carrinho_mises_1.png","flag_3_label":"","flag_4_handle":"protecao-extra","flag_4_image":"shopify:\/\/shop_images\/protecao_extra_1.png","flag_4_label":"","flag_5_handle":"conjunto-completo","flag_5_image":"shopify:\/\/shop_images\/conjunto_completo_1.png","flag_5_label":"","flag_6_handle":"isofix-giro-360","flag_6_image":"shopify:\/\/shop_images\/isofix_giro_360.png","flag_6_label":"","section_top_padding":0,"section_bottom_padding":0}},"media-with-text":{"type":"media-with-text","blocks":{"image1":{"type":"image","settings":{"pagination_text":""}}},"block_order":["image1"],"disabled":true,"settings":{"section_subheading":"","section_subheading_size":"heading_medium","section_heading":"Order \"{{ product.title }}\" by 6 PM for next-day delivery!","section_heading_size":"heading_large","section_description":"<p>{{ product.title }} - Elevate your experience with this premium \"{{ product.title }}\" by <strong>{{ product.vendor }}<\/strong>. Discover unparalleled quality and style in every detail.<\/p>","section_caption":"","link_label":"","link":"","open_new_window":false,"column_image_ratio":"adapt_to_image","make_media_full":"default","section_media_alignment":"left","section_media_position":"middle","section_text_alignment":"left","mobile_text_alignment":false,"enable_container":true,"remove_grid_spacing":false,"remove_card_spacing":false,"section_color_scheme":"scheme1","full_screen_width":false,"section_background_full":true,"section_corner_radius":"both_corners_radius","auto_play":false,"show_navigation":true,"pagination":"lines","change_slides_every":5,"section_top_padding":45,"section_bottom_padding":60}},"image-with-collapsible":{"type":"image-with-collapsible","blocks":{"collapsible_row1":{"type":"collapsible_row","settings":{"heading":"Do you provide gift wrapping for toys?","description":"<p>Yes, we take special care to wrap all our toys in tissue paper, place them in a delightful box, and seal them with our charming Kidu paper tape. Our packaging is thoughtfully designed to be plastic-free, and you can include a personalized gift message at no extra cost during the checkout.<\/p>","defaul_section_open":false}},"collapsible_row2":{"type":"collapsible_row","settings":{"heading":"Can I wash my Kidu toys?","description":"<p>Absolutely! Before washing, remember to remove any tags from the toy, the music box from music mobiles, or any detachable parts. You can safely machine wash your Kidu toys using a cold cycle and then allow them to air dry. For our long-haired toy models, an occasional gentle brushing will keep them looking their best.<\/p>","defaul_section_open":false}},"collapsible_row3":{"type":"collapsible_row","settings":{"heading":"Are Kidu toys safe for babies and children?","description":"<p>Our Kidu toys are rigorously safety-certified, bearing the CE & EN71 (EU) and ASTM-963 (USA) certifications. This means they are designed and tested to meet the highest safety standards, making them suitable and secure for children from birth onwards.<\/p>","defaul_section_open":false}},"collapsible_row4":{"type":"collapsible_row","settings":{"heading":"Have more questions about our toys?","description":"<p>Feel free to get in touch with us via email at <a href=\"mailto:customer.support@1o1development.com\" title=\"Contact us\">customer.support@1o1development.com<\/a> or send us a message on Instagram (@1o1development) for faster responses. We're here to assist you!<\/p>","defaul_section_open":false}}},"block_order":["collapsible_row1","collapsible_row2","collapsible_row3","collapsible_row4"],"disabled":true,"settings":{"section_image_ratio":"adapt_to_image","section_heading":"Image with collapsible","section_heading_size":"heading_large","section_description":"<p>Please read our frequently asked questions to find out more.<\/p>","section_media_alignment":"left","section_media_position":"top","section_text_alignment":"center","collapsible_heading_size":"heading_x_small","collapsible_text_alignment":"left","section_color_scheme":"","section_background_full":false,"section_top_padding":41,"section_bottom_padding":49}},"compre_junto_4fXeqg":{"type":"compre-junto","name":"Compre Junto","settings":{"title":"Compre Junto"}},"recommendations":{"type":"product-recommendations","settings":{"section_heading":"Recomendados para você!","section_heading_size":"heading_medium","section_description":"","number_of_columns_on_desktop":4,"number_of_rows":1,"number_of_columns_on_mobile":"1","mob_cols_query":576,"hide_qty_field_on_mob":false,"hide_info_bar_on_mob":false,"hide_info_bar_on_desktop":false,"hide_quick_mob":false,"hide_compare_on_mob":false,"hide_compare_on_desktop":false,"color_switcher_position":true,"column_image_ratio":"adapt_to_image","product_text_center":false,"show_sec_image":true,"show_product_rating":true,"show_inventory":false,"show_savings_badge":true,"show_custom_badges":true,"show_vendor":false,"enable_compare_button":false,"enable_quick_add_button":true,"card_view":false,"show_animation":true,"show_animation_btn":false,"enable_quantity_field":true,"show_status_as_overlay":false,"status_bar_position":"show_status_bar_top","compare_button_position":"show_compare_btn_top","section_color_scheme":"","section_text_alignment":"center","full_screen_width":false,"mobile_text_alignment":false,"enable_slideshow":true,"auto_play":true,"show_navigation":true,"arrows_position":"arrows_in_center","pagination":"none","change_slides_every":3,"section_top_padding":2,"section_bottom_padding":2}},"1777396348c1f18158":{"type":"apps","blocks":{"judge_me_reviews_review_widget_r4ifyV":{"type":"shopify:\/\/apps\/judge-me-reviews\/blocks\/review_widget\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8","settings":{"review_data":"sample_data","max_width":1200,"show_shop_reviews":true,"empty_state":"other_products_reviews"}}},"block_order":["judge_me_reviews_review_widget_r4ifyV"],"settings":{}}},"order":["main","media-with-text","image-with-collapsible","compre_junto_4fXeqg","recommendations","1777396348c1f18158"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "title_size": "heading_xx_large",
+            "block_top_padding": 0,
+            "block_bottom_padding": 12
+          }
+        },
+        "tags_bar": {
+          "type": "tags_bar",
+          "disabled": true,
+          "settings": {
+            "block_top_padding": 0,
+            "block_bottom_padding": 10
+          }
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {
+            "block_top_padding": 0,
+            "block_bottom_padding": 0
+          }
+        },
+        "text_1": {
+          "type": "text",
+          "disabled": true,
+          "settings": {
+            "text": "This store serves as a demonstration. All products, images, and their respective copyrights constitute the exclusive intellectual property of <a href=\"https://noodoll.com/\" target=\"_blank\" title=\"https://noodoll.com/\">Noodoll</a>.",
+            "block_top_padding": 0,
+            "block_bottom_padding": 10
+          }
+        },
+        "quantity_input": {
+          "type": "quantity_input",
+          "settings": {
+            "show_subtotals": true,
+            "block_top_padding": 0,
+            "block_bottom_padding": 0
+          }
+        },
+        "message_box": {
+          "type": "message_box",
+          "disabled": true,
+          "settings": {
+            "heading": "Charity commitment",
+            "subheading": "1% of order value (minimum $1)",
+            "description": "From <span style=\"text-decoration:underline\">Kidu</span> to <span style=\"text-decoration:underline\">Little Angels</span>",
+            "message_box_color_scheme": "",
+            "block_top_padding": 0,
+            "block_bottom_padding": 45
+          }
+        },
+        "free_shipping": {
+          "type": "icon_with_description",
+          "disabled": true,
+          "settings": {
+            "heading": "Free Shipping",
+            "description": "Free shipping on orders over $200.",
+            "block_top_padding": 0,
+            "block_bottom_padding": 20
+          }
+        },
+        "notice": {
+          "type": "icon_with_description",
+          "disabled": true,
+          "settings": {
+            "heading": "Notice",
+            "description": "Heavy snowfall and ice can block vital roadways, causing significant delays in shipping.",
+            "block_top_padding": 0,
+            "block_bottom_padding": 47
+          }
+        },
+        "shipping_collapsible": {
+          "type": "collapsible_row",
+          "disabled": true,
+          "settings": {
+            "heading": "",
+            "description": "<strong>Aproveite o Frete Grátis</strong>! Válido para todo o Sul, Sudeste, Centro-Oeste e Nordeste do Brasil. Para outras regiões, consulte seu CEP ao finalizar a compra.",
+            "defaul_section_open": true,
+            "block_top_padding": 0,
+            "block_bottom_padding": 0
+          }
+        },
+        "statistics_bar_YGyefF": {
+          "type": "statistics_bar",
+          "settings": {
+            "show_savings_badge": false,
+            "show_inventory": false,
+            "show_rating": true,
+            "enable_compare_button": false,
+            "enable_share": false,
+            "block_top_padding": 0,
+            "block_bottom_padding": 10
+          }
+        },
+        "price_and_variations": {
+          "type": "price_and_variations",
+          "settings": {
+            "show_variations": true,
+            "show_sku": false,
+            "enable_ask_question": false,
+            "enable_size_chart": false,
+            "block_top_padding": 10,
+            "block_bottom_padding": 0
+          }
+        },
+        "checkout_buttons": {
+          "type": "buttons",
+          "settings": {
+            "show_dynamic_checkouts": false,
+            "show_gift_card_recipient": false,
+            "block_top_padding": 0,
+            "block_bottom_padding": 0
+          }
+        },
+        "complementary": {
+          "type": "complementary",
+          "settings": {
+            "heading": "Frequently bought together",
+            "heading_size": "heading_x_small",
+            "make_bundle_section": false,
+            "bundle_dicount_text": "Get a 10% discount buying these products together",
+            "complementary_media_aspect_ratio": "adapt_to_image",
+            "comp_show_navigation": true,
+            "comp_top_padding": 55,
+            "comp_bottom_padding": 79
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "tags_bar",
+        "description",
+        "text_1",
+        "quantity_input",
+        "message_box",
+        "free_shipping",
+        "notice",
+        "shipping_collapsible",
+        "statistics_bar_YGyefF",
+        "price_and_variations",
+        "checkout_buttons",
+        "complementary"
+      ],
+      "custom_css": [
+        ".mty.main-product_type-block.main-product_description-block {height: 200px; overflow: overlay;}",
+        "button.button--product-action.button-actions.button--primary {background: rgba(82, 178, 165, 1); color: #fff; padding: 12px; gap: 10px; width: 100%; flex-direction: row-reverse; justify-content: center; display: flex;}",
+        "span.js-contents--loader {display: none;}",
+        ".main-product_quantity_input-block {display: none !important;}"
+      ],
+      "settings": {
+        "sticky_product": true,
+        "gallery_view": "slider_with_thumbs",
+        "media_width": "medium",
+        "media_aspect_ratio": "adapt_to_image",
+        "bottom_sticky_bar": false,
+        "enable_stickybar_compare": false,
+        "section_color_scheme": "",
+        "show_navigation": true,
+        "pagination": "none",
+        "flag_1_handle": "",
+        "flag_1_label": "",
+        "flag_2_handle": "",
+        "flag_2_label": "",
+        "flag_3_handle": "",
+        "flag_3_label": "",
+        "flag_4_handle": "",
+        "flag_4_label": "",
+        "flag_5_handle": "",
+        "flag_5_label": "",
+        "flag_6_handle": "",
+        "flag_6_label": "",
+        "section_top_padding": 0,
+        "section_bottom_padding": 0
+      }
+    },
+    "media-with-text": {
+      "type": "media-with-text",
+      "blocks": {
+        "image1": {
+          "type": "image",
+          "settings": {
+            "pagination_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "image1"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_subheading": "",
+        "section_subheading_size": "heading_medium",
+        "section_heading": "Order \"{{ product.title }}\" by 6 PM for next-day delivery!",
+        "section_heading_size": "heading_large",
+        "section_description": "<p>{{ product.title }} - Elevate your experience with this premium \"{{ product.title }}\" by <strong>{{ product.vendor }}</strong>. Discover unparalleled quality and style in every detail.</p>",
+        "section_caption": "",
+        "link_label": "",
+        "link": "",
+        "open_new_window": false,
+        "column_image_ratio": "adapt_to_image",
+        "make_media_full": "default",
+        "section_media_alignment": "left",
+        "section_media_position": "middle",
+        "section_text_alignment": "left",
+        "mobile_text_alignment": false,
+        "enable_container": true,
+        "remove_grid_spacing": false,
+        "remove_card_spacing": false,
+        "section_color_scheme": "scheme1",
+        "full_screen_width": false,
+        "section_background_full": true,
+        "section_corner_radius": "both_corners_radius",
+        "auto_play": false,
+        "show_navigation": true,
+        "pagination": "lines",
+        "change_slides_every": 5,
+        "section_top_padding": 45,
+        "section_bottom_padding": 60
+      }
+    },
+    "image-with-collapsible": {
+      "type": "image-with-collapsible",
+      "blocks": {
+        "collapsible_row1": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Do you provide gift wrapping for toys?",
+            "description": "<p>Yes, we take special care to wrap all our toys in tissue paper, place them in a delightful box, and seal them with our charming Kidu paper tape. Our packaging is thoughtfully designed to be plastic-free, and you can include a personalized gift message at no extra cost during the checkout.</p>",
+            "defaul_section_open": false
+          }
+        },
+        "collapsible_row2": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Can I wash my Kidu toys?",
+            "description": "<p>Absolutely! Before washing, remember to remove any tags from the toy, the music box from music mobiles, or any detachable parts. You can safely machine wash your Kidu toys using a cold cycle and then allow them to air dry. For our long-haired toy models, an occasional gentle brushing will keep them looking their best.</p>",
+            "defaul_section_open": false
+          }
+        },
+        "collapsible_row3": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Are Kidu toys safe for babies and children?",
+            "description": "<p>Our Kidu toys are rigorously safety-certified, bearing the CE & EN71 (EU) and ASTM-963 (USA) certifications. This means they are designed and tested to meet the highest safety standards, making them suitable and secure for children from birth onwards.</p>",
+            "defaul_section_open": false
+          }
+        },
+        "collapsible_row4": {
+          "type": "collapsible_row",
+          "settings": {
+            "heading": "Have more questions about our toys?",
+            "description": "<p>Feel free to get in touch with us via email at <a href=\"mailto:customer.support@1o1development.com\" title=\"Contact us\">customer.support@1o1development.com</a> or send us a message on Instagram (@1o1development) for faster responses. We're here to assist you!</p>",
+            "defaul_section_open": false
+          }
+        }
+      },
+      "block_order": [
+        "collapsible_row1",
+        "collapsible_row2",
+        "collapsible_row3",
+        "collapsible_row4"
+      ],
+      "disabled": true,
+      "settings": {
+        "section_image_ratio": "adapt_to_image",
+        "section_heading": "Image with collapsible",
+        "section_heading_size": "heading_large",
+        "section_description": "<p>Please read our frequently asked questions to find out more.</p>",
+        "section_media_alignment": "left",
+        "section_media_position": "top",
+        "section_text_alignment": "center",
+        "collapsible_heading_size": "heading_x_small",
+        "collapsible_text_alignment": "left",
+        "section_color_scheme": "",
+        "section_background_full": false,
+        "section_top_padding": 41,
+        "section_bottom_padding": 49
+      }
+    },
+    "compre_junto_4fXeqg": {
+      "type": "compre-junto",
+      "name": "Compre Junto",
+      "settings": {
+        "title": "Compre Junto"
+      }
+    },
+    "recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "section_heading": "Recomendados para você!",
+        "section_heading_size": "heading_medium",
+        "section_description": "",
+        "number_of_columns_on_desktop": 4,
+        "number_of_rows": 1,
+        "number_of_columns_on_mobile": "1",
+        "mob_cols_query": 576,
+        "hide_qty_field_on_mob": false,
+        "hide_info_bar_on_mob": false,
+        "hide_info_bar_on_desktop": false,
+        "hide_quick_mob": false,
+        "hide_compare_on_mob": false,
+        "hide_compare_on_desktop": false,
+        "color_switcher_position": true,
+        "column_image_ratio": "adapt_to_image",
+        "product_text_center": false,
+        "show_sec_image": true,
+        "show_product_rating": true,
+        "show_inventory": false,
+        "show_savings_badge": true,
+        "show_custom_badges": true,
+        "show_vendor": false,
+        "enable_compare_button": false,
+        "enable_quick_add_button": true,
+        "card_view": false,
+        "show_animation": true,
+        "show_animation_btn": false,
+        "enable_quantity_field": true,
+        "show_status_as_overlay": false,
+        "status_bar_position": "show_status_bar_top",
+        "compare_button_position": "show_compare_btn_top",
+        "section_color_scheme": "",
+        "section_text_alignment": "center",
+        "full_screen_width": false,
+        "mobile_text_alignment": false,
+        "enable_slideshow": true,
+        "auto_play": true,
+        "show_navigation": true,
+        "arrows_position": "arrows_in_center",
+        "pagination": "none",
+        "change_slides_every": 3,
+        "section_top_padding": 2,
+        "section_bottom_padding": 2
+      }
+    },
+    "1777396348c1f18158": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_r4ifyV": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "real_data",
+            "max_width": 1200,
+            "show_shop_reviews": true,
+            "empty_state": "other_products_reviews"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_r4ifyV"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "media-with-text",
+    "image-with-collapsible",
+    "compre_junto_4fXeqg",
+    "recommendations",
+    "1777396348c1f18158"
+  ]
+}
