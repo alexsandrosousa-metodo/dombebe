@@ -1865,7 +1865,7 @@ input[type="radio"]:checked + .variant-element_label::before,
 
 .variant-row--pills-color .variant-element_span{
   position: relative;
-  padding: 12px;
+  padding: 15px;
   background: var(--variant-clr, --section-text-color);
   background-position: var(--swatch-focal-point, 0 0);
   background-size: cover;
@@ -1897,7 +1897,7 @@ input[type="radio"]:checked + .variant-element_label::before,
   text-align: center;
   position: relative;
   word-break: break-word;
-  background-color: var(--section-primary-bg);
+  background-color: var(--variant-clr);
   color: var(--section-primary-text-color);
   border-radius: calc(var(--button-radius) / 1.5);
 }
