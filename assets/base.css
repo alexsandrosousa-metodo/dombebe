@@ -359,6 +359,7 @@ div.prdkwrap2.show-variant-drawer > quantity-input{
     padding: 0px 10px;
     border-radius: 30px;
     width: 200px;
+    margin-top: 40px;
 }
 
 #cart-items > div.modal-component_foot > div > div.button-holder > form > button{
@@ -381,7 +382,7 @@ div.prdkwrap2.show-variant-drawer > quantity-input{
 
 .container-pix-product{
 	    position: relative;
-    top: 15px;
+    top: 45px;
     margin-bottom: 0px;
 }
 

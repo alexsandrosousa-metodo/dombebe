@@ -339,6 +339,7 @@
   flex-shrink: 0;
   min-width: 50%;
   position: relative;
+  margin-top: -5px;
 }
 
 .product-column .product-column_button-wrap.btn-with-compare.--btn-full{
@@ -399,6 +400,7 @@
   font-size: 1.2rem;
   line-height: 1;
   z-index: 1;
+  display: none;
 }
 
 .product-column_stats-wrap::before{
@@ -411,6 +413,7 @@
   bottom: 0;
   right: 0;
   z-index: -1;
+  display: none;
 }
 
 .product-column .product_name-name{
@@ -541,6 +544,7 @@ line-item-qty{
 
 .product-column .product_variation-wrap{
   flex-grow: 1;
+  display: none;
 }
 
 .variants-toggler--back{
