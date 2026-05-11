@@ -575,7 +575,17 @@
                                               echo 'true'
                                               break
                                             else
-                                              assign chk_meta = shop.metaobjects.cor[value | handleize]
+                                              assign chk_handle = value | handleize
+                                              assign chk_cat = product.metafields.shopify['color-pattern']
+                                              unless chk_cat == blank
+                                                for chk_entry in chk_cat.value
+                                                  if chk_entry.system.handle == chk_handle
+                                                    echo 'true'
+                                                    break
+                                                  endif
+                                                endfor
+                                              endunless
+                                              assign chk_meta = shop.metaobjects.cor[chk_handle]
                                               unless chk_meta == blank
                                                 echo 'true'
                                                 break
