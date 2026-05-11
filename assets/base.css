@@ -380,6 +380,11 @@ div.prdkwrap2.show-variant-drawer > quantity-input{
   border-radius: 50%;
 }
 
+svg.ico.ico-star-filled {
+    width: 22px;
+    height: 22px;
+}
+
 .container-pix-product{
 	    position: relative;
     top: 45px;
