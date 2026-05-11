@@ -668,12 +668,12 @@
             <span class="product-card_stars-info">{{ card_rating | round: 1 }} ({{ card_rating_count }})</span>
           </div>
         {%- endif -%}
-        {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: product_title | elem_heading_size: 'heading_x_small' | elem_heading_custom_class: 'mty' -%}
-        {% if section.settings.show_vendor %}
-          <div class="product_vendor">
-            <strong class="product_name-name">{{ 'sections.products.product.vendor_name' | t }}</strong>
+        {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: product_title | elem_heading_size: 'heading_x_small' | elem_heading_link: product_clean_url | elem_heading_custom_class: 'mty' -%}
+        {%- if section.settings.show_vendor -%}
+          <div class="product_vendor mty">
+            <strong class="product_name-name">{{- product.vendor -}}</strong>
           </div>
-        {% endif %}
+        {%- endif -%}
 
       <div class="product_statuses-wrapper">
         <div class="product_price-wrap">
@@ -682,15 +682,6 @@
           </div>
         </div>
       </div>
-      {%- liquid
-        assign productTitle = product.title | escape
-        render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: productTitle | elem_heading_size: 'heading_x_small' | elem_heading_link: product_clean_url | elem_heading_custom_class: 'mty'
-      -%}
-      {%- if section.settings.show_vendor -%}
-        <div class="product_vendor mty">
-          <strong class="product_name-name">{{- product.vendor -}}</strong>
-        </div>
-      {%- endif -%}
       {% unless section.settings.color_switcher_position %}
         {%- if section.settings.enable_quick_add_button and enable_swatches == 'true' -%}
           {%- unless product.requires_selling_plan -%}
