@@ -391,6 +391,16 @@ svg.ico.ico-star-filled {
     margin-bottom: 0px;
 }
 
+.product_foot > .premium-store-card-savings{
+    margin-bottom: 0px;
+}
+
+
+.product-card-organizer > div.container-pix-product{
+position: relative;
+    top: 64px;
+    margin-bottom: 0;
+}
 
 /* Hide marker */
 details>summary {
