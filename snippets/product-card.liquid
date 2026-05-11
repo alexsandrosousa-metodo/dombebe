@@ -653,13 +653,28 @@
             endif
           endcapture
         -%}
+        {%- assign card_rating = product.metafields.reviews.rating.value.rating -%}
+        {%- assign card_rating_count = product.metafields.reviews.rating_count -%}
+        {%- if card_rating != blank and card_rating_count > 0 -%}
+          {%- assign card_star_filled = card_rating | round -%}
+          <div class="product-card_stars">
+            {%- for i in (1..5) -%}
+              {%- if i <= card_star_filled -%}
+                <i class="product_rating-star --active">{%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'star-filled' -%}</i>
+              {%- else -%}
+                <i class="product_rating-star">{%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'star-filled' -%}</i>
+              {%- endif -%}
+            {%- endfor -%}
+            <span class="product-card_stars-info">{{ card_rating | round: 1 }} ({{ card_rating_count }})</span>
+          </div>
+        {%- endif -%}
         {%- render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: product_title | elem_heading_size: 'heading_x_small' | elem_heading_custom_class: 'mty' -%}
         {% if section.settings.show_vendor %}
           <div class="product_vendor">
             <strong class="product_name-name">{{ 'sections.products.product.vendor_name' | t }}</strong>
           </div>
         {% endif %}
-    
+
       <div class="product_statuses-wrapper">
         <div class="product_price-wrap">
           <div data-request-contents="price" {{ price_from_render_attr }}>
@@ -667,6 +682,21 @@
           </div>
         </div>
       </div>
+      {%- assign card_rating2 = product.metafields.reviews.rating.value.rating -%}
+      {%- assign card_rating_count2 = product.metafields.reviews.rating_count -%}
+      {%- if card_rating2 != blank and card_rating_count2 > 0 -%}
+        {%- assign card_star_filled2 = card_rating2 | round -%}
+        <div class="product-card_stars">
+          {%- for i in (1..5) -%}
+            {%- if i <= card_star_filled2 -%}
+              <i class="product_rating-star --active">{%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'star-filled' -%}</i>
+            {%- else -%}
+              <i class="product_rating-star">{%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'star-filled' -%}</i>
+            {%- endif -%}
+          {%- endfor -%}
+          <span class="product-card_stars-info">{{ card_rating2 | round: 1 }} ({{ card_rating_count2 }})</span>
+        </div>
+      {%- endif -%}
       {%- liquid
         assign productTitle = product.title | escape
         render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: productTitle | elem_heading_size: 'heading_x_small' | elem_heading_link: product_clean_url | elem_heading_custom_class: 'mty'

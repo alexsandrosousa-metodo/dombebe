@@ -862,6 +862,29 @@ product-card.--drawer-active .product-card-colors{
   display: none;
 }
 
+.product-card_stars {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 4px;
+}
+
+.product-card_stars .product_rating-star {
+  line-height: 0;
+  color: #d9d9d9;
+}
+
+.product-card_stars .product_rating-star.--active {
+  color: #EEBE15;
+}
+
+.product-card_stars-info {
+  font-size: 0.8rem;
+  color: #555;
+  margin-left: 4px;
+  font-weight: 600;
+}
+
 .product-text-center .product_price-wrap{
   padding-right: 0;
 }
