@@ -79,7 +79,7 @@
             {%- if recommendations.performed and recommendations.products_count > 0 -%}
             {% unless section.settings.enable_slideshow == false %}
               <div class="{{ section_prefix_class }}_slider">
-                <h2 class="h4 elem-header_heading mty" style="margin-bottom: 30px;">Veja também</h2>
+                <h2 class="h4 elem-header_heading mty" style="margin-bottom: 30px;">Recomendados para você!</h2>
                 <splide-slider
                   data-drag='true'
                   data-autoplay='{{ section.settings.auto_play }}'
@@ -176,7 +176,7 @@
   
   .product-recommendations_wrapper {
     display: grid;
-    grid-template-columns: 1fr;
+    {% comment %} grid-template-columns: 1fr; {% endcomment %}
     gap:40px;
     margin-bottom:40px;
   }
@@ -184,14 +184,14 @@
   @media (min-width: 900px){
     .recommendation_wrapper .splide__list {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         width: 100%;
         gap: 30px;
     } 
   
     .product-recommendations_wrapper {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      {% comment %} grid-template-columns: 1fr 1fr; {% endcomment %}
       gap:40px;
     }
   }
@@ -207,7 +207,6 @@
     max-height: 1260px;
     margin-bottom: 60px;
     overflow: auto;
-        padding-right: 30px;
   }
   iframe {
     border-radius: 6px;

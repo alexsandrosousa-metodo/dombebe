@@ -1,0 +1,545 @@
+/* ==========================================
+   COMPRE JUNTO - Layout Fiel ao Design
+   ========================================== */
+
+.compre-junto-wrapper {
+  padding: 50px 20px;
+  background: #ffffff;
+}
+
+.compre-junto-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.compre-junto-title {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 40px;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ==========================================
+   GRID LAYOUT
+   ========================================== */
+
+.compre-junto-products {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+@media (max-width: 1200px) {
+  .compre-junto-products {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 10px 0;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ==========================================
+   CARD DO PRODUTO
+   ========================================== */
+
+.bundle-product-card {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 28px;
+  padding: 16px;
+  width: 290px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  height:490px;
+}
+
+.bundle-product-card.selected {
+  border-color: #E6E6E6;
+  box-shadow: 0 0 0 1px #E6E6E6;
+}
+
+@media (max-width: 768px) {
+  .bundle-product-card {
+    width: 170px;
+    padding: 12px;
+  }
+}
+
+/* ==========================================
+   CHECKBOX CUSTOMIZADO
+   ========================================== */
+
+.product-checkbox {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Checkbox hidden para o terceiro produto */
+.product-checkbox-hidden {
+  display: none !important;
+}
+
+/* Produto 3 sempre com borda verde */
+.bundle-product-card[data-product-index="2"] {
+  border-color: #E6E6E6;
+  box-shadow: 0 0 0 1px #E6E6E6;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  user-select: none;
+}
+
+.checkbox-icon {
+ display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #E6E6E6;
+    background: #52B2A5;
+    transition: all .2s ease;
+    border-radius: 25px;
+}
+
+.product-checkbox:not(:checked) + .checkbox-label .checkbox-icon {
+  background: #ffffff;
+  border-color: #cccccc;
+}
+
+.product-checkbox:not(:checked) + .checkbox-label .checkbox-icon svg {
+  opacity: 0;
+}
+
+.checkbox-text {
+  font-size: 14px;
+  font-weight: 400;
+  color: #0D0D0D;
+}
+
+.product-checkbox:not(:checked) + .checkbox-label .checkbox-text {
+  color: #999999;
+}
+
+/* ==========================================
+   BADGE "Você está vendo"
+   ========================================== */
+
+.selling-badge {
+     display: inline-block;
+    background: #f0f9f4;
+    color: #1A1A1A;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+/* ==========================================
+   IMAGEM DO PRODUTO
+   ========================================== */
+
+.product-image-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: #fafafa;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.product-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Badge verde na imagem */
+.product-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 28px;
+  height: 28px;
+  background: #4caf50;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+/* Botão de favorito */
+.wishlist-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  background: #ffffff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  color: #ff6b9d;
+}
+
+.wishlist-btn:hover {
+  transform: scale(1.1);
+}
+
+/* ==========================================
+   INFO DO PRODUTO
+   ========================================== */
+
+.product-info {
+  text-align: left;
+}
+
+.product-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: #000;
+    margin: 0 0 6px;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.product-color {
+    font-size: 13px;
+    color: #666;
+    margin: 0 0 8px;
+}
+
+.product-color strong {
+  color: #000000;
+  font-weight: 600;
+}
+
+/* ==========================================
+   SWATCHES DE COR
+   ========================================== */
+
+.color-swatches {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 8px;
+  display:none;
+}
+
+.color-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-swatch.active {
+  border-color: #333333;
+  border-width: 2.5px;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+
+/* Cores personalizadas */
+.color-swatch[style*="graphite"] { background-color: #5a5a5a !important; }
+.color-swatch[style*="preto"] { background-color: #000000 !important; }
+.color-swatch[style*="black"] { background-color: #000000 !important; }
+.color-swatch[style*="cinza"] { background-color: #a0a0a0 !important; }
+.color-swatch[style*="gray"] { background-color: #a0a0a0 !important; }
+
+/* ==========================================
+   RATING
+   ========================================== */
+
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  display:none;
+  margin-bottom: 8px;
+}
+
+.star {
+  width: 11px;
+  height: 11px;
+}
+
+.rating-count {
+  font-size: 10px;
+  color: #666666;
+  font-weight: 500;
+  margin-left: 2px;
+}
+
+/* ==========================================
+   PREÇO
+   ========================================== */
+
+.product-price {
+display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.price-old {
+  font-size: 15px;
+  color: #999999;
+  text-decoration: line-through;
+}
+
+.price-current {
+font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    padding: 0;
+    line-height: 0;
+}
+
+/* ==========================================
+   SEPARADORES (+ e =)
+   ========================================== */
+
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+}
+
+@media (max-width: 768px) {
+  .separator {
+    width: 24px;
+  }
+  
+  .separator svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* ==========================================
+   BOX DE TOTAL
+   ========================================== */
+
+.bundle-total-box {
+      background: #52b2a533;
+    border-radius: 20px;
+    padding: 20px 16px;
+    width: 250px;
+    flex-shrink: 0;
+    text-align: center;
+    height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .bundle-total-box {
+    width: 180px;
+    padding: 16px 12px;
+  }
+}
+
+.total-label {
+  font-size: 11px;
+  color: #0C0C0C;
+  font-weight: 600;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.selected-count {
+  font-weight: 700;
+  color: #1a5535;
+}
+
+/* Preços no box */
+.total-price-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.total-price {
+font-size: 30px;
+    font-weight: 700;
+    color: #0c0c0c;
+    line-height: 1;
+}
+
+.total-compare-price {
+  font-size: 13px;
+  color:   color: #0C0C0C;
+  text-decoration: line-through;
+  display: none !important;
+}
+
+.payment-info {
+ font-size: 12px;
+    color: #0c0c0c;
+    margin: -10px 0 5px;
+    font-weight: 500;
+}
+
+/* Badge de economia */
+.savings-badge {
+align-items: center;
+    gap: 5px;
+    background: #61BF36;
+    color: #fff;
+    padding: 0px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 22px;
+}
+
+/* ==========================================
+   BOTÃO COMPRAR JUNTO
+   ========================================== */
+
+.btn-comprar-junto {
+     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 80%;
+    padding: 3px 0px;
+    background: #52b2a5 !important;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.btn-comprar-junto:hover:not(:disabled) {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.btn-comprar-junto:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.btn-comprar-junto.loading {
+  position: relative;
+  color: transparent;
+}
+
+.btn-comprar-junto.success {
+  background: #2e7d32;
+}
+
+.btn-comprar-junto.error {
+  background: #d32f2f;
+}
+
+/* Spinner de loading */
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   RESPONSIVO
+   ========================================== */
+
+@media (max-width: 640px) {
+  .compre-junto-title {
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
+  
+  .bundle-product-card {
+    width: 160px;
+  }
+  
+  .product-title {
+    font-size: 12px;
+  }
+  
+  .total-price {
+    font-size: 24px;
+  }
+}
+
+/* ==========================================
+   ANIMAÇÕES
+   ========================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.bundle-product-card,
+.bundle-total-box {
+  animation: fadeIn 0.4s ease-out backwards;
+}
+
+.bundle-product-card:nth-child(1) { animation-delay: 0.05s; }
+.bundle-product-card:nth-child(3) { animation-delay: 0.1s; }
+.bundle-product-card:nth-child(5) { animation-delay: 0.15s; }
+.bundle-total-box { animation-delay: 0.2s; }
+
+/* Hover suave */
+.bundle-product-card {
+  transition: all 0.2s ease;
+}
+
+.bundle-product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}

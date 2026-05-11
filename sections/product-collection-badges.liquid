@@ -1,0 +1,182 @@
+{%- comment -%}
+  ============================================================
+  SNIPPET: product-collection-badges.liquid
+  
+  USO: Inclua este snippet na sua template de produto:
+    {% render 'product-collection-badges', product: product %}
+  
+  Certifique-se de que o arquivo de schema (settings_schema.json)
+  ou a seção onde for incluído tenha as configurações de flags
+  definidas abaixo, OU use as variáveis globais do tema.
+  
+  Este snippet lê as mesmas configurações de flag do Premium Store
+  (flag_1_handle, flag_1_image, flag_1_label … até flag_6).
+  Você pode passar as configurações via objeto de seção:
+    {% render 'product-collection-badges', product: product, section: section %}
+  ============================================================
+{%- endcomment -%}
+
+{%- liquid
+  assign badge_found = false
+  assign badges_list = ''
+-%}
+
+{%- comment -%} Coleta todos os badges que correspondem às coleções do produto {%- endcomment -%}
+{%- assign collected_badges = '' -%}
+
+{%- for col in product.collections -%}
+
+  {%- if section.settings.flag_1_handle != blank and col.handle == section.settings.flag_1_handle and section.settings.flag_1_image != blank -%}
+    {%- capture badge_item -%}
+      <div class="pcb-badge" title="{{ section.settings.flag_1_label | default: col.title }}">
+        <img
+          src="{{ section.settings.flag_1_image | image_url: width: 120 }}"
+          alt="{{ section.settings.flag_1_label | default: col.title }}"
+          width="60" height="60" loading="lazy"
+        >
+        {%- if section.settings.flag_1_label != blank -%}
+          <span class="pcb-badge-label">{{ section.settings.flag_1_label }}</span>
+        {%- endif -%}
+      </div>
+    {%- endcapture -%}
+    {%- assign collected_badges = collected_badges | append: badge_item -%}
+    {%- assign badge_found = true -%}
+  {%- endif -%}
+
+  {%- if section.settings.flag_2_handle != blank and col.handle == section.settings.flag_2_handle and section.settings.flag_2_image != blank -%}
+    {%- capture badge_item -%}
+      <div class="pcb-badge" title="{{ section.settings.flag_2_label | default: col.title }}">
+        <img
+          src="{{ section.settings.flag_2_image | image_url: width: 120 }}"
+          alt="{{ section.settings.flag_2_label | default: col.title }}"
+          width="60" height="60" loading="lazy"
+        >
+        {%- if section.settings.flag_2_label != blank -%}
+          <span class="pcb-badge-label">{{ section.settings.flag_2_label }}</span>
+        {%- endif -%}
+      </div>
+    {%- endcapture -%}
+    {%- assign collected_badges = collected_badges | append: badge_item -%}
+    {%- assign badge_found = true -%}
+  {%- endif -%}
+
+  {%- if section.settings.flag_3_handle != blank and col.handle == section.settings.flag_3_handle and section.settings.flag_3_image != blank -%}
+    {%- capture badge_item -%}
+      <div class="pcb-badge" title="{{ section.settings.flag_3_label | default: col.title }}">
+        <img
+          src="{{ section.settings.flag_3_image | image_url: width: 120 }}"
+          alt="{{ section.settings.flag_3_label | default: col.title }}"
+          width="60" height="60" loading="lazy"
+        >
+        {%- if section.settings.flag_3_label != blank -%}
+          <span class="pcb-badge-label">{{ section.settings.flag_3_label }}</span>
+        {%- endif -%}
+      </div>
+    {%- endcapture -%}
+    {%- assign collected_badges = collected_badges | append: badge_item -%}
+    {%- assign badge_found = true -%}
+  {%- endif -%}
+
+  {%- if section.settings.flag_4_handle != blank and col.handle == section.settings.flag_4_handle and section.settings.flag_4_image != blank -%}
+    {%- capture badge_item -%}
+      <div class="pcb-badge" title="{{ section.settings.flag_4_label | default: col.title }}">
+        <img
+          src="{{ section.settings.flag_4_image | image_url: width: 120 }}"
+          alt="{{ section.settings.flag_4_label | default: col.title }}"
+          width="60" height="60" loading="lazy"
+        >
+        {%- if section.settings.flag_4_label != blank -%}
+          <span class="pcb-badge-label">{{ section.settings.flag_4_label }}</span>
+        {%- endif -%}
+      </div>
+    {%- endcapture -%}
+    {%- assign collected_badges = collected_badges | append: badge_item -%}
+    {%- assign badge_found = true -%}
+  {%- endif -%}
+
+  {%- if section.settings.flag_5_handle != blank and col.handle == section.settings.flag_5_handle and section.settings.flag_5_image != blank -%}
+    {%- capture badge_item -%}
+      <div class="pcb-badge" title="{{ section.settings.flag_5_label | default: col.title }}">
+        <img
+          src="{{ section.settings.flag_5_image | image_url: width: 120 }}"
+          alt="{{ section.settings.flag_5_label | default: col.title }}"
+          width="60" height="60" loading="lazy"
+        >
+        {%- if section.settings.flag_5_label != blank -%}
+          <span class="pcb-badge-label">{{ section.settings.flag_5_label }}</span>
+        {%- endif -%}
+      </div>
+    {%- endcapture -%}
+    {%- assign collected_badges = collected_badges | append: badge_item -%}
+    {%- assign badge_found = true -%}
+  {%- endif -%}
+
+  {%- if section.settings.flag_6_handle != blank and col.handle == section.settings.flag_6_handle and section.settings.flag_6_image != blank -%}
+    {%- capture badge_item -%}
+      <div class="pcb-badge" title="{{ section.settings.flag_6_label | default: col.title }}">
+        <img
+          src="{{ section.settings.flag_6_image | image_url: width: 120 }}"
+          alt="{{ section.settings.flag_6_label | default: col.title }}"
+          width="60" height="60" loading="lazy"
+        >
+        {%- if section.settings.flag_6_label != blank -%}
+          <span class="pcb-badge-label">{{ section.settings.flag_6_label }}</span>
+        {%- endif -%}
+      </div>
+    {%- endcapture -%}
+    {%- assign collected_badges = collected_badges | append: badge_item -%}
+    {%- assign badge_found = true -%}
+  {%- endif -%}
+
+{%- endfor -%}
+
+{%- if badge_found -%}
+  <div class="pcb-wrapper">
+    {{ collected_badges }}
+  </div>
+{%- endif -%}
+
+<style>
+  .pcb-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin: 16px 0;
+  }
+
+  .pcb-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    cursor: default;
+  }
+
+  .pcb-badge img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .pcb-badge:hover img {
+    transform: scale(1.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  }
+
+  .pcb-badge-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    color: #444;
+    line-height: 1.2;
+    max-width: 64px;
+    white-space: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+</style>

@@ -3,6 +3,60 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+.main-product_sticky-block.sticky {
+    position: sticky;
+    top: 24px;
+}
+
+#template--18923127439408__main-description > div > div.mty.main-product_type-block.main-product_statistics_bar-block > div.main-product_statistics-col.--right > ul > li:nth-child(1) > product-compare-button{
+  display:none;
+}
+div > div > div > div > div.products_gallery.--adapt-media > div > splide-slider {
+    position: sticky;
+    height: 520px;
+}
+
+div > div > product-recommendations > div > div.product-description-side > p:nth-child(1) > b:nth-child(1) {
+    display: none;
+}
+
+.jdgm-write-review-modal__stars .jdgm-star,
+.jm-star-rating__font-icon{
+  color:#F2CB05 !important;
+}
+
+sticky-block>div>header>div>div>nav>ul>li:nth-child(7)>a {
+    background: #52b2a5;
+    color: #fff !important;
+    border-radius: 12px;
+    font-size: 14px !important;
+    font-weight: 600;
+    padding: 5px 10px;
+}
+
+div.collection-products-grid_wrapper > div > header {
+    display: none;
+}
+
+strong.product_stock-inventory.parent-node {
+    display: none;
+}
+
+#shopify-section-template--18923127439408__1777396348c1f18158,
+#judgeme_product_reviews,
+.shopify-block shopify-app-block{
+  background-color:#fff !important; 
+}
+
+.jm-reviewer-avatar {
+  display: none !important;
+}
+
+
+.jdgm-write-review-modal .jdgm-write-review-modal__form, .jdgm-write-review-modal .jdgm-write-review-modal__form--thank-you{
+      height: auto !important;
+}
+
 #ProductSubmitButton-template--18650443710512__featured_collection_wdzpKK-7756933431344{
   margin-top:-50px;
 }
@@ -16,6 +70,14 @@ html {
       column-gap: 0px !important;
 }
 
+
+.rich-text.rich-text-sections--18650440106032__rich_text_QccUng.--mobile-align-center.--align-center.scheme.scheme--scheme1.both_corners_radius {
+    background: #f7f7f7;
+}
+
+.rich-text.rich-text-sections--18650440106032__rich_text_4iUCwA.--mobile-align-center.--align-center.scheme.scheme--scheme1.both_corners_radius {
+    background: #f7f7f7;
+}
 
 #shopify-section-sections--18650440204336__header > sticky-block > div > header > div > div > nav > ul > li:nth-child(7) > a{
 
@@ -247,6 +309,28 @@ label.main-password_heading,
 }
 
 div.prdkwrap2.show-variant-drawer > quantity-input{
+  display:none;
+}
+
+.aproveita-frete-pdp{
+  background:rgba(82, 178, 165, 0.1);
+  padding:5px;
+  border-radius:24px;
+      display: flex;
+    justify-content: center;
+}
+
+.aproveita-frete-pdp strong{
+  font-size:14px;
+  font-weight:600;
+  color:rgba(97, 191, 54, 1);
+}
+
+.jm-box.jm-box--inherit-color.jm-product-variant-card {
+    background: #fff;
+}
+
+#main-product-add-cart-ref > li:nth-child(1) > div > scala-activator{
   display:none;
 }
 
@@ -1385,6 +1469,21 @@ modal-component.modal--active .--drawer{
     text-align: center;
   }
 
+  .aproveita-frete-pdp{
+    order: 2;
+    margin-top: -30px;
+    margin-bottom: 30px;
+  }
+
+   div > div > product-recommendations > div > div.product-description-side > ul{
+        padding-left: 0;
+
+   }
+
+   div#shopify-block-AdmoxTm4zWG54c2t5O__judge_me_reviews_review_widget_r4ifyV {
+    padding: 20px;
+}
+
   .--mobile-align-center .--justify-content-start,
   .--mobile-align-center .--justify-content-end {
     justify-content: center;
@@ -1862,6 +1961,26 @@ deferred-media video {
   word-break: break-word;
 }
 
+.container-preco-pdp{
+  display:flex;
+  flex-direction:column-reverse;
+}
+
+span.sale-price.main-price {
+    font-size: 28px;
+}
+
+p.MsoNormal {
+    display: flex;
+    flex-direction: column;
+}
+
+span#parcelator.parcelatorProduct p{
+  color:rgba(26, 26, 26, 1);
+  font-weight:400 !important;
+  font-size:14px !important;
+}
+
 .splide-slider--h-scroll {
   display: flex;
   scroll-snap-type: x mandatory;
@@ -2013,4 +2132,18 @@ deferred-media video {
   .quantity_button[name="minus"] {
     left: 5px;
   }
+}
+
+
+@media (max-height: 640px) {
+    .jdgm-write-review-modal .jdgm-write-review-modal__content {
+        border-radius: 0;
+        padding: 20px !important;
+        height: 500px !important;
+        width: 650px !important;
+        min-height: unset;
+        max-height: unset;
+        max-width: unset;
+        overflow-y: auto;
+    }
 }

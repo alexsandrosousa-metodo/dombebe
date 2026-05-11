@@ -1,0 +1,68 @@
+{%- comment -%}
+  Snippet: product-collection-badges.liquid
+  Uso: {% render 'product-collection-badges', product: product, section: section %}
+
+  Exibe os badges circulares de coleção na página de produto.
+  As imagens e handles são configurados nos settings da seção main-product
+  (mesmos campos flag_1_handle / flag_1_image / flag_1_label usados no premium-store).
+{%- endcomment -%}
+
+{%- liquid
+  assign matched_flag_image = nil
+  assign matched_flag_label = nil
+
+  for col in product.collections
+    if matched_flag_image == nil
+      if section.settings.flag_1_handle != blank and col.handle == section.settings.flag_1_handle and section.settings.flag_1_image != blank
+        assign matched_flag_image = section.settings.flag_1_image
+        assign matched_flag_label = section.settings.flag_1_label
+      elsif section.settings.flag_2_handle != blank and col.handle == section.settings.flag_2_handle and section.settings.flag_2_image != blank
+        assign matched_flag_image = section.settings.flag_2_image
+        assign matched_flag_label = section.settings.flag_2_label
+      elsif section.settings.flag_3_handle != blank and col.handle == section.settings.flag_3_handle and section.settings.flag_3_image != blank
+        assign matched_flag_image = section.settings.flag_3_image
+        assign matched_flag_label = section.settings.flag_3_label
+      elsif section.settings.flag_4_handle != blank and col.handle == section.settings.flag_4_handle and section.settings.flag_4_image != blank
+        assign matched_flag_image = section.settings.flag_4_image
+        assign matched_flag_label = section.settings.flag_4_label
+      elsif section.settings.flag_5_handle != blank and col.handle == section.settings.flag_5_handle and section.settings.flag_5_image != blank
+        assign matched_flag_image = section.settings.flag_5_image
+        assign matched_flag_label = section.settings.flag_5_label
+      elsif section.settings.flag_6_handle != blank and col.handle == section.settings.flag_6_handle and section.settings.flag_6_image != blank
+        assign matched_flag_image = section.settings.flag_6_image
+        assign matched_flag_label = section.settings.flag_6_label
+      endif
+    endif
+  endfor
+-%}
+
+{%- if matched_flag_image != nil -%}
+  <div class="product-collection-badges">
+    <img
+      class="product-collection-badges__img"
+      src="{{ matched_flag_image | image_url: width: 120 }}"
+      alt="{{ matched_flag_label | default: 'Selo de coleção' }}"
+      width="60"
+      height="60"
+      loading="lazy"
+    >
+  </div>
+
+  <style>
+    .product-collection-badges {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 8px 0;
+    }
+
+    .product-collection-badges__img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+  </style>
+{%- endif -%}

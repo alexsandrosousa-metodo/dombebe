@@ -1855,6 +1855,6 @@ strong.quantity_qty-subtotal-wrap:has(.hidden) {
   }
 
   .product-switcher-thumbnail-holder{
-    margin: 6px;
+    margin: 0px;
   }
 }

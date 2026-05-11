@@ -1,0 +1,137 @@
+{% comment %}
+  SEO Text Section
+  Permite adicionar texto SEO personalizado para cada página de coleção
+{% endcomment %}
+
+<style>
+  .seo-text {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .seo-text__title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 16px 0;
+    line-height: 1.4;
+  }
+
+  .seo-text__content {
+    font-size: 14px;
+    font-weight: 400;
+    color: #666666;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .seo-text__content p {
+    margin: 0 0 12px 0;
+  }
+
+  .seo-text__content p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .seo-text {
+      padding: 30px 16px;
+    }
+
+    .seo-text__title {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    .seo-text__content {
+      font-size: 13px;
+    }
+  }
+</style>
+
+{% if section.settings.seo_text != blank %}
+<div class="seo-text">
+  {% if section.settings.seo_title != blank %}
+    <h2 class="seo-text__title">{{ section.settings.seo_title }}</h2>
+  {% endif %}
+  
+  <div class="seo-text__content">
+    {{ section.settings.seo_text }}
+  </div>
+</div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Texto SEO da Categoria",
+  "settings": [
+    {
+      "type": "text",
+      "id": "seo_title",
+      "label": "Título do Texto SEO",
+      "default": "Texto SEO da Categoria",
+      "info": "Título que aparece acima do texto. Deixe vazio para não exibir título."
+    },
+    {
+      "type": "richtext",
+      "id": "seo_text",
+      "label": "Texto SEO",
+      "info": "Adicione o texto descritivo da categoria. Se deixar vazio, esta seção não será exibida."
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor do Título",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Cor do Texto",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "spacing_top",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Espaçamento Superior",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "spacing_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 10,
+      "unit": "px",
+      "label": "Espaçamento Inferior",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "Texto SEO da Categoria"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .seo-text {
+    padding-top: {{ section.settings.spacing_top }}px;
+    padding-bottom: {{ section.settings.spacing_bottom }}px;
+  }
+
+  .seo-text__title {
+    color: {{ section.settings.title_color }};
+  }
+
+  .seo-text__content {
+    color: {{ section.settings.text_color }};
+  }
+</style>

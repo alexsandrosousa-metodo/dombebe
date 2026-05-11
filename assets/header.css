@@ -550,6 +550,7 @@ body.active-overlay [data-revealed="true"] .page-header{
 
 .main-navigation--center .main-navigation--desktop{
   justify-content: space-between;
+      align-items: center;
 }
 
 .main-navigation--center .page-header_nav-wrap {

@@ -37,7 +37,7 @@
 
 .splide__track--fade > .splide__list > .splide__slide {
 	margin: 0 !important;
-	opacity: 0;
+	opacity: 1;
 	z-index: 0;
 }
 
@@ -300,4 +300,10 @@ splide-slider:not([data-pagination-style="--pagination_numbers"]) .splide__pagin
   .splide__pagination__page{
     margin: -10px -20px;
   }
+}
+@media (max-width: 768px){
+.splide__slide img {
+	vertical-align: bottom;
+	height:auto;
+}
 }

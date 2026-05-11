@@ -1,0 +1,282 @@
+{% comment %}
+  Category Banner Section
+  Permite adicionar banners personalizados para páginas de coleção
+{% endcomment %}
+
+<style>
+    .category-banner {
+      width: 100%;
+      height: 240px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .category-banner__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .category-banner__image--desktop {
+      display: block;
+    }
+
+    .category-banner__image--mobile {
+      display: none;
+    }
+
+    .category-banner__overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 70%;
+      height: 100%;
+      pointer-events: none;
+      background: linear-gradient(270deg, rgba(238, 247, 246, 0) 0%, rgba(238, 247, 246, 0.95) 50%);
+    }
+
+    .category-banner__content {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 60px;
+      max-width: 600px;
+      z-index: 2;
+    }
+
+    .category-banner__title {
+      font-size: 40px;
+      font-weight: 500;
+      color: #52B2A5;
+      line-height: 1.1;
+      margin: 0;
+      text-shadow: none;
+    }
+
+    @media (max-width: 768px) {
+      .category-banner {
+        height: 280px;
+      }
+
+      .category-banner__image--desktop {
+        display: none;
+      }
+
+      .category-banner__image--mobile {
+        display: block;
+      }
+
+      .category-banner__overlay {
+        width: 100%;
+        background: linear-gradient(180deg, rgba(238, 247, 246, 0) 0%, rgba(238, 247, 246, 0) 30%, rgba(238, 247, 246, 0.98) 70%);
+      }
+
+      .category-banner__content {
+        padding: 0 24px;
+        max-width: 100%;
+        top: auto;
+        bottom: 60px;
+        transform: none;
+      }
+
+      .category-banner__title {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .category-banner {
+        height: 240px;
+      }
+
+      .category-banner__content {
+        bottom: 40px;
+      }
+
+      .category-banner__title {
+        font-size: 28px;
+      }
+    }
+</style>
+
+{% if section.settings.banner_image != blank %}
+  <div class="category-banner">
+    {%- comment -%} Imagem Desktop {%- endcomment -%}
+    <img
+      src="{{ section.settings.banner_image | image_url: width: 1920 }}"
+      srcset="
+        {{ section.settings.banner_image | image_url: width: 1024 }} 1024w,
+        {{ section.settings.banner_image | image_url: width: 1440 }} 1440w,
+        {{ section.settings.banner_image | image_url: width: 1920 }} 1920w
+      "
+      sizes="(min-width: 769px) 100vw, 0px"
+      alt="{{ section.settings.title | escape }}"
+      class="category-banner__image category-banner__image--desktop"
+      loading="eager"
+    >
+
+    {%- comment -%} Imagem Mobile {%- endcomment -%}
+    {% if section.settings.banner_image_mobile != blank %}
+      <img
+        src="{{ section.settings.banner_image_mobile | image_url: width: 768 }}"
+        srcset="
+          {{ section.settings.banner_image_mobile | image_url: width: 480 }} 480w,
+          {{ section.settings.banner_image_mobile | image_url: width: 768 }} 768w
+        "
+        sizes="(max-width: 768px) 100vw, 0px"
+        alt="{{ section.settings.title | escape }}"
+        class="category-banner__image category-banner__image--mobile"
+        loading="eager"
+      >
+    {% else %}
+      {%- comment -%} Fallback: usa a imagem desktop se não tiver mobile {%- endcomment -%}
+      <img
+        src="{{ section.settings.banner_image | image_url: width: 768 }}"
+        srcset="
+          {{ section.settings.banner_image | image_url: width: 480 }} 480w,
+          {{ section.settings.banner_image | image_url: width: 768 }} 768w
+        "
+        sizes="(max-width: 768px) 100vw, 0px"
+        alt="{{ section.settings.title | escape }}"
+        class="category-banner__image category-banner__image--mobile"
+        loading="eager"
+      >
+    {% endif %}
+
+    <div class="category-banner__overlay"></div>
+
+    <div class="category-banner__content">
+      {% if section.settings.title != blank %}
+        <h1 class="category-banner__title">{{ section.settings.title }}</h1>
+      {% elsif collection.title %}
+        <h1 class="category-banner__title">{{ collection.title }}</h1>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Banner de Categoria",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Imagem Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Imagem do Banner (Desktop)",
+      "info": "Recomendado: 1920x240px. Deixe vazio para não exibir banner nesta página."
+    },
+    {
+      "type": "header",
+      "content": "Imagem Mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image_mobile",
+      "label": "Imagem do Banner (Mobile)",
+      "info": "Recomendado: 768x280px. Se deixar vazio, usará a imagem desktop."
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título do Banner",
+      "info": "Deixe vazio para usar o nome da coleção automaticamente"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor do Título",
+      "default": "#52B2A5"
+    },
+    {
+      "type": "select",
+      "id": "title_position",
+      "label": "Posição do Título",
+      "options": [
+        {
+          "value": "left",
+          "label": "Esquerda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Direita"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Dimensões"
+    },
+    {
+      "type": "range",
+      "id": "banner_height_desktop",
+      "min": 160,
+      "max": 400,
+      "step": 20,
+      "unit": "px",
+      "label": "Altura do Banner (Desktop)",
+      "default": 240
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "min": 180,
+      "max": 360,
+      "step": 20,
+      "unit": "px",
+      "label": "Altura do Banner (Mobile)",
+      "default": 240
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner de Categoria"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .category-banner {
+    height: {{ section.settings.banner_height_desktop }}px;
+  }
+
+  .category-banner__title {
+    color: {{ section.settings.title_color }};
+  }
+
+  {% if section.settings.title_position == 'center' %}
+  .category-banner__content {
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  {% elsif section.settings.title_position == 'right' %}
+  .category-banner__content {
+    left: auto;
+    right: 0;
+    text-align: right;
+  }
+  {% endif %}
+
+  @media (max-width: 768px) {
+    .category-banner {
+      height: {{ section.settings.banner_height_mobile }}px;
+    }
+  }
+</style>

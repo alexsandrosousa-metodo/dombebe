@@ -402,7 +402,7 @@
 }
 
 .product-column_stats-wrap::before{
-  background-color: currentColor;
+  /* background-color: currentColor; */
   opacity: 0.02;
   content: '';
   position: absolute;

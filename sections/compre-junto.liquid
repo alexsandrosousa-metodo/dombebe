@@ -1,0 +1,708 @@
+{% comment %}
+  Seção "Compre Junto" - Bundle de Produtos com Seleção
+  Usa metafields para definir produtos relacionados
+  
+  Metafields necessários no produto:
+  - product.metafields.custom.bundle_product_1 (product reference)
+  - product.metafields.custom.bundle_product_2 (product reference)
+{% endcomment %}
+
+{{ 'compre-junto.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign current_product = product
+  assign bundle_product_1 = product.metafields.custom.bundle_product_1.value
+  assign bundle_product_2 = product.metafields.custom.bundle_product_2.value
+  
+  assign current_variant = current_product.selected_or_first_available_variant
+  assign bundle_1_variant = bundle_product_1.selected_or_first_available_variant
+  assign bundle_2_variant = bundle_product_2.selected_or_first_available_variant
+%}
+
+{% if bundle_product_1 and bundle_product_2 %}
+<div class="compre-junto-wrapper" data-section-id="{{ section.id }}">
+  <div class="compre-junto-container">
+    
+    <h2 class="compre-junto-title">{{ section.settings.title }}</h2>
+    
+    <div class="compre-junto-products">
+        <div class="container-desc-product">
+           <input 
+          type="checkbox" 
+          class="product-checkbox" 
+          id="bundle-check-0"
+          data-product-id="{{ bundle_product_1.id }}"
+          data-variant-id="{{ bundle_1_variant.id }}"
+          data-price="{{ bundle_1_variant.price }}"
+          data-compare-price="{{ bundle_1_variant.compare_at_price | default: bundle_1_variant.price }}"
+          checked
+        >
+        <label for="bundle-check-0" class="checkbox-label">
+          <span class="checkbox-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="checkbox-text">Quero este</span>
+        </label>
+      <!-- Produto 1 -->
+      <div class="bundle-product-card" data-product-index="0">
+       
+        
+        <div class="product-image-wrapper">
+        
+          
+          {% if bundle_product_1.featured_image %}
+            <img 
+              src="{{ bundle_product_1.featured_image | image_url: width: 400 }}"
+              alt="{{ bundle_product_1.featured_image.alt | escape }}"
+              loading="lazy"
+              width="400"
+              height="400"
+            >
+          {% endif %}
+    
+        </div>
+        
+        <div class="product-info">
+          <h3 class="product-title">{{ bundle_product_1.title }}</h3>
+          <p class="product-color">Cor: <strong>{{ bundle_1_variant.option1 }}</strong></p>
+          
+          {% if bundle_product_1.options_with_values.size > 0 %}
+          <div class="color-swatches">
+            {% for option in bundle_product_1.options_with_values %}
+              {% if option.name == 'Cor' or option.name == 'Color' %}
+                {% for value in option.values %}
+                  <span class="color-swatch {% if value == bundle_1_variant.option1 %}active{% endif %}" 
+                        style="background-color: {{ value | handleize }};"
+                        title="{{ value }}">
+                  </span>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+          
+          <div class="product-rating">
+            {% for i in (1..5) %}
+              <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
+                <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
+              </svg>
+            {% endfor %}
+            <span class="rating-count">5.0 ({{ bundle_product_1.metafields.custom.review_count | default: 17 }})</span>
+          </div>
+          
+          <div class="product-price">
+            {% if bundle_1_variant.compare_at_price > bundle_1_variant.price %}
+              <span class="price-old">{{ bundle_1_variant.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="price-current">{{ bundle_1_variant.price | money }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Separador + -->
+      <div class="separator">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 4V16M4 10H16" stroke="#666" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      
+      <div class="container-desc-product">
+           <input 
+          type="checkbox" 
+          class="product-checkbox" 
+          id="bundle-check-1"
+          data-product-id="{{ current_product.id }}"
+          data-variant-id="{{ current_variant.id }}"
+          data-price="{{ current_variant.price }}"
+          data-compare-price="{{ current_variant.compare_at_price | default: current_variant.price }}"
+          checked
+        >
+        <label for="bundle-check-1" class="checkbox-label">
+          <span class="checkbox-icon">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M10 3L4.5 8.5L2 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="checkbox-text">Quero este</span>
+        </label>
+      <!-- Produto 2 -->
+      <div class="bundle-product-card" data-product-index="1">
+     
+        
+        <div class="product-image-wrapper">
+          
+          {% if current_product.featured_image %}
+            <img 
+              src="{{ current_product.featured_image | image_url: width: 400 }}"
+              alt="{{ current_product.featured_image.alt | escape }}"
+              loading="lazy"
+              width="400"
+              height="400"
+            >
+          {% endif %}
+        
+        </div>
+        
+        <div class="product-info">
+          <h3 class="product-title">{{ current_product.title }}</h3>
+          <p class="product-color">Cor: <strong>{{ current_variant.option1 }}</strong></p>
+          
+          {% if current_product.options_with_values.size > 0 %}
+          <div class="color-swatches">
+            {% for option in current_product.options_with_values %}
+              {% if option.name == 'Cor' or option.name == 'Color' %}
+                {% for value in option.values %}
+                  <span class="color-swatch {% if value == current_variant.option1 %}active{% endif %}" 
+                        style="background-color: {{ value | handleize }};"
+                        title="{{ value }}">
+                  </span>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+          
+          <div class="product-rating">
+            {% for i in (1..5) %}
+              <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
+                <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
+              </svg>
+            {% endfor %}
+            <span class="rating-count">5.0 ({{ current_product.metafields.custom.review_count | default: 17 }})</span>
+          </div>
+          
+          <div class="product-price">
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <span class="price-old">{{ current_variant.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="price-current">{{ current_variant.price | money }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Separador + -->
+      <div class="separator">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 4V16M4 10H16" stroke="#666" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      
+      <!-- Produto 3 -->
+      <div class="container-desc-product">
+        <div class="selling-badge">Você está vendo este produto</div>
+      <div class="bundle-product-card selected" data-product-index="2">
+        
+        
+        <!-- Checkbox hidden mas sempre marcado -->
+        <input 
+          type="checkbox" 
+          class="product-checkbox product-checkbox-hidden" 
+          id="bundle-check-2"
+          data-product-id="{{ bundle_product_2.id }}"
+          data-variant-id="{{ bundle_2_variant.id }}"
+          data-price="{{ bundle_2_variant.price }}"
+          data-compare-price="{{ bundle_2_variant.compare_at_price | default: bundle_2_variant.price }}"
+          checked
+          disabled
+          style="display: none;"
+        >
+        
+        <div class="product-image-wrapper">
+         
+          {% if bundle_product_2.featured_image %}
+            <img 
+              src="{{ bundle_product_2.featured_image | image_url: width: 400 }}"
+              alt="{{ bundle_product_2.featured_image.alt | escape }}"
+              loading="lazy"
+              width="400"
+              height="400"
+            >
+          {% endif %}
+        </div>
+        
+        <div class="product-info">
+          <h3 class="product-title">{{ bundle_product_2.title }}</h3>
+          <p class="product-color">Cor: <strong>{{ bundle_2_variant.option1 }}</strong></p>
+          
+          {% if bundle_product_2.options_with_values.size > 0 %}
+          <div class="color-swatches">
+            {% for option in bundle_product_2.options_with_values %}
+              {% if option.name == 'Cor' or option.name == 'Color' %}
+                {% for value in option.values %}
+                  <span class="color-swatch {% if value == bundle_2_variant.option1 %}active{% endif %}" 
+                        style="background-color: {{ value | handleize }};"
+                        title="{{ value }}">
+                  </span>
+                {% endfor %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
+          
+          <div class="product-rating">
+            {% for i in (1..5) %}
+              <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
+                <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
+              </svg>
+            {% endfor %}
+            <span class="rating-count">5.0 ({{ bundle_product_2.metafields.custom.review_count | default: 17 }})</span>
+          </div>
+          
+          <div class="product-price">
+            {% if bundle_2_variant.compare_at_price > bundle_2_variant.price %}
+              <span class="price-old">{{ bundle_2_variant.compare_at_price | money }}</span>
+            {% endif %}
+            <span class="price-current">{{ bundle_2_variant.price | money }}</span>
+          </div>
+        </div>
+      <div>
+        
+</div>
+    
+    </div>
+
+    
+  </div>
+  <!-- Separador = -->
+      <div class="separator">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M4 8H16M4 12H16" stroke="#666" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      
+      <!-- Box de Total -->
+      <div class="bundle-total-box">
+        <p class="total-label">Compre os <span class="selected-count">3</span> produtos por</p>
+        
+        <div class="total-price-wrapper">
+          <span class="total-price" data-total-price="0">R$ 0.000,00</span>
+          <span class="total-compare-price" data-total-compare="0">R$ 0.000,00</span>
+        </div>
+        
+        <p class="payment-info">À vista no pix ou no cartão</p>
+        
+        <div class="savings-badge" style="display: none;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <path d="M11 4L5.5 9.5L3 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span class="savings-text">Economize <span class="savings-amount">R$ 0,00</span></span>
+        </div>
+        
+        <button type="button" class="btn-comprar-junto">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M14 14L11 11M6.5 12C3.46 12 1 9.54 1 6.5S3.46 1 6.5 1 12 3.46 12 6.5 9.54 12 6.5 12z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          Comprar junto
+        </button>
+      </div>
+      
+<script>
+class CompreJuntoBundle {
+  constructor(wrapper) {
+    this.wrapper = wrapper;
+    this.products = [];
+    this.selectedProducts = new Set();
+    this.init();
+  }
+  
+  init() {
+    this.loadProductData();
+    this.setupEventListeners();
+    this.updateTotals();
+  }
+
+  loadProductData() {
+    const cards = this.wrapper.querySelectorAll('.bundle-product-card');
+    
+    cards.forEach((card, index) => {
+      const checkbox = card.querySelector('.product-checkbox') || 
+                      card.parentElement.querySelector('.product-checkbox');
+      
+      if (!checkbox) return;
+
+      const productData = {
+        index: index,
+        element: card,
+        checkbox: checkbox,
+        productId: checkbox.dataset.productId,
+        currentVariantId: checkbox.dataset.variantId,
+        price: parseFloat(checkbox.dataset.price),
+        comparePrice: parseFloat(checkbox.dataset.comparePrice),
+        title: card.querySelector('.product-title')?.textContent.trim(),
+        imageEl: card.querySelector('.product-image-wrapper img'),
+        colorTextEl: card.querySelector('.product-color strong'),
+        variants: this.loadVariantsFromPage(card)
+      };
+
+      this.products.push(productData);
+
+      // Adiciona produtos já marcados ao Set
+      if (checkbox.checked) {
+        this.selectedProducts.add(index);
+        card.classList.add('selected');
+      }
+    });
+  }
+
+  loadVariantsFromPage(card) {
+    // Busca o handle do produto no link da imagem ou título
+    const productLink = card.querySelector('a[href*="/products/"]');
+    if (!productLink) return [];
+
+    const handle = productLink.href.split('/products/')[1]?.split('?')[0];
+    if (!handle) return [];
+
+    // Tenta buscar variantes via AJAX (Shopify padrão)
+    this.fetchProductVariants(handle, card);
+    
+    return [];
+  }
+
+  async fetchProductVariants(handle, card) {
+    try {
+      const response = await fetch(`/products/${handle}.js`);
+      const product = await response.json();
+      
+      const productIndex = this.products.findIndex(p => p.element === card);
+      if (productIndex !== -1) {
+        this.products[productIndex].variants = product.variants;
+        this.products[productIndex].product = product;
+      }
+    } catch (e) {
+      console.warn('Não foi possível carregar variantes:', e);
+    }
+  }
+
+  setupEventListeners() {
+    // Checkboxes
+    this.products.forEach((product, index) => {
+      product.checkbox.addEventListener('change', (e) => {
+        this.handleCheckboxChange(index, e.target.checked);
+      });
+    });
+
+    // Color swatches
+    this.wrapper.querySelectorAll('.color-swatch').forEach(swatch => {
+      swatch.addEventListener('click', (e) => {
+        this.handleColorChange(e.currentTarget);
+      });
+    });
+
+    // Botão comprar
+    const btnComprar = this.wrapper.querySelector('.btn-comprar-junto');
+    if (btnComprar) {
+      btnComprar.addEventListener('click', () => this.addToCart());
+    }
+  }
+
+  handleCheckboxChange(productIndex, isChecked) {
+    const product = this.products[productIndex];
+    if (!product) return;
+
+    if (isChecked) {
+      this.selectedProducts.add(productIndex);
+      product.element.classList.add('selected');
+    } else {
+      this.selectedProducts.delete(productIndex);
+      product.element.classList.remove('selected');
+    }
+
+    this.updateTotals();
+  }
+
+  handleColorChange(swatchElement) {
+    const card = swatchElement.closest('.bundle-product-card') || 
+                swatchElement.closest('.container-desc-product')?.querySelector('.bundle-product-card');
+    
+    if (!card) return;
+
+    const productIndex = this.products.findIndex(p => p.element === card);
+    const product = this.products[productIndex];
+    
+    if (!product || !product.variants) return;
+
+    // Remove active de todos os swatches do card
+    const container = swatchElement.closest('.color-swatches');
+    container?.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+    swatchElement.classList.add('active');
+
+    // Pega a cor selecionada
+    const colorName = swatchElement.getAttribute('title');
+
+    // Encontra a variante correspondente
+    const variant = this.findVariantByColor(product.variants, colorName);
+
+    if (variant) {
+      // Atualiza dados do produto
+      product.currentVariantId = variant.id;
+      product.price = variant.price;
+      product.comparePrice = variant.compare_at_price || variant.price;
+
+      // Atualiza checkbox
+      product.checkbox.dataset.variantId = variant.id;
+      product.checkbox.dataset.price = variant.price;
+      product.checkbox.dataset.comparePrice = variant.compare_at_price || variant.price;
+
+      // Atualiza imagem
+      if (variant.featured_image && product.imageEl) {
+        product.imageEl.src = variant.featured_image.src;
+        product.imageEl.alt = variant.featured_image.alt || product.title;
+      }
+
+      // Atualiza texto de cor
+      if (product.colorTextEl) {
+        product.colorTextEl.textContent = colorName;
+      }
+
+      // Atualiza preço no card
+      const priceEl = card.querySelector('.price-current');
+      if (priceEl) {
+        priceEl.textContent = this.formatMoney(variant.price);
+      }
+
+      // Recalcula total se estiver selecionado
+      if (this.selectedProducts.has(productIndex)) {
+        this.updateTotals();
+      }
+    }
+  }
+
+  findVariantByColor(variants, colorName) {
+    if (!variants || variants.length === 0) return null;
+
+    const searchTerm = colorName?.toLowerCase();
+    
+    return variants.find(variant => {
+      const options = [
+        variant.option1?.toLowerCase(),
+        variant.option2?.toLowerCase(),
+        variant.option3?.toLowerCase()
+      ].filter(Boolean);
+
+      return options.some(option => 
+        option === searchTerm || 
+        option.includes(searchTerm) || 
+        searchTerm.includes(option)
+      );
+    }) || variants[0];
+  }
+
+  updateTotals() {
+    let totalPrice = 0;
+    let totalCompare = 0;
+    const selectedCount = this.selectedProducts.size;
+
+    // Soma apenas produtos selecionados
+    this.selectedProducts.forEach(index => {
+      const product = this.products[index];
+      if (product) {
+        totalPrice += product.price;
+        totalCompare += product.comparePrice;
+      }
+    });
+
+    // Atualiza elementos da UI
+    const totalPriceEl = this.wrapper.querySelector('[data-total-price]');
+    const totalCompareEl = this.wrapper.querySelector('[data-total-compare]');
+    const selectedCountEl = this.wrapper.querySelector('.selected-count');
+    const savingsBadge = this.wrapper.querySelector('.savings-badge');
+    const savingsAmount = this.wrapper.querySelector('.savings-amount');
+    const btnComprar = this.wrapper.querySelector('.btn-comprar-junto');
+
+    if (selectedCountEl) {
+      selectedCountEl.textContent = selectedCount;
+    }
+
+    if (totalPriceEl) {
+      totalPriceEl.textContent = this.formatMoney(totalPrice);
+    }
+
+    // Preço comparativo e economia
+    if (totalCompare > totalPrice) {
+      if (totalCompareEl) {
+        totalCompareEl.textContent = this.formatMoney(totalCompare);
+        totalCompareEl.style.display = 'block';
+      }
+
+      const savings = totalCompare - totalPrice;
+      if (savingsAmount) {
+        savingsAmount.textContent = this.formatMoney(savings);
+      }
+      if (savingsBadge) {
+        savingsBadge.style.display = 'inline-flex';
+      }
+    } else {
+      if (totalCompareEl) {
+        totalCompareEl.style.display = 'none';
+      }
+      if (savingsBadge) {
+        savingsBadge.style.display = 'none';
+      }
+    }
+
+    // Estado do botão
+    if (btnComprar) {
+      btnComprar.disabled = selectedCount === 0;
+      
+      if (selectedCount === 0) {
+        btnComprar.innerHTML = 'Selecione pelo menos 1 produto';
+      } else {
+        btnComprar.innerHTML = `
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 2h1.5l2.5 9h7l2-7H4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="7" cy="14" r="1" fill="currentColor"/>
+            <circle cx="12" cy="14" r="1" fill="currentColor"/>
+          </svg>
+          Comprar junto
+        `;
+      }
+    }
+  }
+
+  formatMoney(cents) {
+    const reais = cents / 100;
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(reais);
+  }
+
+  async addToCart() {
+    const selectedVariants = [];
+
+    this.selectedProducts.forEach(index => {
+      const product = this.products[index];
+      if (product && product.currentVariantId) {
+        selectedVariants.push({
+          id: parseInt(product.currentVariantId),
+          quantity: 1
+        });
+      }
+    });
+
+    if (selectedVariants.length === 0) {
+      alert('Selecione pelo menos um produto');
+      return;
+    }
+
+    const btnComprar = this.wrapper.querySelector('.btn-comprar-junto');
+    
+    // Loading state
+    btnComprar.classList.add('loading');
+    btnComprar.disabled = true;
+    const originalText = btnComprar.innerHTML;
+    btnComprar.innerHTML = '<span class="spinner"></span> Adicionando...';
+
+    try {
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: selectedVariants })
+      });
+
+      if (!response.ok) throw new Error('Erro ao adicionar');
+
+      const result = await response.json();
+      
+      // Busca carrinho atualizado
+      const cartResponse = await fetch('/cart.js');
+      const cart = await cartResponse.json();
+
+      // Atualiza UI
+      this.updateCartUI(cart);
+
+      // Sucesso
+      btnComprar.innerHTML = '✓ Adicionado ao carrinho!';
+      btnComprar.classList.remove('loading');
+      btnComprar.classList.add('success');
+
+      setTimeout(() => {
+        btnComprar.innerHTML = originalText;
+        btnComprar.classList.remove('success');
+        btnComprar.disabled = false;
+      }, 2000);
+
+    } catch (error) {
+      console.error('Erro:', error);
+      btnComprar.innerHTML = '✗ Erro - Tente novamente';
+      btnComprar.classList.remove('loading');
+      btnComprar.classList.add('error');
+
+      setTimeout(() => {
+        btnComprar.innerHTML = originalText;
+        btnComprar.classList.remove('error');
+        btnComprar.disabled = false;
+      }, 2000);
+    }
+  }
+
+  updateCartUI(cart) {
+    // Dispara evento customizado
+    document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+      bubbles: true,
+      detail: cart
+    }));
+
+    // Atualiza contadores
+    const cartCountSelectors = [
+      '[data-cart-count]',
+      '.cart-count',
+      '.cart-count-bubble',
+      '#CartCount',
+      '.header__cart-count'
+    ];
+
+    cartCountSelectors.forEach(selector => {
+      document.querySelectorAll(selector).forEach(el => {
+        el.textContent = cart.item_count;
+        if (cart.item_count > 0) el.style.display = '';
+      });
+    });
+
+    // Abre drawer
+    const drawerElement = document.querySelector('cart-drawer');
+    if (drawerElement && typeof drawerElement.open === 'function') {
+      drawerElement.open();
+    } else {
+      const cartTrigger = document.querySelector('[data-cart-drawer-trigger], .cart-icon');
+      if (cartTrigger) cartTrigger.click();
+    }
+  }
+}
+
+// Inicialização
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCompreJunto);
+} else {
+  initCompreJunto();
+}
+
+function initCompreJunto() {
+  const wrapper = document.querySelector('.compre-junto-wrapper');
+  if (wrapper) {
+    new CompreJuntoBundle(wrapper);
+  }
+}
+</script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Compre Junto",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título da seção",
+      "default": "Compre Junto"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Compre Junto"
+    }
+  ]
+}
+{% endschema %}

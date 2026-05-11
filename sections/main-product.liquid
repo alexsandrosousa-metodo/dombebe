@@ -116,6 +116,13 @@
           data-media-gallery="stacked"
         {% endif %}
       >
+
+
+
+
+
+
+
         <div class="main-product_wrapper {{ media_section_width }} {% if product.featured_media == null %}main-product--no-media{% endif %}">
           {% unless product.featured_media == null %}
             <div class="products_gallery {{ section_media_size_class }}">
@@ -139,6 +146,7 @@
             </div>
           {% endunless %}
           <div class="products_info" id="{{- section.id -}}-description">
+           <h1 style="font-size:26px; line-height:30px; margin-top:0">{{ product.title }}</h1>
             <div class="main-product_sticky-block {% if section.settings.sticky_product %}sticky{% endif %}">
               {%- for block in section.blocks -%}
                 {%- case block.type -%}
@@ -413,39 +421,7 @@
                       }
                     {%- endstyle -%}
                     
-                    {% if product.metafields.custom.video_url %}
-                      {% assign video_url = product.metafields.custom.video_url.value %}
-                      <div class="product-video">
-                        {% if video_url contains 'watch?v=' %}
-                          {% assign video_id = video_url | split: 'watch?v=' | last | split: '&' | first %}
-                          <iframe
-                            width="100%"
-                            height="400"
-                            src="https://www.youtube.com/embed/{{ video_id }}"
-                            title="{{ product.title }}"
-                            frameborder="0"
-                            allowfullscreen>
-                          </iframe>
-                        {% else %}
-                          <iframe
-                            width="100%"
-                            height="400"
-                            src="{{ video_url }}"
-                            title="{{ product.title }}"
-                            frameborder="0"
-                            allowfullscreen>
-                          </iframe>
-                        {% endif %}
-                      </div>
-                    {% endif %}
-
-                    <div class="product-description-side"> 
-                      {% if product.metafields.custom.short_description %}
-                        <div class="short-description">
-                          {{ product.metafields.custom.short_description.value }}
-                        </div>
-                      {% endif %}
-                    </div>
+                 
 
                   {%- when 'stock_statistics_bar' -%}
                     {%- style -%}
@@ -547,6 +523,9 @@
                         </div>
                       </div>
                     {% endif %}
+
+
+                    
                   {%- when 'price_and_variations' -%}
                     {%- style -%}
                       .main-product_{{ block.type }}-block{
@@ -554,71 +533,14 @@
                         --block-padding-bottom: {{ block.settings.block_bottom_padding }}px;
                       }
                     {%- endstyle -%}
+
+{% render 'product-collection-badges', product: product, section: section %}
                     <div
                       class="mty main-product_type-block main-product_{{ block.type }}-block"
                       {{ block.shopify_attributes }}
                     >
                       <ul class="list-unstyled main-product_paver-list" id="main-product-add-cart-ref">
-                        <li class="mty">
-                          <strong class="paver-list_title">
-                            {{- 'sections.cart.headings.price' | t -}}
-                            :</strong
-                          >
-                          <div class="paver-list_description">
-                            <div {{ price_render_attr }} data-pf-type='ProductPrice2' data-product-type='price'>
-                              {%- render 'price',
-                                product: product,
-                                use_variant: true,
-                                show_currency_code: settings.show_currency_code
-                              -%}
-                            </div>
-                            {% comment %} {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
-                              <small class="product_tax caption mty">
-                                {%- if cart.taxes_included -%}
-                                  {{ 'sections.products.product.include_taxes' | t }}
-                                {%- endif -%}
-                                {%- if shop.shipping_policy.body != blank -%}
-                                  {{
-                                    'sections.products.product.shipping_policy_html'
-                                    | t: link: shop.shipping_policy.url
-                                  }}
-                                {%- endif -%}
-                              </small>
-                            {%- endif -%} {% endcomment %}
-                          </div>
-                        </li>
-                        <li class="mty unit-price-wrapper parent-node" {{ unit_price_render_attr }}>
-                          <strong class="paver-list_title {% if product.selected_or_first_available_variant.unit_price_measurement == null %}hidden{% endif %}">
-                            {{- 'additions.product.price_unit' | t -}}
-                            :</strong
-                          >
-                          <div class="paver-list_description {% if product.selected_or_first_available_variant.unit_price_measurement == null %}hidden{% endif %}">
-                            {%- comment -%} Unit price {%- endcomment -%}
-                            <span class="visually-hidden">
-                              {{- 'sections.products.product.price.unit_price' | t -}}
-                            </span>
-                            <span class="unit-price">
-                              {%- comment -%} Price {%- endcomment -%}
-                              <span>{{- product.selected_or_first_available_variant.unit_price | money -}}</span>
-                              {%- comment -%} Separator {%- endcomment -%}
-                              <span aria-hidden="true">/</span>
-                              <span class="visually-hidden"
-                                >&nbsp;
-                                {{- 'accessibility.unit_price_separator' | t -}}
-                                &nbsp;</span
-                              >
-                              {%- comment -%} Unit {%- endcomment -%}
-                              <span>
-                                {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value
-                                    != 1
-                                -%}
-                                  {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
-                                {%- endif -%}
-                                {{- product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
-                              </span>
-                            </span>
-                          </div>
-                        </li>
+                        
                         {% if block.settings.show_sku %}
                           <li
                             class="mty unit-price-wrapper parent-node"
@@ -709,7 +631,71 @@
                             </li>
                           {%- endunless -%}
                         {%- endif -%}
+
+                        <li class="mty">
+                          <strong class="paver-list_title">
+                            {{- 'sections.cart.headings.price' | t -}}
+                            :</strong
+                          >
+                          <div class="paver-list_description">
+                            <div {{ price_render_attr }} data-pf-type='ProductPrice2' data-product-type='price'>
+                              {%- render 'price',
+                                product: product,
+                                use_variant: true,
+                                show_currency_code: settings.show_currency_code
+                              -%}
+                            </div>
+                            {% comment %} {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}
+                              <small class="product_tax caption mty">
+                                {%- if cart.taxes_included -%}
+                                  {{ 'sections.products.product.include_taxes' | t }}
+                                {%- endif -%}
+                                {%- if shop.shipping_policy.body != blank -%}
+                                  {{
+                                    'sections.products.product.shipping_policy_html'
+                                    | t: link: shop.shipping_policy.url
+                                  }}
+                                {%- endif -%}
+                              </small>
+                            {%- endif -%} {% endcomment %}
+                          </div>
+                        </li>
+                        <li class="mty unit-price-wrapper parent-node" {{ unit_price_render_attr }}>
+                          <strong class="paver-list_title {% if product.selected_or_first_available_variant.unit_price_measurement == null %}hidden{% endif %}">
+                            {{- 'additions.product.price_unit' | t -}}
+                            :</strong
+                          >
+                          <div class="paver-list_description {% if product.selected_or_first_available_variant.unit_price_measurement == null %}hidden{% endif %}">
+                            {%- comment -%} Unit price {%- endcomment -%}
+                            <span class="visually-hidden">
+                              {{- 'sections.products.product.price.unit_price' | t -}}
+                            </span>
+                            <span class="unit-price">
+                              {%- comment -%} Price {%- endcomment -%}
+                              <span>{{- product.selected_or_first_available_variant.unit_price | money -}}</span>
+                              {%- comment -%} Separator {%- endcomment -%}
+                              <span aria-hidden="true">/</span>
+                              <span class="visually-hidden"
+                                >&nbsp;
+                                {{- 'accessibility.unit_price_separator' | t -}}
+                                &nbsp;</span
+                              >
+                              {%- comment -%} Unit {%- endcomment -%}
+                              <span>
+                                {%- if product.selected_or_first_available_variant.unit_price_measurement.reference_value
+                                    != 1
+                                -%}
+                                  {{- product.selected_or_first_available_variant.unit_price_measurement.reference_value -}}
+                                {%- endif -%}
+                                {{- product.selected_or_first_available_variant.unit_price_measurement.reference_unit -}}
+                              </span>
+                            </span>
+                          </div>
+                        </li>
                         {% if block.settings.enable_size_chart and is_size_option == 'true' %}
+
+
+
                           <li class="mty">
                             <strong class="paver-list_title" id="{{ 'sections.products.product.chart.label_by' | t }}">
                               {{- 'sections.products.product.chart.title' | t }}:
@@ -801,6 +787,9 @@
                           </li>
                         {% endif %}
                       </ul>
+
+
+
                       {% if block.settings.enable_ask_question %}
                         <div class="ask-question-popup">
                           <modal-component-toggler>
@@ -987,6 +976,10 @@
                         </div>
                       {% endif %}
                     </div>
+                  
+                  
+                  
+                  
                   {%- when 'quantity_input' -%}
                     {%- style -%}
                       .main-product_{{ block.type }}-block{
@@ -1080,7 +1073,7 @@
                       class="mty main-product_type-block main-product_{{ block.type }}-block"
                       {{ block.shopify_attributes }}
                     >
-                      <p><strong>Aproveite o Frete Grátis!</strong></p>
+                  
                       {%- form 'product',
                         product,
                         data-productid: product.id,
@@ -1095,6 +1088,8 @@
                         >
                         {{ form | payment_terms }}
                       {%- endform -%}
+
+                     
                       {%- form 'product',
                         product,
                         id: product_form_id,
@@ -1194,6 +1189,47 @@
                         </atc-submit>
                       {%- endform -%}
                     </div>
+ 
+             <p class="aproveita-frete-pdp"><strong>Aproveite o Frete Grátis!</strong></p>
+ 
+                    <div class="product-description-side"> 
+                      {% if product.metafields.custom.short_description %}
+                        <div class="short-description">
+                          {{ product.metafields.custom.short_description.value }}
+                        </div>
+                      {% endif %}
+                    </div>
+
+
+                    {% if product.metafields.custom.video_url %}
+                      {% assign video_url = product.metafields.custom.video_url.value %}
+                      <div class="product-video">
+                        {% if video_url contains 'watch?v=' %}
+                          {% assign video_id = video_url | split: 'watch?v=' | last | split: '&' | first %}
+                          <iframe
+                            width="100%"
+                            height="250"
+                            src="https://www.youtube.com/embed/{{ video_id }}"
+                            title="{{ product.title }}"
+                            frameborder="0"
+                            allowfullscreen>
+                          </iframe>
+                        {% else %}
+                          <iframe
+                            width="100%"
+                            height="250"
+                            src="{{ video_url }}"
+                            title="{{ product.title }}"
+                            frameborder="0"
+                            allowfullscreen>
+                          </iframe>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+
+                   
+
+
                   {%- when 'pickup_availability' -%}
                     {%- style -%}
                       .main-product_{{ block.type }}-block{
@@ -1550,6 +1586,13 @@
             </div>
           </div>
         </div>
+       
+       
+
+
+        
+       
+       
         <span class="{{ js_contents_prefix }}loader"> loading </span>
         <script id="{{- product_json_id -}}" type="application/json">
           {
@@ -2810,6 +2853,141 @@
         }
       ],
       "default": "lines"
+    },
+
+    {
+      "type": "header",
+      "content": "🏷️ Flags de coleção (badges circulares)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Configure até 6 flags. Preencha o handle da coleção (Admin → Coleções → URL) e selecione a imagem circular do badge."
+    },
+    {
+      "type": "header",
+      "content": "Flag 1"
+    },
+    {
+      "type": "text",
+      "id": "flag_1_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: ultra-compacto"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_1_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_1_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Ultra compacto"
+    },
+    {
+      "type": "header",
+      "content": "Flag 2"
+    },
+    {
+      "type": "text",
+      "id": "flag_2_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: conjunto-completo"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_2_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_2_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Conjunto completo"
+    },
+    {
+      "type": "header",
+      "content": "Flag 3"
+    },
+    {
+      "type": "text",
+      "id": "flag_3_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: conforto-superior"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_3_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_3_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Conforto superior"
+    },
+    {
+      "type": "header",
+      "content": "Flag 4"
+    },
+    {
+      "type": "text",
+      "id": "flag_4_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: carrinho-moises"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_4_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_4_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Carrinho moisés"
+    },
+    {
+      "type": "header",
+      "content": "Flag 5"
+    },
+    {
+      "type": "text",
+      "id": "flag_5_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: isofix-giro-360"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_5_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_5_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Isofix e Giro 360"
+    },
+    {
+      "type": "header",
+      "content": "Flag 6"
+    },
+    {
+      "type": "text",
+      "id": "flag_6_handle",
+      "label": "Handle da coleção",
+      "placeholder": "ex: protecao-extra"
+    },
+    {
+      "type": "image_picker",
+      "id": "flag_6_image",
+      "label": "Imagem do badge (circular)"
+    },
+    {
+      "type": "text",
+      "id": "flag_6_label",
+      "label": "Texto alternativo (alt)",
+      "placeholder": "ex: Proteção extra"
     },
     {
       "type": "header",
