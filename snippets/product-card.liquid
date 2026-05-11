@@ -682,21 +682,6 @@
           </div>
         </div>
       </div>
-      {%- assign card_rating2 = product.metafields.reviews.rating.value.rating -%}
-      {%- assign card_rating_count2 = product.metafields.reviews.rating_count -%}
-      {%- if card_rating2 != blank and card_rating_count2 > 0 -%}
-        {%- assign card_star_filled2 = card_rating2 | round -%}
-        <div class="product-card_stars">
-          {%- for i in (1..5) -%}
-            {%- if i <= card_star_filled2 -%}
-              <i class="product_rating-star --active">{%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'star-filled' -%}</i>
-            {%- else -%}
-              <i class="product_rating-star">{%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'star-filled' -%}</i>
-            {%- endif -%}
-          {%- endfor -%}
-          <span class="product-card_stars-info">{{ card_rating2 | round: 1 }} ({{ card_rating_count2 }})</span>
-        </div>
-      {%- endif -%}
       {%- liquid
         assign productTitle = product.title | escape
         render 'element-heading' | elem_heading_tag: 'h3' | elem_heading_parent: 'product-column' | elem_heading_text: productTitle | elem_heading_size: 'heading_x_small' | elem_heading_link: product_clean_url | elem_heading_custom_class: 'mty'
