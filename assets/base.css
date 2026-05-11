@@ -1829,8 +1829,8 @@ input[type="radio"].disabled + label.variant-element_label .variant-element_span
   position: relative;
   cursor: pointer;
   display: block;
-  padding: 0;
-  border-radius: calc(var(--button-radius) / 1.5);
+  padding: 2px;
+  border-radius: 50px;
 }
 
 .variant-element_label::before{
