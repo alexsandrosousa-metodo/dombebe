@@ -1350,7 +1350,7 @@
                                                 break
                                               endif
                                             else
-                                              if option.name == 'color' or option.name == 'Color' or option.name == 'colour' or option.name == 'Colour'
+                                              if option.name == 'color' or option.name == 'Color' or option.name == 'colour' or option.name == 'Colour' or option.name == 'Cor' or option.name == 'cor'
                                                 echo 'true'
                                                 break
                                               endif
@@ -2541,7 +2541,7 @@
                                   {%- for option in product.options_with_values -%}
                                     {%- liquid
                                       capture has_color_variant
-                                        if option.name == 'color' or option.name == 'Color' or option.name == 'colour' or option.name == 'Colour'
+                                        if option.name == 'color' or option.name == 'Color' or option.name == 'colour' or option.name == 'Colour' or option.name == 'Cor' or option.name == 'cor'
                                           echo 'true'
                                         endif
                                       endcapture
