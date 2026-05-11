@@ -561,6 +561,14 @@
                         {% if block.settings.show_variations %}
                           {%- unless product.has_only_default_variant -%}
                             <li class="mty" id="{{ section.id }}-variants-container">
+                              {%- assign product_cor_css = product.metafields.shopify['color-pattern'] -%}
+                              {%- if product_cor_css != blank -%}
+                                <style>
+                                  {%- for cor_css_item in product_cor_css.value -%}
+                                    label.variant-element_label[data-option-name="{{ cor_css_item.label | escape }}"] { --variant-clr: {{ cor_css_item.color }}; }
+                                  {%- endfor -%}
+                                </style>
+                              {%- endif -%}
                               <div class="product-card-variants">
                                 {%- for option in product.options_with_values -%}
                                   {%- liquid

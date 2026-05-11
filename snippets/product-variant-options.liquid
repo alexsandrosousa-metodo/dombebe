@@ -32,14 +32,19 @@
         elsif value.swatch.color
           assign swatch_value = 'rgb(' | append: value.swatch.color.rgb | append: ')'
         else
-          assign color_meta = shop.metaobjects.cor[value_handle]
-          unless color_meta == blank
-            assign swatch_value = color_meta.color
+          assign product_cor_list = product.metafields.shopify['color-pattern']
+          unless product_cor_list == blank
+            for cor_item in product_cor_list.value
+              if cor_item.label == value
+                assign swatch_value = cor_item.color
+                break
+              endif
+            endfor
           endunless
           if swatch_value == blank
-            assign color_meta2 = shop.metaobjects['shopify--color-swatch'][value_handle]
-            unless color_meta2 == blank
-              assign swatch_value = color_meta2.color
+            assign color_meta = shop.metaobjects.cor[value_handle]
+            unless color_meta == blank
+              assign swatch_value = color_meta.color
             endunless
           endif
         endif
