@@ -55,7 +55,7 @@
         "compare_button_position": "show_compare_btn_top",
         "section_color_scheme": "",
         "show_featured_image": true,
-        "enable_filtering": true,
+        "enable_filtering": false,
         "enable_sorting": true,
         "filter_type": "vertical",
         "show_description": "top",
