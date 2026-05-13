@@ -744,14 +744,6 @@
     "custom_marca_x8VzPh": {
       "type": "custom-marca",
       "blocks": {
-        "brand_zkgd4q": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Joie",
-            "brand_logo": "shopify://shop_images/joie_957dda6c-f54a-4ebf-9402-5e9d4d4c50fa.png",
-            "brand_url": "shopify://collections/joie"
-          }
-        },
         "brand_q6iaMc": {
           "type": "brand",
           "settings": {
@@ -768,8 +760,17 @@
             "brand_url": "shopify://collections/marca-infanti"
           }
         },
+        "brand_zkgd4q": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Joie",
+            "brand_logo": "shopify://shop_images/joie_957dda6c-f54a-4ebf-9402-5e9d4d4c50fa.png",
+            "brand_url": "shopify://collections/joie"
+          }
+        },
         "brand_yJYCq7": {
           "type": "brand",
+          "disabled": true,
           "settings": {
             "brand_name": "Kikka Boo",
             "brand_logo": "shopify://shop_images/logo_kikka_boo.png",
@@ -786,9 +787,9 @@
         }
       },
       "block_order": [
-        "brand_zkgd4q",
         "brand_q6iaMc",
         "brand_4Bi4DU",
+        "brand_zkgd4q",
         "brand_yJYCq7",
         "brand_JhaXJM"
       ],
