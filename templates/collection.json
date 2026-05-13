@@ -13,9 +13,9 @@
       "type": "category-banner",
       "name": "Banner de Categoria",
       "settings": {
-        "banner_image": "shopify://shop_images/f52462cd369d9fc96929edcd801fbacdba644271.png",
+        "banner_image": "shopify://shop_images/Bnner_Premium_Store_desktop.png",
         "title": "",
-        "title_color": "#2ab5a5",
+        "title_color": "#8d5e02",
         "title_position": "left",
         "banner_height_desktop": 300,
         "banner_height_mobile": 180
