@@ -744,20 +744,20 @@
     "custom_marca_x8VzPh": {
       "type": "custom-marca",
       "blocks": {
-        "brand_DBYhpV": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Nuna",
-            "brand_logo": "shopify://shop_images/Logo_Nuna.png",
-            "brand_url": "shopify://collections/nuna"
-          }
-        },
         "brand_q6iaMc": {
           "type": "brand",
           "settings": {
             "brand_name": "Maxi-Cosi",
             "brand_logo": "shopify://shop_images/maxi_coi.png",
             "brand_url": "shopify://collections/marca-maxi-cosi"
+          }
+        },
+        "brand_DBYhpV": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Nuna",
+            "brand_logo": "shopify://shop_images/Logo_Nuna.png",
+            "brand_url": "shopify://collections/nuna"
           }
         },
         "brand_4Bi4DU": {
@@ -795,8 +795,8 @@
         }
       },
       "block_order": [
-        "brand_DBYhpV",
         "brand_q6iaMc",
+        "brand_DBYhpV",
         "brand_4Bi4DU",
         "brand_zkgd4q",
         "brand_yJYCq7",
