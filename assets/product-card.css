@@ -647,7 +647,7 @@ line-item-qty{
 .product-column product-card.--drawer-active .product_foot{
   top: 45px;
   padding-top: 12px;
-  background: var(--section-background-color);
+  background: transparent;
 }
 
 .product-card_check-tag{

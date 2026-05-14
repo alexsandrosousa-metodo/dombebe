@@ -17,9 +17,6 @@ div>div>div>div>div.products_gallery.--adapt-media>div>splide-slider {
   height: 520px;
 }
 
-div>div>product-recommendations>div>div.product-description-side>p:nth-child(1)>b:nth-child(1) {
-  display: none;
-}
 
 .jdgm-write-review-modal__stars .jdgm-star,
 .jm-star-rating__font-icon {
@@ -2043,6 +2040,9 @@ span#parcelator.parcelatorProduct p {
   background: var(--section-alternative-color);
 }
 
+#judgeme_product_reviews{
+  max-width: 1400px !important;
+}
 
 @media (min-width: 380px) {
   .splide-slider--h-scroll>.splide__slide {
