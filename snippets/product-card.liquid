@@ -939,40 +939,9 @@
                     {%- endunless -%}
                   </div>
                 </div>
-                {%- unless section.settings.card_view -%}
-                  <div class="product-column_button-wrap {% unless section.settings.show_animation and section.settings.show_animation_btn %}--btn-full{% endunless %}">
-                    <dropdown-toggler
-                      data-parent="#{{- section.id -}}-{{ product.id }}-description"
-                      data-active-class="--drawer-active"
-                    >
-                      <button
-                        data-btn-toggler=""
-                        type="button"
-                        class="{{ js_contents_prefix }}variants-toggler button--variants-toggler button button--product-action button--primary {% unless section.settings.show_animation and section.settings.show_animation_btn %}--justify-space-between{% endunless %}"
-                        aria-expanded="false"
-                        aria-controls="{{- section.id -}}-{{ product.id }}-variants-container"
-                        aria-describedby="{{- section.id -}}-{{ product.id }}-variants-container-heading"
-                      >
-                        <span class="product-column_quick-btn-text-wrap">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
-                    <path d="M12.3404 2.47031C12.3074 2.4307 12.2661 2.39883 12.2195 2.37696C12.1728 2.35509 12.1219 2.34375 12.0703 2.34375H2.51953L2.14629 0.288867C2.13161 0.20786 2.08896 0.134574 2.02579 0.0817847C1.96261 0.0289958 1.88291 5.2429e-05 1.80059 0H0.351562C0.258322 0 0.168901 0.0370395 0.10297 0.10297C0.0370395 0.168901 0 0.258322 0 0.351562C0 0.444803 0.0370395 0.534224 0.10297 0.600155C0.168901 0.666086 0.258322 0.703125 0.351562 0.703125H1.50703L3.01934 9.01992C3.06675 9.28216 3.19452 9.52316 3.38496 9.70957C3.15482 9.8934 2.98291 10.14 2.89003 10.4195C2.79716 10.699 2.78731 10.9995 2.86167 11.2845C2.93603 11.5695 3.09143 11.8268 3.30903 12.0254C3.52663 12.2239 3.79712 12.355 4.08773 12.403C4.37835 12.451 4.67664 12.4136 4.94648 12.2955C5.21633 12.1775 5.44615 11.9837 5.60814 11.7377C5.77012 11.4917 5.85731 11.204 5.85916 10.9094C5.86101 10.6149 5.77744 10.3261 5.61855 10.0781H8.67832C8.49614 10.3632 8.41404 10.7009 8.44499 11.0378C8.47595 11.3747 8.61818 11.6918 8.84926 11.9389C9.08034 12.186 9.38711 12.3492 9.7212 12.4027C10.0553 12.4562 10.3977 12.397 10.6944 12.2343C10.9911 12.0717 11.2252 11.8149 11.3598 11.5045C11.4943 11.194 11.5218 10.8477 11.4377 10.5199C11.3536 10.1922 11.1629 9.90176 10.8955 9.69446C10.6281 9.48715 10.2993 9.37475 9.96094 9.375H4.2873C4.15008 9.37502 4.0172 9.32688 3.91184 9.23897C3.80647 9.15106 3.73531 9.02895 3.71074 8.89394L3.4998 7.73438H10.4355C10.7374 7.73445 11.0298 7.62857 11.2616 7.43519C11.4934 7.2418 11.65 6.97319 11.7041 6.67617L12.416 2.75801C12.4252 2.70744 12.4232 2.65548 12.4101 2.60577C12.3971 2.55607 12.3733 2.50983 12.3404 2.47031ZM5.15625 10.8984C5.15625 11.0607 5.10814 11.2193 5.018 11.3542C4.92787 11.4891 4.79975 11.5942 4.64986 11.6563C4.49996 11.7184 4.33503 11.7346 4.1759 11.703C4.01678 11.6713 3.87061 11.5932 3.75589 11.4785C3.64117 11.3638 3.56304 11.2176 3.53139 11.0585C3.49974 10.8993 3.51598 10.7344 3.57807 10.5845C3.64016 10.4346 3.7453 10.3065 3.8802 10.2164C4.0151 10.1262 4.1737 10.0781 4.33594 10.0781C4.5535 10.0781 4.76215 10.1646 4.91599 10.3184C5.06982 10.4722 5.15625 10.6809 5.15625 10.8984ZM10.7812 10.8984C10.7812 11.0607 10.7331 11.2193 10.643 11.3542C10.5529 11.4891 10.4248 11.5942 10.2749 11.6563C10.125 11.7184 9.96003 11.7346 9.8009 11.703C9.64178 11.6713 9.49561 11.5932 9.38089 11.4785C9.26617 11.3638 9.18804 11.2176 9.15639 11.0585C9.12474 10.8993 9.14098 10.7344 9.20307 10.5845C9.26515 10.4346 9.3703 10.3065 9.5052 10.2164C9.6401 10.1262 9.79869 10.0781 9.96094 10.0781C10.1785 10.0781 10.3871 10.1646 10.541 10.3184C10.6948 10.4722 10.7812 10.6809 10.7812 10.8984ZM11.0121 6.55019C10.9875 6.6852 10.9164 6.80731 10.811 6.89522C10.7056 6.98313 10.5728 7.03127 10.4355 7.03125H3.37207L2.64785 3.04688H11.649L11.0121 6.55019Z" fill="white"/>
-                  </svg>
-                          <span class="product-column_quick-btn-text">
-                            {{- 'sections.products.product.quick_add' | t -}}
-                          </span>
-                        </span>
-                        {% unless section.settings.show_animation and section.settings.show_animation_btn %}
-                          <span class="product-column_quick-btn-arrow">
-                            {%- render 'icons-data', width: 12, height: 12, use_icon: true, icon_reference: 'arrow-right' -%}
-                          </span>
-                        {% endunless %}
-                      </button>
-                    </dropdown-toggler>
-                  </div>
-                {%- endunless -%}
               </div>
             {%- endunless -%}
-            <div class="prdkwrap2 {% if show_variant_drawer %} show-variant-drawer{% endif %}">
+            <div class="prdkwrap2">
               {% if section.settings.enable_quantity_field %}
                 <quantity-input class="quantity">
                   <label class="visually-hidden" for="Quantity-{{ section.id }}-{{ product.id }}-{{ forloop.index | plus: 1 }}">{{- 'sections.products.product.quantity.label' | t -}}</label>
