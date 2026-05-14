@@ -13,9 +13,10 @@
       "type": "category-banner",
       "name": "Banner de Categoria",
       "settings": {
-        "banner_image": "shopify://shop_images/f52462cd369d9fc96929edcd801fbacdba644271.png",
+        "banner_image": "shopify://shop_images/NV_Banner_Site_Desktop_df98ceeb-f8f3-46eb-ab77-b643e5e11332.png",
+        "banner_image_mobile": "shopify://shop_images/Copia_de_Banner_Site_Desktop_1920_x_500_px_430_x_400_px_1_f78bafb1-a0f9-4619-88c3-37839dad51cb.png",
         "title": "",
-        "title_color": "#2ab5a5",
+        "title_color": "#8d5e02",
         "title_position": "left",
         "banner_height_desktop": 300,
         "banner_height_mobile": 180
@@ -55,7 +56,7 @@
         "compare_button_position": "show_compare_btn_top",
         "section_color_scheme": "",
         "show_featured_image": true,
-        "enable_filtering": true,
+        "enable_filtering": false,
         "enable_sorting": true,
         "filter_type": "vertical",
         "show_description": "top",

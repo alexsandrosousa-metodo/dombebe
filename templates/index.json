@@ -12,46 +12,17 @@
     "banner-slideshow": {
       "type": "banner-slideshow",
       "blocks": {
-        "slide_KtfJBh": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_iii": "shopify://shop_images/Semana_do_consumidor_Desktop_1cd1610c-a1e4-4bab-9b0e-3095e4cf1601.png",
-            "image_iii_mob": "shopify://shop_images/Semana_do_Consumidor_Mobile_47a89dae-5558-49d8-b287-dda52858793e.png",
-            "bg_overlay_opac": 100,
-            "remove_overlay": true,
-            "block_content_order": "center",
-            "block_text_alignment": "center",
-            "mobile_text_alignment": false,
-            "block_content_alignment": "bottom",
-            "block_content_position": "center",
-            "max_content_width": 100,
-            "heading": "",
-            "heading_size": "heading_medium",
-            "description": "",
-            "badge_text": "",
-            "button_label_i": "CLIQUE E APROVEITE!",
-            "link_i": "shopify://collections/promocao-semana-do-consumidor",
-            "open_new_window": false,
-            "button_type": "primary",
-            "button_label_ii": "",
-            "link_ii": "shopify://collections/promocao-semana-do-consumidor",
-            "open_new_windowii": false,
-            "pagination_text": "",
-            "block_color_scheme": "scheme6"
-          }
-        },
         "slide_fNbLYa": {
           "type": "slide",
           "settings": {
-            "image_iii": "shopify://shop_images/Nuna_Demi_Grow_Desktop.png",
-            "image_iii_mob": "shopify://shop_images/Nuna_Demi_Grow_Mobile.png",
+            "image_iii": "shopify://shop_images/NV_Banner_Site_Desktop_4.png",
+            "image_iii_mob": "shopify://shop_images/Banner_mobile.png",
             "bg_overlay_opac": 100,
             "remove_overlay": true,
-            "block_content_order": "center",
-            "block_text_alignment": "center",
+            "block_content_order": "left",
+            "block_text_alignment": "left",
             "mobile_text_alignment": false,
-            "block_content_alignment": "top",
+            "block_content_alignment": "bottom",
             "block_content_position": "center",
             "max_content_width": 100,
             "heading": "",
@@ -59,41 +30,12 @@
             "description": "",
             "badge_text": "",
             "button_label_i": "Comprar agora",
-            "link_i": "shopify://products/nuna-demi-grow-e-pipa-next-com-base-isofix-360-curv",
+            "link_i": "shopify://collections/nuna",
             "open_new_window": true,
             "button_type": "secondary",
             "button_label_ii": "",
-            "link_ii": "shopify://products/nuna-demi-grow-e-pipa-next-com-base-isofix-360-curv",
+            "link_ii": "shopify://collections/nuna",
             "open_new_windowii": true,
-            "pagination_text": "",
-            "block_color_scheme": "scheme6"
-          }
-        },
-        "slide_dFcyiD": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_iii": "shopify://shop_images/Bnner_Premium_Store_desktop.png",
-            "image_iii_mob": "shopify://shop_images/Banner_Premium_Store_mobile.png",
-            "bg_overlay_opac": 100,
-            "remove_overlay": true,
-            "block_content_order": "center",
-            "block_text_alignment": "center",
-            "mobile_text_alignment": false,
-            "block_content_alignment": "middle",
-            "block_content_position": "center",
-            "max_content_width": 100,
-            "heading": "",
-            "heading_size": "heading_medium",
-            "description": "",
-            "badge_text": "",
-            "button_label_i": "VEJA O MELHOR PARA O SEU BEBÊ",
-            "link_i": "shopify://collections/premium-store-maxi-cosi",
-            "open_new_window": true,
-            "button_type": "primary",
-            "button_label_ii": "",
-            "link_ii": "",
-            "open_new_windowii": false,
             "pagination_text": "",
             "block_color_scheme": "scheme6"
           }
@@ -105,10 +47,10 @@
             "image_iii_mob": "shopify://shop_images/Banner_Nivola_Mobile.png",
             "bg_overlay_opac": 100,
             "remove_overlay": true,
-            "block_content_order": "center",
-            "block_text_alignment": "center",
+            "block_content_order": "right",
+            "block_text_alignment": "right",
             "mobile_text_alignment": false,
-            "block_content_alignment": "bottom",
+            "block_content_alignment": "top",
             "block_content_position": "center",
             "max_content_width": 100,
             "heading": "",
@@ -149,6 +91,64 @@
             "button_type": "primary",
             "button_label_ii": "",
             "link_ii": "",
+            "open_new_windowii": false,
+            "pagination_text": "",
+            "block_color_scheme": "scheme6"
+          }
+        },
+        "slide_dFcyiD": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_iii": "shopify://shop_images/Bnner_Premium_Store_desktop.png",
+            "image_iii_mob": "shopify://shop_images/Banner_Premium_Store_mobile.png",
+            "bg_overlay_opac": 100,
+            "remove_overlay": true,
+            "block_content_order": "center",
+            "block_text_alignment": "center",
+            "mobile_text_alignment": false,
+            "block_content_alignment": "middle",
+            "block_content_position": "center",
+            "max_content_width": 100,
+            "heading": "",
+            "heading_size": "heading_medium",
+            "description": "",
+            "badge_text": "",
+            "button_label_i": "VEJA O MELHOR PARA O SEU BEBÊ",
+            "link_i": "shopify://collections/premium-store-maxi-cosi",
+            "open_new_window": true,
+            "button_type": "primary",
+            "button_label_ii": "",
+            "link_ii": "",
+            "open_new_windowii": false,
+            "pagination_text": "",
+            "block_color_scheme": "scheme6"
+          }
+        },
+        "slide_KtfJBh": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_iii": "shopify://shop_images/Semana_do_consumidor_Desktop_1cd1610c-a1e4-4bab-9b0e-3095e4cf1601.png",
+            "image_iii_mob": "shopify://shop_images/Semana_do_Consumidor_Mobile_47a89dae-5558-49d8-b287-dda52858793e.png",
+            "bg_overlay_opac": 100,
+            "remove_overlay": true,
+            "block_content_order": "center",
+            "block_text_alignment": "center",
+            "mobile_text_alignment": false,
+            "block_content_alignment": "bottom",
+            "block_content_position": "center",
+            "max_content_width": 100,
+            "heading": "",
+            "heading_size": "heading_medium",
+            "description": "",
+            "badge_text": "",
+            "button_label_i": "CLIQUE E APROVEITE!",
+            "link_i": "shopify://collections/promocao-semana-do-consumidor",
+            "open_new_window": false,
+            "button_type": "primary",
+            "button_label_ii": "",
+            "link_ii": "shopify://collections/promocao-semana-do-consumidor",
             "open_new_windowii": false,
             "pagination_text": "",
             "block_color_scheme": "scheme6"
@@ -244,11 +244,11 @@
         }
       },
       "block_order": [
-        "slide_KtfJBh",
         "slide_fNbLYa",
-        "slide_dFcyiD",
         "slide_xeKthP",
         "slide_B49itp",
+        "slide_dFcyiD",
+        "slide_KtfJBh",
         "slide_aKebA9",
         "slide_6c7APe",
         "slide_mnjprX"
@@ -744,20 +744,20 @@
     "custom_marca_x8VzPh": {
       "type": "custom-marca",
       "blocks": {
-        "brand_zkgd4q": {
-          "type": "brand",
-          "settings": {
-            "brand_name": "Joie",
-            "brand_logo": "shopify://shop_images/joie_957dda6c-f54a-4ebf-9402-5e9d4d4c50fa.png",
-            "brand_url": "shopify://collections/joie"
-          }
-        },
         "brand_q6iaMc": {
           "type": "brand",
           "settings": {
             "brand_name": "Maxi-Cosi",
             "brand_logo": "shopify://shop_images/maxi_coi.png",
             "brand_url": "shopify://collections/marca-maxi-cosi"
+          }
+        },
+        "brand_DBYhpV": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Nuna",
+            "brand_logo": "shopify://shop_images/Logo_Nuna.png",
+            "brand_url": "shopify://collections/nuna"
           }
         },
         "brand_4Bi4DU": {
@@ -768,8 +768,17 @@
             "brand_url": "shopify://collections/marca-infanti"
           }
         },
+        "brand_zkgd4q": {
+          "type": "brand",
+          "settings": {
+            "brand_name": "Joie",
+            "brand_logo": "shopify://shop_images/joie_957dda6c-f54a-4ebf-9402-5e9d4d4c50fa.png",
+            "brand_url": "shopify://collections/joie"
+          }
+        },
         "brand_yJYCq7": {
           "type": "brand",
+          "disabled": true,
           "settings": {
             "brand_name": "Kikka Boo",
             "brand_logo": "shopify://shop_images/logo_kikka_boo.png",
@@ -786,9 +795,10 @@
         }
       },
       "block_order": [
-        "brand_zkgd4q",
         "brand_q6iaMc",
+        "brand_DBYhpV",
         "brand_4Bi4DU",
+        "brand_zkgd4q",
         "brand_yJYCq7",
         "brand_JhaXJM"
       ],
