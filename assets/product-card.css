@@ -645,7 +645,7 @@ line-item-qty{
 }
 
 .product-column product-card.--drawer-active .product_foot{
-  top: -50px;
+  top: 45px;
   padding-top: 12px;
   background: var(--section-background-color);
 }
@@ -715,7 +715,7 @@ line-item-qty{
 .--product-card-conjusted .product-column product-card:not(.--drawer-active) .variant-row--pills-color .variant-options-holder .variant-options-wrap:nth-child(2),
 .--product-card-conjusted .product-column product-card:not(.--drawer-active) .variant-row--pills-color .variant-options-holder .variant-options-wrap:nth-child(3),
 product-card.--drawer-active .product-card-colors{
-  display: none;
+  display: block;
 }
 
 .product-column product-card:not(.--drawer-active) .product-card-colors .product-card-variant-wrap,
