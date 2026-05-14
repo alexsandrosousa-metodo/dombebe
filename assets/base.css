@@ -50,10 +50,6 @@ strong.product_stock-inventory.parent-node {
   display: none !important;
 }
 
-.jdgm-write-review-modal .jdgm-write-review-modal__form{
-      gap: 10px;
-}
-
 .jdgm-write-review-modal .jdgm-write-review-modal__form,
 .jdgm-write-review-modal .jdgm-write-review-modal__form--thank-you {
   height: auto !important;
@@ -2042,6 +2038,12 @@ span#parcelator.parcelatorProduct p {
 .splide-slider--h-scroll::-webkit-scrollbar-thumb:hover {
   background: var(--section-alternative-color);
 }
+
+
+.jdgm-write-review-modal .jdgm-write-review-modal__form{
+      gap: 10px !important;
+}
+
 
 #judgeme_product_reviews{
   max-width: 1400px !important;
