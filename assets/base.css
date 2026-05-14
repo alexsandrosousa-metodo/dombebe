@@ -50,6 +50,9 @@ strong.product_stock-inventory.parent-node {
   display: none !important;
 }
 
+.jdgm-write-review-modal .jdgm-write-review-modal__form{
+      gap: 10px;
+}
 
 .jdgm-write-review-modal .jdgm-write-review-modal__form,
 .jdgm-write-review-modal .jdgm-write-review-modal__form--thank-you {
@@ -2043,6 +2046,13 @@ span#parcelator.parcelatorProduct p {
 #judgeme_product_reviews{
   max-width: 1400px !important;
 }
+@media (min-width: 1100px) {
+.jdgm-write-review-modal .jdgm-write-review-modal__content{
+  margin-top: 110px;
+    height: 440px !important;
+    width: 550px !important;
+}
+}
 
 @media (min-width: 380px) {
   .splide-slider--h-scroll>.splide__slide {
@@ -2179,4 +2189,16 @@ span#parcelator.parcelatorProduct p {
     max-width: unset;
     overflow-y: auto;
   }
+}
+
+
+@media (min-width: 1100px) {
+.jdgm-write-review-modal .jdgm-write-review-modal__content{
+          padding: 20px !important;
+        height: 450px !important;
+        width: 650px !important;
+                overflow-y: unset !important;
+                margin-top: 130px;
+
+}
 }
