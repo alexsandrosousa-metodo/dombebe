@@ -2046,7 +2046,8 @@ span#parcelator.parcelatorProduct p {
 
 
 #judgeme_product_reviews {
-  max-width: 1400px !important;
+  max-width: 1380px !important;
+  background: #f7f7f7 !important;
 }
 
 @media (min-width: 1100px) {
