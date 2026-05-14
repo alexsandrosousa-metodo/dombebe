@@ -13,7 +13,8 @@
       "type": "category-banner",
       "name": "Banner de Categoria",
       "settings": {
-        "banner_image": "shopify://shop_images/Bnner_Premium_Store_desktop.png",
+        "banner_image": "shopify://shop_images/Bnner_Premium_Store_desktop_5388e471-d902-47bf-b3fc-b1237fbf16cc.png",
+        "banner_image_mobile": "shopify://shop_images/Copia_de_Banner_Site_Desktop_1920_x_500_px_430_x_400_px.png",
         "title": "",
         "title_color": "#8d5e02",
         "title_position": "left",
