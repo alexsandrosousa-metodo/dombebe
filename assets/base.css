@@ -1526,7 +1526,8 @@ modal-component.modal--active .--drawer {
   }
 
   .splide__slide {
-    height: auto
+    height: auto;
+    width:100% !important;
   }
 
   .section_side_spacing_cont {
