@@ -17,9 +17,6 @@ div>div>div>div>div.products_gallery.--adapt-media>div>splide-slider {
   height: 520px;
 }
 
-.featured-collection_wrapper .featured-collection_holder .featured-collection_slider .collection-slide .splide__track .splide__list .splide__slide{
-  width:100% !important;
-}
 
 .jdgm-write-review-modal__stars .jdgm-star,
 .jm-star-rating__font-icon {
@@ -2209,4 +2206,9 @@ span#parcelator.parcelatorProduct p {
     margin-top: 130px;
 
   }
+}
+@media (min-width: 390px) and (max-width: 390px) {
+.featured-collection_wrapper .featured-collection_holder .featured-collection_slider .collection-slide .splide__track .splide__list .splide__slide{
+  width:100% !important;
+}
 }
