@@ -2208,7 +2208,7 @@ span#parcelator.parcelatorProduct p {
   }
 }
 @media (min-width: 390px) and (max-width: 390px) {
- .featured-collection_slider .collection-slide .splide__track .splide__list .splide__slide{
+ .splide__slide{
   width:100% !important;
 }
 }
