@@ -1,1 +1,124 @@
-{"sections":{"main":{"type":"main-cart","blocks":{"message_box":{"type":"message_box","disabled":true,"settings":{"heading":"Charity commitment","subheading":"1% of order value (minimum $1)","description":"<p>From <span style=\"text-decoration:underline\">Kidu <\/span>to <span style=\"text-decoration:underline\">Little Angels<\/span><\/p>","message_box_color_scheme":""}},"cart_notices_1":{"type":"cart_notices","settings":{"image":"shopify:\/\/shop_images\/ssl-color.svg","heading":"<strong>Compra 100% segura e garantida!<\/strong>","description":""}},"cart_notices_2":{"type":"cart_notices","disabled":true,"settings":{"heading":"Notice","description":"<p>Heavy snowfall and ice can block vital roadways, causing significant delays in shipping.<\/p>"}}},"block_order":["message_box","cart_notices_1","cart_notices_2"],"custom_css":[],"settings":{"section_heading":"Carrinho de compras","section_heading_size":"heading_large","section_color_scheme":"","secondary_color_scheme":"scheme4","show_payment_icons":true,"section_top_padding":0,"section_bottom_padding":0}},"featured-collection":{"type":"featured-collection","settings":{"collection":"acessorios-de-passeio","end_date":"","end_message":"","section_heading":"Você também pode gostar","section_heading_size":"heading_medium","section_description":"","enable_show_more_button":true,"show_more_button_label":"View all deals","button_type":"secondary","btn_full_width":false,"number_of_columns_on_desktop":4,"number_of_rows":2,"number_of_columns_on_mobile":"2","mob_cols_query":416,"hide_qty_field_on_mob":false,"hide_info_bar_on_mob":false,"hide_info_bar_on_desktop":false,"hide_quick_mob":false,"hide_compare_on_mob":false,"hide_compare_on_desktop":false,"color_switcher_position":true,"column_image_ratio":"adapt_to_image","section_view_layout":"section_layout_i","enable_btn_overlay":false,"product_text_center":false,"first_card_expanded":false,"item_index":"","columns":2,"rows":2,"show_sec_image":true,"show_product_rating":true,"show_inventory":false,"show_savings_badge":true,"show_vendor":false,"show_custom_badges":true,"enable_compare_button":false,"enable_quick_add_button":true,"card_view":false,"show_animation":true,"show_animation_btn":true,"enable_quantity_field":true,"show_status_as_overlay":false,"status_bar_position":"show_status_bar_top","compare_button_position":"show_compare_btn_top","section_text_alignment":"center","full_screen_width":false,"mobile_text_alignment":true,"section_color_scheme":"","enable_slideshow":true,"auto_play":false,"show_navigation":true,"arrows_position":"default","pagination":"lines","change_slides_every":5,"section_top_padding":10,"section_bottom_padding":10}}},"order":["main","featured-collection"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-cart",
+      "blocks": {
+        "message_box": {
+          "type": "message_box",
+          "disabled": true,
+          "settings": {
+            "heading": "Charity commitment",
+            "subheading": "1% of order value (minimum $1)",
+            "description": "<p>From <span style=\"text-decoration:underline\">Kidu </span>to <span style=\"text-decoration:underline\">Little Angels</span></p>",
+            "message_box_color_scheme": ""
+          }
+        },
+        "cart_notices_1": {
+          "type": "cart_notices",
+          "settings": {
+            "image": "shopify://shop_images/ssl-color.svg",
+            "heading": "<strong>Compra 100% segura e garantida!</strong>",
+            "description": ""
+          }
+        },
+        "cart_notices_2": {
+          "type": "cart_notices",
+          "disabled": true,
+          "settings": {
+            "heading": "Notice",
+            "description": "<p>Heavy snowfall and ice can block vital roadways, causing significant delays in shipping.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "message_box",
+        "cart_notices_1",
+        "cart_notices_2"
+      ],
+      "custom_css": [],
+      "settings": {
+        "section_heading": "Carrinho de compras",
+        "section_heading_size": "heading_large",
+        "section_color_scheme": "",
+        "secondary_color_scheme": "scheme4",
+        "show_payment_icons": true,
+        "section_top_padding": 0,
+        "section_bottom_padding": 0
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "acessorios-de-passeio",
+        "end_date": "",
+        "end_message": "",
+        "section_heading": "Você também pode gostar",
+        "section_heading_size": "heading_medium",
+        "section_description": "",
+        "enable_show_more_button": true,
+        "show_more_button_label": "Veja toda a coleção",
+        "button_type": "secondary",
+        "btn_full_width": false,
+        "number_of_columns_on_desktop": 4,
+        "number_of_rows": 2,
+        "number_of_columns_on_mobile": "2",
+        "mob_cols_query": 416,
+        "hide_qty_field_on_mob": false,
+        "hide_info_bar_on_mob": false,
+        "hide_info_bar_on_desktop": false,
+        "hide_quick_mob": false,
+        "hide_compare_on_mob": false,
+        "hide_compare_on_desktop": false,
+        "color_switcher_position": true,
+        "column_image_ratio": "adapt_to_image",
+        "section_view_layout": "section_layout_i",
+        "enable_btn_overlay": false,
+        "product_text_center": false,
+        "first_card_expanded": false,
+        "item_index": "",
+        "columns": 2,
+        "rows": 2,
+        "show_sec_image": true,
+        "show_product_rating": true,
+        "show_inventory": false,
+        "show_savings_badge": true,
+        "show_vendor": false,
+        "show_custom_badges": true,
+        "enable_compare_button": false,
+        "enable_quick_add_button": true,
+        "card_view": false,
+        "show_animation": true,
+        "show_animation_btn": true,
+        "enable_quantity_field": true,
+        "show_status_as_overlay": false,
+        "status_bar_position": "show_status_bar_top",
+        "compare_button_position": "show_compare_btn_top",
+        "section_text_alignment": "center",
+        "full_screen_width": false,
+        "mobile_text_alignment": true,
+        "section_color_scheme": "",
+        "enable_slideshow": true,
+        "auto_play": false,
+        "show_navigation": true,
+        "arrows_position": "default",
+        "pagination": "lines",
+        "change_slides_every": 5,
+        "section_top_padding": 10,
+        "section_bottom_padding": 10
+      }
+    }
+  },
+  "order": [
+    "main",
+    "featured-collection"
+  ]
+}
