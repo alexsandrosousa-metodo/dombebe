@@ -523,6 +523,10 @@ align-items: center;
         overflow:scroll;
   }
 
+  .compre-junto-wrapper{
+    padding:0 20px;
+  }
+
   .compre-junto-products{
     flex-direction:column;
   }
