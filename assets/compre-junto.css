@@ -520,6 +520,7 @@ align-items: center;
 
   .container-product-compre-junto{
         width: 100%;
+        overflow:scroll;
   }
 
   .compre-junto-products{
