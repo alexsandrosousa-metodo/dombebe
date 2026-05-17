@@ -27,8 +27,8 @@
     
     <div class="compre-junto-products">
       
-      <!-- Produto 1 - bundle_product_1 (MARCADO) -->
-      <div class="container-desc-product">
+      <!-- Produto 1 - bundle_product_1 -->
+      <div class="container-desc-product" data-product-container="0">
         <input 
           type="checkbox" 
           class="product-checkbox" 
@@ -91,8 +91,8 @@
         </svg>
       </div>
       
-      <!-- Produto 2 - PRODUTO ATUAL (MARCADO) -->
-      <div class="container-desc-product">
+      <!-- Produto 2 - PRODUTO ATUAL -->
+      <div class="container-desc-product" data-product-container="1">
         <input 
           type="checkbox" 
           class="product-checkbox" 
@@ -155,8 +155,8 @@
         </svg>
       </div>
       
-      <!-- Produto 3 - bundle_product_2 (SEM CHECKBOX - BADGE) -->
-      <div class="container-desc-product">
+      <!-- Produto 3 - bundle_product_2 (SEM CHECKBOX) -->
+      <div class="container-desc-product" data-product-container="2">
         <div class="selling-badge">Você está vendo este produto</div>
         
         <input 
@@ -172,7 +172,7 @@
           style="display: none;"
         >
 
-        <div class="bundle-product-card selected" data-product-index="2">
+        <div class="bundle-product-card" data-product-index="2">
           <div class="product-image-wrapper">
             {% if bundle_product_2.featured_image %}
               <img 
@@ -265,23 +265,26 @@
     }
 
     loadProductData() {
-      const cards = this.wrapper.querySelectorAll('.bundle-product-card');
+      const containers = this.wrapper.querySelectorAll('[data-product-container]');
       
-      cards.forEach((card, index) => {
-        const container = card.closest('.container-desc-product');
-        const checkbox = container ? container.querySelector('.product-checkbox') : null;
+      containers.forEach((container, index) => {
+        const checkbox = container.querySelector('.product-checkbox');
+        const card = container.querySelector('.bundle-product-card');
         
-        if (!checkbox) return;
+        if (!checkbox || !card) {
+          console.warn('Checkbox ou card não encontrado no container', index);
+          return;
+        }
 
         const productData = {
           index: index,
-          element: card,
+          container: container,
+          card: card,
           checkbox: checkbox,
           productId: checkbox.dataset.productId,
           currentVariantId: checkbox.dataset.variantId,
           price: parseFloat(checkbox.dataset.price) || 0,
           comparePrice: parseFloat(checkbox.dataset.comparePrice) || 0,
-          title: card.querySelector('.product-title')?.textContent.trim() || '',
           isDisabled: checkbox.disabled
         };
 
@@ -290,17 +293,34 @@
         if (checkbox.checked) {
           card.classList.add('selected');
         }
-      });
 
-      console.log('Produtos carregados:', this.products);
+        console.log(`Produto ${index} carregado:`, {
+          price: productData.price,
+          comparePrice: productData.comparePrice,
+          checked: checkbox.checked,
+          disabled: checkbox.disabled
+        });
+      });
     }
 
     setupEventListeners() {
       this.products.forEach((product) => {
         if (!product.isDisabled) {
           product.checkbox.addEventListener('change', (e) => {
+            console.log(`Checkbox ${product.index} alterado:`, e.target.checked);
             this.handleCheckboxChange(product, e.target.checked);
           });
+
+          // Adiciona evento no label também
+          const label = product.container.querySelector('.checkbox-label');
+          if (label) {
+            label.addEventListener('click', (e) => {
+              if (e.target === label || e.target.closest('.checkbox-label')) {
+                product.checkbox.checked = !product.checkbox.checked;
+                this.handleCheckboxChange(product, product.checkbox.checked);
+              }
+            });
+          }
         }
       });
 
@@ -311,10 +331,12 @@
     }
 
     handleCheckboxChange(product, isChecked) {
+      console.log(`handleCheckboxChange - Produto ${product.index}:`, isChecked);
+      
       if (isChecked) {
-        product.element.classList.add('selected');
+        product.card.classList.add('selected');
       } else {
-        product.element.classList.remove('selected');
+        product.card.classList.remove('selected');
       }
 
       this.updateTotals();
@@ -333,7 +355,7 @@
         }
       });
 
-      console.log('Total atualizado:', { selectedCount, totalPrice, totalCompare });
+      console.log('Totais:', { selectedCount, totalPrice, totalCompare });
 
       const totalPriceEl = this.wrapper.querySelector('[data-total-price]');
       const totalCompareEl = this.wrapper.querySelector('[data-total-compare]');
@@ -373,10 +395,9 @@
       }
 
       if (btnComprar) {
-        const hasSelection = selectedCount > 0;
-        btnComprar.disabled = !hasSelection;
+        btnComprar.disabled = selectedCount === 0;
         
-        if (!hasSelection) {
+        if (selectedCount === 0) {
           btnComprar.innerHTML = 'Selecione pelo menos 1 produto';
         } else {
           btnComprar.innerHTML = `
