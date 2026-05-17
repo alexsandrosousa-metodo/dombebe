@@ -341,54 +341,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Função para abrir o carrinho (múltiplas tentativas)
-  function openCart() {
-    // Método 1: cart-drawer (Shopify Dawn)
-    const cartDrawer = document.querySelector('cart-drawer');
-    if (cartDrawer) {
-      if (typeof cartDrawer.open === 'function') {
-        cartDrawer.open();
-        return true;
-      }
-      if (cartDrawer.classList) {
-        cartDrawer.classList.add('active', 'is-open');
-        return true;
-      }
-    }
-
-    // Método 2: data-cart-drawer
-    const drawerToggle = document.querySelector('[data-cart-drawer]');
-    if (drawerToggle) {
-      drawerToggle.click();
+  // Função para abrir o minicart
+  function openMiniCart() {
+    // Método 1: Clica no ícone do carrinho no header
+    const cartIcon = document.querySelector('a[href="/cart"]');
+    if (cartIcon) {
+      cartIcon.click();
       return true;
     }
 
-    // Método 3: Procura por botão do carrinho
-    const cartButtons = [
-      '.cart-icon',
-      '.header__cart',
-      '[aria-label*="carrinho"]',
-      '[aria-label*="cart"]',
-      '.js-drawer-open-cart',
-      '#cart-icon-bubble'
-    ];
-
-    for (const selector of cartButtons) {
-      const btn = document.querySelector(selector);
-      if (btn) {
-        btn.click();
-        return true;
-      }
+    // Método 2: Procura pelo link/botão com contador
+    const cartLink = document.querySelector('.header__icon--cart, .site-header__cart-toggle, [data-cart-drawer]');
+    if (cartLink) {
+      cartLink.click();
+      return true;
     }
 
-    // Método 4: Dispara evento global
-    document.body.dispatchEvent(new CustomEvent('cart:open'));
+    // Método 3: Dispara evento do tema
+    document.dispatchEvent(new CustomEvent('theme:cart:open'));
+    window.dispatchEvent(new CustomEvent('cart:open'));
     
-    // Método 5: Tenta abrir classe comum de drawer
-    const drawer = document.querySelector('.drawer, .cart-drawer, #CartDrawer');
+    // Método 4: Tenta abrir qualquer drawer visível
+    const drawer = document.querySelector('[data-drawer="cart"], #CartDrawer, .drawer--right');
     if (drawer) {
-      drawer.classList.add('active', 'is-open');
-      drawer.style.transform = 'translateX(0)';
+      drawer.classList.add('is-visible', 'drawer--is-open');
+      drawer.setAttribute('aria-hidden', 'false');
       return true;
     }
 
@@ -421,49 +398,47 @@ document.addEventListener('DOMContentLoaded', function() {
           body: JSON.stringify({ items })
         });
 
-        if (!response.ok) throw new Error('Erro');
+        if (!response.ok) throw new Error('Erro ao adicionar');
 
-        // Busca o carrinho atualizado
-        const cart = await (await fetch('/cart.js')).json();
+        // Atualiza contador do carrinho no header
+        const cartResponse = await fetch('/cart.js');
+        const cart = await cartResponse.json();
         
-        // Atualiza contadores do carrinho
-        document.querySelectorAll('[data-cart-count], .cart-count, #CartCount, .header__cart-count').forEach(el => {
-          el.textContent = cart.item_count;
-          el.style.display = cart.item_count > 0 ? '' : 'none';
-        });
+        // Atualiza o número no ícone do carrinho
+        const cartCount = document.querySelector('.header__cart-count, [data-cart-count], .cart-count');
+        if (cartCount) {
+          cartCount.textContent = cart.item_count;
+          cartCount.style.display = cart.item_count > 0 ? '' : 'none';
+        }
 
-        // Dispara eventos customizados
+        // Dispara eventos para atualizar o carrinho
         document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
           bubbles: true,
           detail: cart
         }));
 
-        document.body.dispatchEvent(new CustomEvent('cart:updated', {
-          bubbles: true,
-          detail: { cart }
-        }));
-
+        // Mostra mensagem de sucesso
         this.innerHTML = '✓ Adicionado!';
         
+        // Aguarda 800ms e abre o carrinho
         setTimeout(() => {
           this.innerHTML = originalHTML;
           this.disabled = false;
           
-          // Tenta abrir o carrinho
-          const opened = openCart();
+          // Abre o minicart
+          const opened = openMiniCart();
           
-          // Se não conseguiu abrir, redireciona para /cart
+          // Se não abriu, força reload da página do carrinho
           if (!opened) {
-            console.log('Não foi possível abrir o drawer, redirecionando...');
             setTimeout(() => {
               window.location.href = '/cart';
-            }, 500);
+            }, 300);
           }
-        }, 1000);
+        }, 800);
 
       } catch (e) {
-        console.error('Erro ao adicionar ao carrinho:', e);
-        this.innerHTML = '✗ Erro';
+        console.error('Erro:', e);
+        this.innerHTML = '✗ Erro - Tente novamente';
         setTimeout(() => {
           this.innerHTML = originalHTML;
           this.disabled = false;
