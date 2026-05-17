@@ -1602,6 +1602,10 @@ modal-component.modal--active .--drawer {
   display: block;
 }
 
+.jdgm-write-review-modal .jdgm-write-review-modal__slider-container{
+      height: 70% !important;
+}
+
 #shopify-section-template--19013704515632__1777396348c1f18158{
   background-color:#fff;
 }
