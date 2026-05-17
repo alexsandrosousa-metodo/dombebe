@@ -26,8 +26,10 @@
     <h2 class="compre-junto-title">{{ section.settings.title }}</h2>
     
     <div class="compre-junto-products">
-        <div class="container-desc-product">
-           <input 
+      
+      <!-- Produto 1 -->
+      <div class="container-desc-product">
+        <input 
           type="checkbox" 
           class="product-checkbox" 
           id="bundle-check-0"
@@ -45,62 +47,58 @@
           </span>
           <span class="checkbox-text">Quero este</span>
         </label>
-      <!-- Produto 1 -->
-      <div class="bundle-product-card" data-product-index="0">
-       
-        
-        <div class="product-image-wrapper">
-        
-          
-          {% if bundle_product_1.featured_image %}
-            <img 
-              src="{{ bundle_product_1.featured_image | image_url: width: 400 }}"
-              alt="{{ bundle_product_1.featured_image.alt | escape }}"
-              loading="lazy"
-              width="400"
-              height="400"
-            >
-          {% endif %}
-    
-        </div>
-        
-        <div class="product-info">
-          <h3 class="product-title">{{ bundle_product_1.title }}</h3>
-          <p class="product-color">Cor: <strong>{{ bundle_1_variant.option1 }}</strong></p>
-          
-          {% if bundle_product_1.options_with_values.size > 0 %}
-          <div class="color-swatches">
-            {% for option in bundle_product_1.options_with_values %}
-              {% if option.name == 'Cor' or option.name == 'Color' %}
-                {% for value in option.values %}
-                  <span class="color-swatch {% if value == bundle_1_variant.option1 %}active{% endif %}" 
-                        style="background-color: {{ value | handleize }};"
-                        title="{{ value }}">
-                  </span>
-                {% endfor %}
-              {% endif %}
-            {% endfor %}
-          </div>
-          {% endif %}
-          
-          <div class="product-rating">
-            {% for i in (1..5) %}
-              <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
-                <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
-              </svg>
-            {% endfor %}
-            <span class="rating-count">5.0 ({{ bundle_product_1.metafields.custom.review_count | default: 17 }})</span>
-          </div>
-          
-          <div class="product-price">
-            {% if bundle_1_variant.compare_at_price > bundle_1_variant.price %}
-              <span class="price-old">{{ bundle_1_variant.compare_at_price | money }}</span>
+
+        <div class="bundle-product-card" data-product-index="0">
+          <div class="product-image-wrapper">
+            {% if bundle_product_1.featured_image %}
+              <img 
+                src="{{ bundle_product_1.featured_image | image_url: width: 400 }}"
+                alt="{{ bundle_product_1.featured_image.alt | escape }}"
+                loading="lazy"
+                width="400"
+                height="400"
+              >
             {% endif %}
-            <span class="price-current">{{ bundle_1_variant.price | money }}</span>
+          </div>
+          
+          <div class="product-info">
+            <h3 class="product-title">{{ bundle_product_1.title }}</h3>
+            <p class="product-color">Cor: <strong>{{ bundle_1_variant.option1 }}</strong></p>
+            
+            {% if bundle_product_1.options_with_values.size > 0 %}
+            <div class="color-swatches">
+              {% for option in bundle_product_1.options_with_values %}
+                {% if option.name == 'Cor' or option.name == 'Color' %}
+                  {% for value in option.values %}
+                    <span class="color-swatch {% if value == bundle_1_variant.option1 %}active{% endif %}" 
+                          style="background-color: {{ value | handleize }};"
+                          title="{{ value }}">
+                    </span>
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div class="product-rating">
+              {% for i in (1..5) %}
+                <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
+                  <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
+                </svg>
+              {% endfor %}
+              <span class="rating-count">5.0 ({{ bundle_product_1.metafields.custom.review_count | default: 17 }})</span>
+            </div>
+            
+            <div class="product-price">
+              {% if bundle_1_variant.compare_at_price > bundle_1_variant.price %}
+                <span class="price-old">{{ bundle_1_variant.compare_at_price | money }}</span>
+              {% endif %}
+              <span class="price-current">{{ bundle_1_variant.price | money }}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
       <!-- Separador + -->
       <div class="separator">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -108,8 +106,9 @@
         </svg>
       </div>
       
+      <!-- Produto 2 (Produto atual - segunda posição) -->
       <div class="container-desc-product">
-           <input 
+        <input 
           type="checkbox" 
           class="product-checkbox" 
           id="bundle-check-1"
@@ -127,61 +126,58 @@
           </span>
           <span class="checkbox-text">Quero este</span>
         </label>
-      <!-- Produto 2 -->
-      <div class="bundle-product-card" data-product-index="1">
-     
-        
-        <div class="product-image-wrapper">
-          
-          {% if current_product.featured_image %}
-            <img 
-              src="{{ current_product.featured_image | image_url: width: 400 }}"
-              alt="{{ current_product.featured_image.alt | escape }}"
-              loading="lazy"
-              width="400"
-              height="400"
-            >
-          {% endif %}
-        
-        </div>
-        
-        <div class="product-info">
-          <h3 class="product-title">{{ current_product.title }}</h3>
-          <p class="product-color">Cor: <strong>{{ current_variant.option1 }}</strong></p>
-          
-          {% if current_product.options_with_values.size > 0 %}
-          <div class="color-swatches">
-            {% for option in current_product.options_with_values %}
-              {% if option.name == 'Cor' or option.name == 'Color' %}
-                {% for value in option.values %}
-                  <span class="color-swatch {% if value == current_variant.option1 %}active{% endif %}" 
-                        style="background-color: {{ value | handleize }};"
-                        title="{{ value }}">
-                  </span>
-                {% endfor %}
-              {% endif %}
-            {% endfor %}
-          </div>
-          {% endif %}
-          
-          <div class="product-rating">
-            {% for i in (1..5) %}
-              <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
-                <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
-              </svg>
-            {% endfor %}
-            <span class="rating-count">5.0 ({{ current_product.metafields.custom.review_count | default: 17 }})</span>
-          </div>
-          
-          <div class="product-price">
-            {% if current_variant.compare_at_price > current_variant.price %}
-              <span class="price-old">{{ current_variant.compare_at_price | money }}</span>
+
+        <div class="bundle-product-card" data-product-index="1">
+          <div class="product-image-wrapper">
+            {% if current_product.featured_image %}
+              <img 
+                src="{{ current_product.featured_image | image_url: width: 400 }}"
+                alt="{{ current_product.featured_image.alt | escape }}"
+                loading="lazy"
+                width="400"
+                height="400"
+              >
             {% endif %}
-            <span class="price-current">{{ current_variant.price | money }}</span>
+          </div>
+          
+          <div class="product-info">
+            <h3 class="product-title">{{ current_product.title }}</h3>
+            <p class="product-color">Cor: <strong>{{ current_variant.option1 }}</strong></p>
+            
+            {% if current_product.options_with_values.size > 0 %}
+            <div class="color-swatches">
+              {% for option in current_product.options_with_values %}
+                {% if option.name == 'Cor' or option.name == 'Color' %}
+                  {% for value in option.values %}
+                    <span class="color-swatch {% if value == current_variant.option1 %}active{% endif %}" 
+                          style="background-color: {{ value | handleize }};"
+                          title="{{ value }}">
+                    </span>
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div class="product-rating">
+              {% for i in (1..5) %}
+                <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
+                  <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
+                </svg>
+              {% endfor %}
+              <span class="rating-count">5.0 ({{ current_product.metafields.custom.review_count | default: 17 }})</span>
+            </div>
+            
+            <div class="product-price">
+              {% if current_variant.compare_at_price > current_variant.price %}
+                <span class="price-old">{{ current_variant.compare_at_price | money }}</span>
+              {% endif %}
+              <span class="price-current">{{ current_variant.price | money }}</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
       <!-- Separador + -->
       <div class="separator">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -189,11 +185,9 @@
         </svg>
       </div>
       
-      <!-- Produto 3 -->
+      <!-- Produto 3 (bundle_product_2 - SEMPRE SELECIONADO) -->
       <div class="container-desc-product">
         <div class="selling-badge">Você está vendo este produto</div>
-      <div class="bundle-product-card selected" data-product-index="2">
-        
         
         <!-- Checkbox hidden mas sempre marcado -->
         <input 
@@ -208,64 +202,59 @@
           disabled
           style="display: none;"
         >
-        
-        <div class="product-image-wrapper">
-         
-          {% if bundle_product_2.featured_image %}
-            <img 
-              src="{{ bundle_product_2.featured_image | image_url: width: 400 }}"
-              alt="{{ bundle_product_2.featured_image.alt | escape }}"
-              loading="lazy"
-              width="400"
-              height="400"
-            >
-          {% endif %}
-        </div>
-        
-        <div class="product-info">
-          <h3 class="product-title">{{ bundle_product_2.title }}</h3>
-          <p class="product-color">Cor: <strong>{{ bundle_2_variant.option1 }}</strong></p>
-          
-          {% if bundle_product_2.options_with_values.size > 0 %}
-          <div class="color-swatches">
-            {% for option in bundle_product_2.options_with_values %}
-              {% if option.name == 'Cor' or option.name == 'Color' %}
-                {% for value in option.values %}
-                  <span class="color-swatch {% if value == bundle_2_variant.option1 %}active{% endif %}" 
-                        style="background-color: {{ value | handleize }};"
-                        title="{{ value }}">
-                  </span>
-                {% endfor %}
-              {% endif %}
-            {% endfor %}
-          </div>
-          {% endif %}
-          
-          <div class="product-rating">
-            {% for i in (1..5) %}
-              <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
-                <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
-              </svg>
-            {% endfor %}
-            <span class="rating-count">5.0 ({{ bundle_product_2.metafields.custom.review_count | default: 17 }})</span>
-          </div>
-          
-          <div class="product-price">
-            {% if bundle_2_variant.compare_at_price > bundle_2_variant.price %}
-              <span class="price-old">{{ bundle_2_variant.compare_at_price | money }}</span>
-            {% endif %}
-            <span class="price-current">{{ bundle_2_variant.price | money }}</span>
-          </div>
-        </div>
-      <div>
-        
-</div>
-    
-    </div>
 
-    
-  </div>
-  <!-- Separador = -->
+        <div class="bundle-product-card selected" data-product-index="2">
+          <div class="product-image-wrapper">
+            {% if bundle_product_2.featured_image %}
+              <img 
+                src="{{ bundle_product_2.featured_image | image_url: width: 400 }}"
+                alt="{{ bundle_product_2.featured_image.alt | escape }}"
+                loading="lazy"
+                width="400"
+                height="400"
+              >
+            {% endif %}
+          </div>
+          
+          <div class="product-info">
+            <h3 class="product-title">{{ bundle_product_2.title }}</h3>
+            <p class="product-color">Cor: <strong>{{ bundle_2_variant.option1 }}</strong></p>
+            
+            {% if bundle_product_2.options_with_values.size > 0 %}
+            <div class="color-swatches">
+              {% for option in bundle_product_2.options_with_values %}
+                {% if option.name == 'Cor' or option.name == 'Color' %}
+                  {% for value in option.values %}
+                    <span class="color-swatch {% if value == bundle_2_variant.option1 %}active{% endif %}" 
+                          style="background-color: {{ value | handleize }};"
+                          title="{{ value }}">
+                    </span>
+                  {% endfor %}
+                {% endif %}
+              {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div class="product-rating">
+              {% for i in (1..5) %}
+                <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
+                  <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
+                </svg>
+              {% endfor %}
+              <span class="rating-count">5.0 ({{ bundle_product_2.metafields.custom.review_count | default: 17 }})</span>
+            </div>
+            
+            <div class="product-price">
+              {% if bundle_2_variant.compare_at_price > bundle_2_variant.price %}
+                <span class="price-old">{{ bundle_2_variant.compare_at_price | money }}</span>
+              {% endif %}
+              <span class="price-current">{{ bundle_2_variant.price | money }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Separador = -->
       <div class="separator">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path d="M4 8H16M4 12H16" stroke="#666" stroke-width="2" stroke-linecap="round"/>
@@ -292,12 +281,18 @@
         
         <button type="button" class="btn-comprar-junto">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M14 14L11 11M6.5 12C3.46 12 1 9.54 1 6.5S3.46 1 6.5 1 12 3.46 12 6.5 9.54 12 6.5 12z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M2 2h1.5l2.5 9h7l2-7H4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="7" cy="14" r="1" fill="currentColor"/>
+            <circle cx="12" cy="14" r="1" fill="currentColor"/>
           </svg>
           Comprar junto
         </button>
       </div>
       
+    </div>
+  </div>
+</div>
+
 <script>
 class CompreJuntoBundle {
   constructor(wrapper) {
@@ -333,7 +328,7 @@ class CompreJuntoBundle {
         title: card.querySelector('.product-title')?.textContent.trim(),
         imageEl: card.querySelector('.product-image-wrapper img'),
         colorTextEl: card.querySelector('.product-color strong'),
-        variants: this.loadVariantsFromPage(card)
+        variants: []
       };
 
       this.products.push(productData);
@@ -346,48 +341,14 @@ class CompreJuntoBundle {
     });
   }
 
-  loadVariantsFromPage(card) {
-    // Busca o handle do produto no link da imagem ou título
-    const productLink = card.querySelector('a[href*="/products/"]');
-    if (!productLink) return [];
-
-    const handle = productLink.href.split('/products/')[1]?.split('?')[0];
-    if (!handle) return [];
-
-    // Tenta buscar variantes via AJAX (Shopify padrão)
-    this.fetchProductVariants(handle, card);
-    
-    return [];
-  }
-
-  async fetchProductVariants(handle, card) {
-    try {
-      const response = await fetch(`/products/${handle}.js`);
-      const product = await response.json();
-      
-      const productIndex = this.products.findIndex(p => p.element === card);
-      if (productIndex !== -1) {
-        this.products[productIndex].variants = product.variants;
-        this.products[productIndex].product = product;
-      }
-    } catch (e) {
-      console.warn('Não foi possível carregar variantes:', e);
-    }
-  }
-
   setupEventListeners() {
-    // Checkboxes
+    // Checkboxes - apenas os que NÃO são disabled
     this.products.forEach((product, index) => {
-      product.checkbox.addEventListener('change', (e) => {
-        this.handleCheckboxChange(index, e.target.checked);
-      });
-    });
-
-    // Color swatches
-    this.wrapper.querySelectorAll('.color-swatch').forEach(swatch => {
-      swatch.addEventListener('click', (e) => {
-        this.handleColorChange(e.currentTarget);
-      });
+      if (!product.checkbox.disabled) {
+        product.checkbox.addEventListener('change', (e) => {
+          this.handleCheckboxChange(index, e.target.checked);
+        });
+      }
     });
 
     // Botão comprar
@@ -412,92 +373,15 @@ class CompreJuntoBundle {
     this.updateTotals();
   }
 
-  handleColorChange(swatchElement) {
-    const card = swatchElement.closest('.bundle-product-card') || 
-                swatchElement.closest('.container-desc-product')?.querySelector('.bundle-product-card');
-    
-    if (!card) return;
-
-    const productIndex = this.products.findIndex(p => p.element === card);
-    const product = this.products[productIndex];
-    
-    if (!product || !product.variants) return;
-
-    // Remove active de todos os swatches do card
-    const container = swatchElement.closest('.color-swatches');
-    container?.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
-    swatchElement.classList.add('active');
-
-    // Pega a cor selecionada
-    const colorName = swatchElement.getAttribute('title');
-
-    // Encontra a variante correspondente
-    const variant = this.findVariantByColor(product.variants, colorName);
-
-    if (variant) {
-      // Atualiza dados do produto
-      product.currentVariantId = variant.id;
-      product.price = variant.price;
-      product.comparePrice = variant.compare_at_price || variant.price;
-
-      // Atualiza checkbox
-      product.checkbox.dataset.variantId = variant.id;
-      product.checkbox.dataset.price = variant.price;
-      product.checkbox.dataset.comparePrice = variant.compare_at_price || variant.price;
-
-      // Atualiza imagem
-      if (variant.featured_image && product.imageEl) {
-        product.imageEl.src = variant.featured_image.src;
-        product.imageEl.alt = variant.featured_image.alt || product.title;
-      }
-
-      // Atualiza texto de cor
-      if (product.colorTextEl) {
-        product.colorTextEl.textContent = colorName;
-      }
-
-      // Atualiza preço no card
-      const priceEl = card.querySelector('.price-current');
-      if (priceEl) {
-        priceEl.textContent = this.formatMoney(variant.price);
-      }
-
-      // Recalcula total se estiver selecionado
-      if (this.selectedProducts.has(productIndex)) {
-        this.updateTotals();
-      }
-    }
-  }
-
-  findVariantByColor(variants, colorName) {
-    if (!variants || variants.length === 0) return null;
-
-    const searchTerm = colorName?.toLowerCase();
-    
-    return variants.find(variant => {
-      const options = [
-        variant.option1?.toLowerCase(),
-        variant.option2?.toLowerCase(),
-        variant.option3?.toLowerCase()
-      ].filter(Boolean);
-
-      return options.some(option => 
-        option === searchTerm || 
-        option.includes(searchTerm) || 
-        searchTerm.includes(option)
-      );
-    }) || variants[0];
-  }
-
   updateTotals() {
     let totalPrice = 0;
     let totalCompare = 0;
-    const selectedCount = this.selectedProducts.size;
+    let selectedCount = 0;
 
-    // Soma apenas produtos selecionados
-    this.selectedProducts.forEach(index => {
-      const product = this.products[index];
-      if (product) {
+    // Conta TODOS os produtos selecionados (incluindo o disabled)
+    this.products.forEach((product, index) => {
+      if (product.checkbox.checked) {
+        selectedCount++;
         totalPrice += product.price;
         totalCompare += product.comparePrice;
       }
@@ -542,11 +426,18 @@ class CompreJuntoBundle {
       }
     }
 
-    // Estado do botão
+    // Estado do botão - considera apenas produtos enabled
+    const enabledSelectedCount = Array.from(this.selectedProducts).filter(index => 
+      !this.products[index].checkbox.disabled
+    ).length;
+
     if (btnComprar) {
-      btnComprar.disabled = selectedCount === 0;
+      // Desabilita apenas se NENHUM produto enabled estiver selecionado
+      // O produto disabled (índice 2) está sempre selecionado
+      const hasAtLeastOne = selectedCount > 0;
+      btnComprar.disabled = !hasAtLeastOne;
       
-      if (selectedCount === 0) {
+      if (!hasAtLeastOne) {
         btnComprar.innerHTML = 'Selecione pelo menos 1 produto';
       } else {
         btnComprar.innerHTML = `
@@ -572,9 +463,8 @@ class CompreJuntoBundle {
   async addToCart() {
     const selectedVariants = [];
 
-    this.selectedProducts.forEach(index => {
-      const product = this.products[index];
-      if (product && product.currentVariantId) {
+    this.products.forEach((product) => {
+      if (product.checkbox.checked && product.currentVariantId) {
         selectedVariants.push({
           id: parseInt(product.currentVariantId),
           quantity: 1
