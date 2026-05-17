@@ -94,7 +94,68 @@
         </svg>
       </div>
       
-      <!-- Produto 2 - PRODUTO ATUAL -->
+      <!-- Produto 2 - bundle_product_2 (TROCADO - AGORA É O 2º) -->
+      <div class="container-desc-product">
+        <div class="selling-badge">Você está vendo este produto</div>
+        
+        <input 
+          type="checkbox" 
+          class="product-checkbox" 
+          id="bundle-check-2"
+          data-product-id="{{ bundle_product_2.id }}"
+          data-variant-id="{{ bundle_2_variant.id }}"
+          data-price="{{ bundle_2_variant.price }}"
+          data-compare-price="{{ bundle_2_variant.compare_at_price | default: bundle_2_variant.price }}"
+          data-index="2"
+          checked
+          disabled
+          style="display: none;"
+        >
+
+        <div class="bundle-product-card selected" data-product-index="2">
+          <div class="product-image-wrapper">
+            {% if bundle_product_2.featured_image %}
+              <img 
+                src="{{ bundle_product_2.featured_image | image_url: width: 400 }}"
+                alt="{{ bundle_product_2.featured_image.alt | escape }}"
+                loading="lazy"
+                width="400"
+                height="400"
+              >
+            {% endif %}
+          </div>
+          
+          <div class="product-info">
+            <h3 class="product-title">{{ bundle_product_2.title }}</h3>
+            <p class="product-color">Cor: <strong>{{ bundle_2_variant.option1 }}</strong></p>
+            
+            <div class="product-rating">
+              {% for i in (1..5) %}
+                <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
+                  <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
+                </svg>
+              {% endfor %}
+              <span class="rating-count">5.0 ({{ bundle_product_2.metafields.custom.review_count | default: 17 }})</span>
+            </div>
+            
+            <div class="product-price">
+              {% if bundle_2_variant.compare_at_price > bundle_2_variant.price %}
+                <span class="price-old">{{ bundle_2_variant.compare_at_price | money }}</span>
+              {% endif %}
+              <span class="price-current">{{ bundle_2_variant.price | money }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Separador + -->
+      <div class="separator">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M10 4V16M4 10H16" stroke="#666" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      
+      <!-- Produto 3 - PRODUTO ATUAL (TROCADO - AGORA É O 3º) -->
       <div class="container-desc-product">
         <div class="checkbox-wrapper">
           <input 
@@ -149,67 +210,6 @@
                 <span class="price-old">{{ current_variant.compare_at_price | money }}</span>
               {% endif %}
               <span class="price-current">{{ current_variant.price | money }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Separador + -->
-      <div class="separator">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M10 4V16M4 10H16" stroke="#666" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      
-      <!-- Produto 3 - bundle_product_2 (SEM CHECKBOX) -->
-      <div class="container-desc-product">
-        <div class="selling-badge">Você está vendo este produto</div>
-        
-        <input 
-          type="checkbox" 
-          class="product-checkbox" 
-          id="bundle-check-2"
-          data-product-id="{{ bundle_product_2.id }}"
-          data-variant-id="{{ bundle_2_variant.id }}"
-          data-price="{{ bundle_2_variant.price }}"
-          data-compare-price="{{ bundle_2_variant.compare_at_price | default: bundle_2_variant.price }}"
-          data-index="2"
-          checked
-          disabled
-          style="display: none;"
-        >
-
-        <div class="bundle-product-card selected" data-product-index="2">
-          <div class="product-image-wrapper">
-            {% if bundle_product_2.featured_image %}
-              <img 
-                src="{{ bundle_product_2.featured_image | image_url: width: 400 }}"
-                alt="{{ bundle_product_2.featured_image.alt | escape }}"
-                loading="lazy"
-                width="400"
-                height="400"
-              >
-            {% endif %}
-          </div>
-          
-          <div class="product-info">
-            <h3 class="product-title">{{ bundle_product_2.title }}</h3>
-            <p class="product-color">Cor: <strong>{{ bundle_2_variant.option1 }}</strong></p>
-            
-            <div class="product-rating">
-              {% for i in (1..5) %}
-                <svg class="star" width="12" height="12" viewBox="0 0 12 12" fill="#FFD700">
-                  <path d="M6 0l1.545 3.633L11 4.236l-2.5 2.427.59 3.637L6 8.633 2.91 10.3l.59-3.637L1 4.236l3.455-.603L6 0z"/>
-                </svg>
-              {% endfor %}
-              <span class="rating-count">5.0 ({{ bundle_product_2.metafields.custom.review_count | default: 17 }})</span>
-            </div>
-            
-            <div class="product-price">
-              {% if bundle_2_variant.compare_at_price > bundle_2_variant.price %}
-                <span class="price-old">{{ bundle_2_variant.compare_at_price | money }}</span>
-              {% endif %}
-              <span class="price-current">{{ bundle_2_variant.price | money }}</span>
             </div>
           </div>
         </div>
