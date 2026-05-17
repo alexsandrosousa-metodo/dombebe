@@ -2215,6 +2215,10 @@ span#parcelator.parcelatorProduct p {
   .jdgm-write-review-modal .jdgm-write-review-modal__content{
     padding: 0px 24px !important;
   }
+
+  .jdgm-write-review-modal .jdgm-write-review-modal__page.current-page{
+        justify-content: center !important;
+  }
 }
 
 
