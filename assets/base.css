@@ -2213,7 +2213,7 @@ span#parcelator.parcelatorProduct p {
   }
 
   .jdgm-write-review-modal .jdgm-write-review-modal__close-btn{
-    top:50px;
+    top:50px !important;
   }
 
   .jdgm-write-review-modal .jdgm-write-review-modal__content{
