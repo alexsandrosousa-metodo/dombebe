@@ -2200,7 +2200,7 @@ span#parcelator.parcelatorProduct p {
 }
 
 
-@media (max-height: 640px) {
+@media (max-width: 640px) {
   .jdgm-write-review-modal .jdgm-write-review-modal__content {
     border-radius: 0;
     padding: 20px !important;
@@ -2210,6 +2210,10 @@ span#parcelator.parcelatorProduct p {
     max-height: unset;
     max-width: unset;
     overflow-y: auto;
+  }
+
+  .jdgm-write-review-modal .jdgm-write-review-modal__content{
+    padding: 0px 24px !important;
   }
 }
 
