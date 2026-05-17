@@ -78,7 +78,6 @@
 .product-checkbox {
   position: absolute;
   opacity: 0;
-  pointer-events: none;
 }
 
 /* Checkbox hidden para o terceiro produto */
