@@ -521,6 +521,10 @@ align-items: center;
   .container-product-compre-junto{
         width: 100%;
   }
+
+  .compre-junto-products{
+    flex-direction:column;
+  }
 }
 
 /* ==========================================
