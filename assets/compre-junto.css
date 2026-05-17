@@ -560,6 +560,7 @@ align-items: center;
 /* Hover suave */
 .bundle-product-card {
   transition: all 0.2s ease;
+  height:420px;
 }
 
 .bundle-product-card:hover {
