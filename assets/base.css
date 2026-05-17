@@ -1602,6 +1602,10 @@ modal-component.modal--active .--drawer {
   display: block;
 }
 
+.jdgm-write-review-modal .jdgm-write-review-modal__page--share-media .jdgm-write-review-modal__field-group--media-upload{
+  height:120px;
+}
+
 .jdgm-write-review-modal .jdgm-write-review-modal__slider-container{
       height: 75% !important;
 }
