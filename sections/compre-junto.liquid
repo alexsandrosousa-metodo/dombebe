@@ -341,6 +341,60 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+  // Função para abrir o carrinho (múltiplas tentativas)
+  function openCart() {
+    // Método 1: cart-drawer (Shopify Dawn)
+    const cartDrawer = document.querySelector('cart-drawer');
+    if (cartDrawer) {
+      if (typeof cartDrawer.open === 'function') {
+        cartDrawer.open();
+        return true;
+      }
+      if (cartDrawer.classList) {
+        cartDrawer.classList.add('active', 'is-open');
+        return true;
+      }
+    }
+
+    // Método 2: data-cart-drawer
+    const drawerToggle = document.querySelector('[data-cart-drawer]');
+    if (drawerToggle) {
+      drawerToggle.click();
+      return true;
+    }
+
+    // Método 3: Procura por botão do carrinho
+    const cartButtons = [
+      '.cart-icon',
+      '.header__cart',
+      '[aria-label*="carrinho"]',
+      '[aria-label*="cart"]',
+      '.js-drawer-open-cart',
+      '#cart-icon-bubble'
+    ];
+
+    for (const selector of cartButtons) {
+      const btn = document.querySelector(selector);
+      if (btn) {
+        btn.click();
+        return true;
+      }
+    }
+
+    // Método 4: Dispara evento global
+    document.body.dispatchEvent(new CustomEvent('cart:open'));
+    
+    // Método 5: Tenta abrir classe comum de drawer
+    const drawer = document.querySelector('.drawer, .cart-drawer, #CartDrawer');
+    if (drawer) {
+      drawer.classList.add('active', 'is-open');
+      drawer.style.transform = 'translateX(0)';
+      return true;
+    }
+
+    return false;
+  }
+
   // Botão comprar
   const btnComprar = wrapper.querySelector('.btn-comprar-junto');
   if (btnComprar) {
@@ -369,12 +423,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!response.ok) throw new Error('Erro');
 
+        // Busca o carrinho atualizado
         const cart = await (await fetch('/cart.js')).json();
         
-        // Atualiza contadores
-        document.querySelectorAll('[data-cart-count], .cart-count').forEach(el => {
+        // Atualiza contadores do carrinho
+        document.querySelectorAll('[data-cart-count], .cart-count, #CartCount, .header__cart-count').forEach(el => {
           el.textContent = cart.item_count;
+          el.style.display = cart.item_count > 0 ? '' : 'none';
         });
+
+        // Dispara eventos customizados
+        document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+          bubbles: true,
+          detail: cart
+        }));
+
+        document.body.dispatchEvent(new CustomEvent('cart:updated', {
+          bubbles: true,
+          detail: { cart }
+        }));
 
         this.innerHTML = '✓ Adicionado!';
         
@@ -382,12 +449,20 @@ document.addEventListener('DOMContentLoaded', function() {
           this.innerHTML = originalHTML;
           this.disabled = false;
           
-          // Abre drawer
-          const drawer = document.querySelector('cart-drawer');
-          if (drawer?.open) drawer.open();
-        }, 1500);
+          // Tenta abrir o carrinho
+          const opened = openCart();
+          
+          // Se não conseguiu abrir, redireciona para /cart
+          if (!opened) {
+            console.log('Não foi possível abrir o drawer, redirecionando...');
+            setTimeout(() => {
+              window.location.href = '/cart';
+            }, 500);
+          }
+        }, 1000);
 
       } catch (e) {
+        console.error('Erro ao adicionar ao carrinho:', e);
         this.innerHTML = '✗ Erro';
         setTimeout(() => {
           this.innerHTML = originalHTML;
