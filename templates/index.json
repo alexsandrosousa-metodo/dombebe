@@ -16,7 +16,7 @@
           "type": "slide",
           "settings": {
             "image_iii": "shopify://shop_images/Banner_Desktop_1.png",
-            "image_iii_mob": "shopify://shop_images/Banner_mobile_1.png",
+            "image_iii_mob": "shopify://shop_images/Mais_cuidado_mais_protecao.png",
             "bg_overlay_opac": 100,
             "remove_overlay": true,
             "block_content_order": "center",
