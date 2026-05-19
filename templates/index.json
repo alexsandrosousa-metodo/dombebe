@@ -265,7 +265,7 @@
         "show_navigation": true,
         "pagination": "lines",
         "pagination_layout": "full_width",
-        "change_slides_every": 5,
+        "change_slides_every": 3,
         "section_top_padding": 0,
         "section_bottom_padding": 0
       }
