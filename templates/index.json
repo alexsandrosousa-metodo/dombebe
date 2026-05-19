@@ -12,6 +12,34 @@
     "banner-slideshow": {
       "type": "banner-slideshow",
       "blocks": {
+        "slide_6c7APe": {
+          "type": "slide",
+          "settings": {
+            "image_iii": "shopify://shop_images/Banner_Desktop_1.png",
+            "image_iii_mob": "shopify://shop_images/Banner_mobile_1.png",
+            "bg_overlay_opac": 100,
+            "remove_overlay": true,
+            "block_content_order": "center",
+            "block_text_alignment": "center",
+            "mobile_text_alignment": false,
+            "block_content_alignment": "bottom",
+            "block_content_position": "center",
+            "max_content_width": 100,
+            "heading": "",
+            "heading_size": "heading_medium",
+            "description": "",
+            "badge_text": "",
+            "button_label_i": "CLIQUE AQUI E CONFIRA!",
+            "link_i": "shopify://collections/cadeira-para-carro",
+            "open_new_window": true,
+            "button_type": "primary",
+            "button_label_ii": "",
+            "link_ii": "shopify://collections/cadeira-para-carro",
+            "open_new_windowii": false,
+            "pagination_text": "",
+            "block_color_scheme": "scheme6"
+          }
+        },
         "slide_fNbLYa": {
           "type": "slide",
           "settings": {
@@ -23,7 +51,7 @@
             "block_text_alignment": "left",
             "mobile_text_alignment": false,
             "block_content_alignment": "bottom",
-            "block_content_position": "center",
+            "block_content_position": "left",
             "max_content_width": 100,
             "heading": "",
             "heading_size": "heading_large",
@@ -184,35 +212,6 @@
             "block_color_scheme": "scheme6"
           }
         },
-        "slide_6c7APe": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image_iii": "shopify://shop_images/Arte_Menor_Preco_Site_Desktop.png",
-            "image_iii_mob": "shopify://shop_images/Arte_Menor_Preco_Mobile.png",
-            "bg_overlay_opac": 100,
-            "remove_overlay": true,
-            "block_content_order": "center",
-            "block_text_alignment": "center",
-            "mobile_text_alignment": false,
-            "block_content_alignment": "middle",
-            "block_content_position": "center",
-            "max_content_width": 100,
-            "heading": "",
-            "heading_size": "heading_medium",
-            "description": "",
-            "badge_text": "",
-            "button_label_i": "CLIQUE AQUI E CONFIRA!",
-            "link_i": "shopify://collections/selecao-menor-preco",
-            "open_new_window": true,
-            "button_type": "primary",
-            "button_label_ii": "",
-            "link_ii": "",
-            "open_new_windowii": false,
-            "pagination_text": "",
-            "block_color_scheme": "scheme6"
-          }
-        },
         "slide_mnjprX": {
           "type": "slide",
           "disabled": true,
@@ -244,13 +243,13 @@
         }
       },
       "block_order": [
+        "slide_6c7APe",
         "slide_fNbLYa",
         "slide_xeKthP",
         "slide_B49itp",
         "slide_dFcyiD",
         "slide_KtfJBh",
         "slide_aKebA9",
-        "slide_6c7APe",
         "slide_mnjprX"
       ],
       "name": "Banner Principal slideshow",
