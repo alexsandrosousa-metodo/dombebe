@@ -21,7 +21,7 @@
             "remove_overlay": true,
             "block_content_order": "center",
             "block_text_alignment": "center",
-            "mobile_text_alignment": true,
+            "mobile_text_alignment": false,
             "block_content_alignment": "bottom",
             "block_content_position": "center",
             "max_content_width": 100,
