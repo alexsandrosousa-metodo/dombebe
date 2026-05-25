@@ -321,6 +321,9 @@
     </div>
   </div>
   <div class="splide switcher-thumb-slider {{ js_contents_prefix }}thumbnail-switcher">
+    <button class="thumb-scroll-btn thumb-scroll-btn--up" aria-label="Ver anteriores" type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
     <div class="splide__track">
       <div class="splide__list {% if flag == 'full_width' %} visually-hidden{% endif %}">
         {%- if product.selected_or_first_available_variant.featured_media != null -%}
@@ -365,21 +368,12 @@
         {%- endfor -%}
       </div>
     </div>
+    <button class="thumb-scroll-btn thumb-scroll-btn--down" aria-label="Ver próximos" type="button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </button>
     {%- if section.settings.show_navigation or section.settings.pagination != 'none' -%}
       <div class="splide-controls">
-        {%- if section.settings.show_navigation -%}
-          <button class="splide__arrow splide__arrow--prev">
-            <span class="visually-hidden">{{- 'sections.slideshow.previous_slideshow' | t -}}</span>
-            {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'arrow-left' -%}
-          </button>
-        {%- endif -%}
         <ul class="splide__pagination" role="tablist" aria-label="{{ 'additions.slideshow.select' | t }}"></ul>
-        {%- if section.settings.show_navigation -%}
-          <button class="splide__arrow splide__arrow--next">
-            <span class="visually-hidden">{{- 'sections.slideshow.next_slideshow' | t -}}</span>
-            {%- render 'icons-data', width: 14, height: 14, use_icon: true, icon_reference: 'arrow-right' -%}
-          </button>
-        {%- endif -%}
       </div>
     {%- endif -%}
   </div>
@@ -447,11 +441,52 @@
     justify-content: center !important;
   }
 
-  /* Thumbnails na lateral esquerda */
+  /* Thumbnails na lateral — o próprio splide vira flex-column com botões */
   .switcher-thumb-slider {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 6px !important;
     flex-shrink: 0 !important;
-    width: 130px !important;
+    width: 100px !important;
     order: -1 !important;
+  }
+
+  /* Botões de seta para cima/baixo */
+  .thumb-scroll-btn {
+    width: 90px !important;
+    height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #f0f0f0 !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    color: #444 !important;
+    cursor: pointer !important;
+    transition: background 0.2s, opacity 0.2s !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 5 !important;
+  }
+
+  .thumb-scroll-btn:hover {
+    background: #ddd !important;
+  }
+
+  .thumb-scroll-btn.is-hidden {
+    opacity: 0.2 !important;
+    pointer-events: none !important;
+  }
+
+  /* Track com altura fixa e scroll oculto */
+  .switcher-thumb-slider .splide__track {
+    height: 510px !important;
+    overflow: hidden !important;
+    width: 100% !important;
+    flex-shrink: 0 !important;
   }
 
   /* Remove imagens quebradas do slider original */
@@ -459,13 +494,7 @@
     display: flex !important;
     flex-direction: column !important;
     gap: 12px !important;
-    height:505px;
-  }
-
-  /* Esconde slides quebrados - mostra só thumbnails */
-  .switcher-thumb-slider .splide__track {
-    max-height: 600px !important;
-    overflow-x: hidden !important;
+    height: auto !important;
   }
 
   /* Estilo das thumbnails */
@@ -530,7 +559,7 @@
  div.product_media.js-contents--static-gallery.product_media--show-sec > div > div > a > img.image-class{
 height:auto;
 }
-  /* Esconde controles das thumbnails */
+  /* Esconde controles originais das thumbnails */
   .switcher-thumb-slider .splide-controls {
     display: none !important;
   }
@@ -575,53 +604,113 @@ height:auto;
       flex-direction: column !important;
     }
 
-
-  /* Remove imagens quebradas do slider original */
-  .switcher-thumb-slider .splide__list:not(.visually-hidden) {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 12px !important;
-   height: auto;
-  }
-
+    .thumb-scroll-btn {
+      display: none !important;
+    }
 
     .switcher-thumb-slider {
-      width: 100% !important;
+      flex-direction: row !important;
       order: 1 !important;
+      width: 100% !important;
+      gap: 0 !important;
+    }
+
+    .switcher-thumb-slider .splide__list:not(.visually-hidden) {
+      flex-direction: row !important;
+      gap: 8px !important;
+      height: auto !important;
     }
 
     .switcher-thumb-slider .splide__track {
-      max-height: none !important;
+      height: auto !important;
       overflow-x: auto !important;
       overflow-y: hidden !important;
     }
 
-    .switcher-thumb-slider .splide__list {
-      flex-direction: row !important;
-      gap: 8px !important;
-    }
-
     .switcher-thumb-slider .splide__slide {
-          width: 90px !important;
-        height: 80px !important;
+      width: 80px !important;
+      height: 80px !important;
     }
 
-    /* Scrollbar horizontal mobile */
     .switcher-thumb-slider .splide__track::-webkit-scrollbar {
       height: 4px;
       width: auto;
     }
 
+    .main-thumb-slider .splide__list {
+      position: relative !important;
+      width: 100% !important;
+      padding-bottom: 0 !important;
+    }
 
-  .main-thumb-slider .splide__list {
-    position: relative !important;
-    width: 100% !important;
-    padding-bottom: 0 !important; /* Aspect ratio 1:1 */
-  }
-
-    #template--18923127439408__main-description > h1{
-      line-height:32px !important; 
+    #template--18923127439408__main-description > h1 {
+      line-height: 32px !important;
       font-size: 24px;
     }
   }
 </style>
+
+<script>
+(function () {
+  function initThumbScroll() {
+    document.querySelectorAll('.switcher-thumb-slider').forEach(function (wrapper) {
+      if (wrapper.dataset.thumbInit) return;
+      wrapper.dataset.thumbInit = '1';
+
+      var track = wrapper.querySelector('.splide__track');
+      var btnUp = wrapper.querySelector('.thumb-scroll-btn--up');
+      var btnDown = wrapper.querySelector('.thumb-scroll-btn--down');
+
+      if (!track || !btnUp || !btnDown) return;
+
+      var SCROLL_STEP = 102; // 90px thumb + 12px gap
+
+      function updateBtns() {
+        var atTop = track.scrollTop <= 2;
+        var atBottom = track.scrollTop >= track.scrollHeight - track.clientHeight - 2;
+        btnUp.classList.toggle('is-hidden', atTop);
+        btnDown.classList.toggle('is-hidden', atBottom);
+      }
+
+      btnUp.addEventListener('click', function () {
+        track.scrollBy({ top: -SCROLL_STEP, behavior: 'smooth' });
+        setTimeout(updateBtns, 350);
+      });
+
+      btnDown.addEventListener('click', function () {
+        track.scrollBy({ top: SCROLL_STEP, behavior: 'smooth' });
+        setTimeout(updateBtns, 350);
+      });
+
+      track.addEventListener('scroll', updateBtns, { passive: true });
+
+      // Auto-scroll to active thumbnail when Splide changes it
+      var list = track.querySelector('.splide__list');
+      if (list) {
+        var observer = new MutationObserver(function () {
+          var active = list.querySelector('.splide__slide.is-active');
+          if (active) {
+            var thumbTop = active.offsetTop;
+            var thumbBottom = thumbTop + active.offsetHeight;
+            if (thumbTop < track.scrollTop) {
+              track.scrollTo({ top: thumbTop, behavior: 'smooth' });
+            } else if (thumbBottom > track.scrollTop + track.clientHeight) {
+              track.scrollTo({ top: thumbBottom - track.clientHeight, behavior: 'smooth' });
+            }
+            setTimeout(updateBtns, 350);
+          }
+        });
+        observer.observe(list, { attributes: true, subtree: true, attributeFilter: ['class'] });
+      }
+
+      setTimeout(updateBtns, 600);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThumbScroll);
+  } else {
+    initThumbScroll();
+  }
+})();
+</script>
