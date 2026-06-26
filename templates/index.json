@@ -14,6 +14,7 @@
       "blocks": {
         "slide_6c7APe": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image_iii": "shopify://shop_images/Banner_Desktop_1.png",
             "image_iii_mob": "shopify://shop_images/Mais_cuidado_mais_protecao.png",
