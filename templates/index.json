@@ -43,8 +43,8 @@
         "slide_fNbLYa": {
           "type": "slide",
           "settings": {
-            "image_iii": "shopify://shop_images/NV_Banner_Site_Desktop_4.png",
-            "image_iii_mob": "shopify://shop_images/Banner_mobile.png",
+            "image_iii": "shopify://shop_images/Banner_Joie_Desktop.png",
+            "image_iii_mob": "shopify://shop_images/Banner_Joie_Mobile.png",
             "bg_overlay_opac": 100,
             "remove_overlay": true,
             "block_content_order": "center",
@@ -58,11 +58,11 @@
             "description": "",
             "badge_text": "",
             "button_label_i": "Comprar agora",
-            "link_i": "shopify://collections/nuna",
+            "link_i": "shopify://collections/joie",
             "open_new_window": true,
             "button_type": "secondary",
             "button_label_ii": "",
-            "link_ii": "shopify://collections/nuna",
+            "link_ii": "shopify://collections/joie",
             "open_new_windowii": true,
             "pagination_text": "",
             "block_color_scheme": "scheme6"
